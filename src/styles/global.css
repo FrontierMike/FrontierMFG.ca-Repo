@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+@theme {
+  --color-dark: #0e0f0d;
+  --color-card: #111210;
+  --color-surface: #161714;
+  --color-accent: #e8a020;
+  --color-accent-dark: #c47d0a;
+  --color-primary: #f0ece2;
+  --color-muted: #888880;
+  --color-dim: #444441;
+  --font-display: "Barlow Condensed", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0e0f0d;
+  color: #f0ece2;
+  font-family: "Barlow", sans-serif;
+  font-weight: 300;
+}
+
+@keyframes ticker-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 30s linear infinite;
+}
+
+.ticker-wrap:hover .ticker-track {
+  animation-play-state: paused;
+}

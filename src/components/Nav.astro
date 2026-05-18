@@ -1,0 +1,68 @@
+---
+---
+<header class="fixed top-0 left-0 right-0 z-50 h-16 bg-card border-b border-white/7">
+  <div class="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
+    <a href="/" class="font-display text-base font-bold tracking-[0.18em] uppercase text-primary">
+      FRONTIER <span class="text-accent">MFG</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8" aria-label="Main navigation">
+      <a href="#services" class="font-display text-[13px] font-semibold tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors duration-200">Services</a>
+      <a href="#about" class="font-display text-[13px] font-semibold tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors duration-200">About</a>
+      <a href="#process" class="font-display text-[13px] font-semibold tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors duration-200">Process</a>
+      <a href="#contact" class="font-display text-[13px] font-semibold tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors duration-200">Contact</a>
+    </nav>
+
+    <a
+      href="#contact"
+      class="hidden md:inline-flex items-center bg-accent hover:bg-accent-dark text-dark font-display text-[13px] font-bold tracking-[0.1em] uppercase px-5 py-2.5 transition-all duration-200 hover:-translate-y-0.5"
+    >
+      Free Consultation
+    </a>
+
+    <button
+      id="nav-hamburger"
+      class="md:hidden flex flex-col gap-1.5 p-2 cursor-pointer"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="block w-6 h-0.5 bg-primary rounded-full"></span>
+      <span class="block w-6 h-0.5 bg-primary rounded-full"></span>
+      <span class="block w-6 h-0.5 bg-primary rounded-full"></span>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden md:hidden bg-card border-b border-white/7">
+    <nav class="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-5" aria-label="Mobile navigation">
+      <a href="#services" class="font-display text-sm font-semibold tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors">Services</a>
+      <a href="#about" class="font-display text-sm font-semibold tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors">About</a>
+      <a href="#process" class="font-display text-sm font-semibold tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors">Process</a>
+      <a href="#contact" class="font-display text-sm font-semibold tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors">Contact</a>
+      <a
+        href="#contact"
+        class="inline-flex items-center self-start bg-accent text-dark font-display text-sm font-bold tracking-[0.1em] uppercase px-5 py-3 mt-2"
+      >
+        Free Consultation
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const hamburger = document.getElementById('nav-hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  hamburger?.addEventListener('click', () => {
+    const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+    hamburger.setAttribute('aria-expanded', String(!expanded));
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  mobileMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      hamburger?.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>

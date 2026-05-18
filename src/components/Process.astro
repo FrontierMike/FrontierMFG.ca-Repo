@@ -1,0 +1,61 @@
+---
+const steps = [
+  {
+    num: "01",
+    title: "Free Discovery Call",
+    description: "A free 30-minute call to understand your operation, constraints, and goals. No commitment required.",
+  },
+  {
+    num: "02",
+    title: "Site Assessment",
+    description: "Where needed, we visit your facility to observe processes, audit equipment, and gather technical data.",
+  },
+  {
+    num: "03",
+    title: "Proposal & Scope",
+    description: "A clear written proposal with defined deliverables, timeline, and fixed or hourly pricing.",
+  },
+  {
+    num: "04",
+    title: "Delivery",
+    description: "We execute the work, keep you informed throughout, and provide handover documentation at completion.",
+  },
+];
+---
+<section id="process" class="bg-card py-24">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Header -->
+    <div class="mb-16">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-6 h-px bg-accent"></div>
+        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">How It Works</span>
+      </div>
+      <h2
+        class="font-display font-extrabold uppercase text-primary"
+        style="font-size: clamp(36px, 4vw, 56px);"
+      >OUR PROCESS</h2>
+    </div>
+
+    <!-- Steps grid -->
+    <div class="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <!-- Connector line (desktop only) -->
+      <div class="hidden lg:block absolute top-7 left-7 right-7 h-px bg-accent/20 z-0"></div>
+
+      {steps.map((step) => (
+        <div class="relative z-10">
+          <div class="w-14 h-14 border-2 border-accent flex items-center justify-center mb-6 bg-card">
+            <span class="font-display font-extrabold text-[13px] tracking-[0.12em] text-accent">{step.num}</span>
+          </div>
+          <h3 class="font-display font-bold text-[18px] uppercase tracking-[0.05em] text-primary mb-3">
+            {step.title}
+          </h3>
+          <p class="text-muted text-[14px] leading-relaxed">
+            {step.description}
+          </p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
