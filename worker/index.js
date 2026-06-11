@@ -69,17 +69,15 @@ async function handleContact(request, env) {
           "Name":    { title: [{ text: { content: fullName } }] },
           "Email":   { email: email },
           "Company": { rich_text: [{ text: { content: company } }] },
-          "Service": { select: { name: service } },
+          "Service": { multi_select: [{ name: service }] },
           "Message": { rich_text: [{ text: { content: message } }] },
-          "Status":  { select: { name: "New" } },
+          "Status":  { status: { name: "Not started" } },
         },
       }),
     });
     if (!res.ok) {
       notionOk = false;
-      const notionErr = await res.text();
-      console.error("Notion write failed:", res.status, notionErr);
-      return json({ ok: false, error: `NOTION ${res.status}: ${notionErr}` }, 500);
+      console.error("Notion write failed:", res.status, await res.text());
     }
   } catch (err) {
     notionOk = false;
