@@ -90,14 +90,10 @@ async function handleContact(request, env) {
       }),
     });
 
-    if (!res.ok) {
-      notionOk = false;
-      const notionErr = await res.text();
-      console.error("Notion write failed:", res.status, notionErr);
-      // ----- TEMP DEBUG 2: surface HTTP error to the browser -----
-      return json({ ok: false, error: `NOTION ${res.status}: ${notionErr}` }, 500);
-      // ----- END TEMP DEBUG 2 -----
-    }
+       if (!res.ok) {
+         notionOk = false;
+         console.error("Notion write failed:", res.status, await res.text());
+       }
   } catch (err) {
     notionOk = false;
     console.error("Notion write error:", err);
@@ -135,13 +131,10 @@ async function handleContact(request, env) {
         502
       );
     }
-  } catch (err) {
-    console.error("Resend send error:", err);
-    return json(
-      { ok: false, error: "Could not send your message. Please email info@frontiermfg.ca directly." },
-      502
-    );
-  }
+      } catch (err) {
+       notionOk = false;
+       console.error("Notion write error:", err);
+     }
 
   return json({ ok: true });
 }
