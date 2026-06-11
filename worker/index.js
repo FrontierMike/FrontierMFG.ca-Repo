@@ -75,9 +75,11 @@ async function handleContact(request, env) {
         },
       }),
     });
-    if (!res.ok) {
+        if (!res.ok) {
       notionOk = false;
-      console.error("Notion write failed:", res.status, await res.text());
+      const notionErr = await res.text();
+      console.error("Notion write failed:", res.status, notionErr);
+      return json({ ok: false, error: `NOTION ${res.status}: ${notionErr}` }, 500);
     }
   } catch (err) {
     notionOk = false;
