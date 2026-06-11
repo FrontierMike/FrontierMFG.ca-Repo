@@ -2,6 +2,9 @@
 // Cloudflare Worker entry point for the Frontier MFG site.
 // - Serves the static Astro build (the `dist` folder) via the ASSETS binding.
 // - Handles POST /api/contact: validates, logs to Notion, emails via Resend.
+//
+// NOTE: contains TEMPORARY debug error-surfacing for Notion. Remove the three
+// marked blocks once the Notion write is confirmed working.
 
 const NOTION_API = "https://api.notion.com/v1/pages";
 const NOTION_VERSION = "2022-06-28";
@@ -53,7 +56,18 @@ async function handleContact(request, env) {
 
   const fullName = `${firstName} ${lastName}`;
 
-  // 1) Log to Notion (non-fatal: a failure here must not lose the email lead)
+  // ----- TEMP DEBUG 1: confirm the Notion secrets are actually bound -----
+  // Reports presence only — never logs the secret values themselves.
+  if (!env.NOTION_TOKEN || !env.NOTION_DATABASE_ID) {
+    return json({
+      ok: false,
+      error: `NOTION SECRETS MISSING: token=${env.NOTION_TOKEN ? "present" : "MISSING"}, ` +
+             `dbId=${env.NOTION_DATABASE_ID ? "present" : "MISSING"}`,
+    }, 500);
+  }
+  // ----- END TEMP DEBUG 1 -----
+
+  // 1) Log to Notion (non-fatal in production: a failure must not lose the email lead)
   let notionOk = true;
   try {
     const res = await fetch(NOTION_API, {
@@ -75,15 +89,21 @@ async function handleContact(request, env) {
         },
       }),
     });
-        if (!res.ok) {
+
+    if (!res.ok) {
       notionOk = false;
       const notionErr = await res.text();
       console.error("Notion write failed:", res.status, notionErr);
+      // ----- TEMP DEBUG 2: surface HTTP error to the browser -----
       return json({ ok: false, error: `NOTION ${res.status}: ${notionErr}` }, 500);
+      // ----- END TEMP DEBUG 2 -----
     }
   } catch (err) {
     notionOk = false;
     console.error("Notion write error:", err);
+    // ----- TEMP DEBUG 3: surface thrown exception to the browser -----
+    return json({ ok: false, error: `NOTION THREW: ${err.message}` }, 500);
+    // ----- END TEMP DEBUG 3 -----
   }
 
   // 2) Email via Resend (fatal: this is the lead notification)
