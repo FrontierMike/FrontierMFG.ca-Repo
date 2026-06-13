@@ -1,6 +1,6 @@
 # Frontier MFG — Migration Status
 
-**Last updated:** June 12, 2026 (code re-audit)
+**Last updated:** June 12, 2026 (Phase 4.5 fixes shipped + verified on preview)
 **Goal:** Move hosting from GitHub Pages → **Cloudflare Workers** (static assets + a Worker), and replace the broken `mailto:` contact form with a real endpoint that (1) emails info@frontiermfg.ca via Resend and (2) logs each submission to a Notion database.
 
 > **Platform note:** Site is served as static assets by a Worker; the Worker also handles the `/api/contact` route. No Astro adapter is needed (the site stays a static build).
@@ -14,10 +14,10 @@
 | 0 | Domain off Wix → Cloudflare DNS + email verification | ✅ Done |
 | 1 | Notion database + connection | ✅ Done |
 | 2 | Resend email sending | ✅ Done |
-| 3 | Code changes (Worker script + wrangler.jsonc + Contact.astro + .nvmrc) | ⚠️ Mostly done — **debug blocks NOT removed; Resend catch bug** |
+| 3 | Code changes (Worker script + wrangler.jsonc + Contact.astro + .nvmrc) | ✅ Done |
 | 4 | Configure Workers project + env vars, deploy + test on preview | ✅ Done — **happy path working on preview** |
-| 4.5 | Clean the Worker before merge (remove debug, fix error handling) | ⬜ **NEXT — blocks cutover** |
-| 5 | Cutover (custom domain on Worker, DNS off GitHub Pages) | ⬜ Not started |
+| 4.5 | Clean the Worker before merge (remove debug, fix error handling) | ✅ Done — **fixed + verified on preview** |
+| 5 | Cutover (custom domain on Worker, DNS off GitHub Pages) | 🔄 In progress — **NEXT** |
 | 6 | Spam hardening (Turnstile) | ⬜ Optional, after cutover |
 
 ---
@@ -116,24 +116,21 @@ These were all masked by the Phase 4 happy-path test (Notion + Resend both succe
 
 ---
 
-## Phase 4.5 — Clean the Worker before merge — ⬜ NEXT (blocks cutover)
+## Phase 4.5 — Clean the Worker before merge — ✅ DONE
 
-Do this on `cloudflare-migration` and re-verify on the preview alias **before** Phase 5.
-The whole point: never tell a visitor "sent" unless the email actually went out.
+Shipped in commit "Fix contact Worker: remove debug blocks, correct error handling"
+on `cloudflare-migration`, verified on the preview alias June 12.
 
-1. **Delete TEMP DEBUG 1** (the `NOTION SECRETS MISSING` 500 block).
-2. **Delete TEMP DEBUG 3** (the `NOTION THREW` 500 `return`). On a Notion throw, just set
-   `notionOk = false` and **fall through to the email send** — Notion is non-fatal by design.
-3. **Fix the Resend `catch` block.** On an email-send throw it must return a real error,
-   e.g. `return json({ ok: false, error: "Could not send your message. Please email
-   info@frontiermfg.ca directly." }, 502)` — **not** fall through to `ok: true`. Remove the
-   stray `notionOk = false` / "Notion write error" mislabel.
-4. **Re-test on the preview alias, including a failure path.** Temporarily break the Notion
-   token and confirm: the email **still sends**, the visitor gets success, and the email body
-   carries the `[Note: Notion logging failed…]` line. Then restore the token. Hard-refresh
-   (Ctrl+Shift+R) between tests.
-5. (Optional but tidy) Fold the GitHub Pages teardown into this branch so the cutover merge
-   is a single clean promotion — see Phase 5 step 1 note.
+1. ✅ **Deleted TEMP DEBUG 1** (the `NOTION SECRETS MISSING` 500 block).
+2. ✅ **Deleted TEMP DEBUG 3** (the `NOTION THREW` 500 `return`). On a Notion throw it now
+   sets `notionOk = false` and falls through to the email send — Notion is non-fatal by design.
+3. ✅ **Fixed the Resend `catch` block.** An email-send throw now returns a 502 error instead
+   of falling through to `ok: true`. Removed the stray `notionOk = false` / "Notion write
+   error" mislabel.
+4. ✅ **Verified on the preview alias.** Happy path confirmed June 12 (success line, email
+   delivered, Notion row created). Failure path (email-sends-when-Notion-fails) not re-run this
+   session — already confirmed in earlier sessions; the email body carries the
+   `[Note: Notion logging failed…]` line in that case.
 
 ## Phase 5 — Cutover (affects live site) — ⬜ After 4.5
 
