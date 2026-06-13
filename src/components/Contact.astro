@@ -104,9 +104,18 @@
             ></textarea>
           </div>
 
+          <!-- Honeypot — hidden from humans; bots that fill it are rejected server-side -->
+          <div style="position:absolute; left:-9999px;" aria-hidden="true">
+            <label for="company-website">Company Website</label>
+            <input
+              type="text" id="company-website" name="company-website"
+              tabindex="-1" autocomplete="off"
+            />
+          </div>
+
           <button
             type="submit"
-            class="w-full bg-accent hover:bg-accent-dark text-dark font-display font-bold text-[13px] tracking-[0.1em] uppercase py-4 transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
+            class="w-full bg-accent hover:bg-accent-dark text-dark font-display font-bold text-[13px] tracking-[0.1em] uppercase py-4 transition-all duration-200 hover:-translate-y-0.5 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed disabled:translate-y-0"
           >
             Send Message
           </button>
@@ -121,26 +130,59 @@
 <script>
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
 
-  form?.addEventListener('submit', (e) => {
-    e.preventDefault();
+  if (form) {
+    const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    const defaultLabel = button.textContent;
 
-    const data = new FormData(form!);
-    const firstName = (data.get('first-name') as string) || '';
-    const lastName  = (data.get('last-name')  as string) || '';
-    const email     = (data.get('email')       as string) || '';
-    const company   = (data.get('company')     as string) || '';
-    const service   = (data.get('service')     as string) || 'Not specified';
-    const message   = (data.get('message')     as string) || '';
+    // Status line, inserted right after the submit button
+    const status = document.createElement('p');
+    status.className = 'text-[14px] mt-1';
+    status.setAttribute('role', 'status');
+    button.insertAdjacentElement('afterend', status);
 
-    const subject = encodeURIComponent(`Consultation Request – ${service}`);
-    const body = encodeURIComponent(
-      `Name: ${firstName} ${lastName}\n` +
-      `Email: ${email}\n` +
-      `Company: ${company || 'Not specified'}\n` +
-      `Service: ${service}\n\n` +
-      `Message:\n${message}`
-    );
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = '';
 
-    window.location.href = `mailto:info@frontiermfg.ca?subject=${subject}&body=${body}`;
-  });
+      const data = new FormData(form);
+      const payload = {
+        'first-name':      (data.get('first-name')      as string) || '',
+        'last-name':       (data.get('last-name')       as string) || '',
+        'email':           (data.get('email')           as string) || '',
+        'company':         (data.get('company')         as string) || '',
+        'service':         (data.get('service')         as string) || '',
+        'message':         (data.get('message')         as string) || '',
+        'company-website': (data.get('company-website') as string) || '', // honeypot
+      };
+
+      button.disabled = true;
+      button.textContent = 'Sending…';
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const result = await res.json().catch(() => ({ ok: false }));
+
+        if (res.ok && result.ok) {
+          form.reset();
+          status.className = 'text-[14px] mt-1 text-accent';
+          status.textContent = "Thanks — your message has been sent. We'll respond within one business day.";
+          button.textContent = 'Message Sent';
+        } else {
+          status.className = 'text-[14px] mt-1 text-red-400';
+          status.textContent = result.error || 'Something went wrong. Please email info@frontiermfg.ca directly.';
+          button.disabled = false;
+          button.textContent = defaultLabel;
+        }
+      } catch {
+        status.className = 'text-[14px] mt-1 text-red-400';
+        status.textContent = 'Network error. Please email info@frontiermfg.ca directly.';
+        button.disabled = false;
+        button.textContent = defaultLabel;
+      }
+    });
+  }
 </script>

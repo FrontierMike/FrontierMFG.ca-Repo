@@ -1,0 +1,13 @@
+{
+  // Cloudflare Worker config for the Frontier MFG site.
+  // Must match the existing Worker project name in the dashboard.
+  "name": "frontiermfgwebsite",
+  "main": "worker/index.js",
+  "compatibility_date": "2025-06-01",
+  "assets": {
+    // Astro's static build output. `npm run build` produces this.
+    "directory": "./dist",
+    // Exposes env.ASSETS so the Worker can serve static files.
+    "binding": "ASSETS"
+  }
+}
