@@ -132,18 +132,17 @@ on `cloudflare-migration`, verified on the preview alias June 12.
    session — already confirmed in earlier sessions; the email body carries the
    `[Note: Notion logging failed…]` line in that case.
 
-## Phase 5 — Cutover (affects live site) — ⬜ After 4.5
+## Phase 5 — Cutover (affects live site) — 🔄 IN PROGRESS
 
 Order matters to minimize downtime:
 
-1. **Merge `cloudflare-migration` → main.** This triggers `npx wrangler deploy` = production promotion. Verify the form works on the production `*.workers.dev` URL (NOT just the preview alias).
-   - ⚠️ `.github/workflows/deploy.yml` still fires on push to `main` and redeploys **GitHub Pages**. It's harmless here (DNS still points at Pages), but cleaner to **delete `deploy.yml` in this same merge** rather than waiting for step 4, so the merge doesn't trigger one last Pages build.
-   - ⚠️ Precondition: confirm the Cloudflare **Workers Build** is actually wired to run `npx wrangler deploy` on `main` (dashboard-side). The entire promotion depends on it.
-2. Worker → **Settings → Domains & Routes → Add → Custom Domain** → add `frontiermfg.ca` and `www.frontiermfg.ca`. Cloudflare auto-creates proxied DNS records pointing at the Worker.
-3. Remove old GitHub Pages DNS records in Cloudflare (A/AAAA at GitHub IPs and/or CNAME to `frontiermike.github.io`). **Save their values first for rollback.** (Step 2 may replace these automatically — confirm no stale GitHub records remain.)
-4. Turn off GitHub Pages: repo Settings → Pages → Source: None; delete `.github/workflows/deploy.yml` (if not already removed in step 1); delete the `CNAME` file.
-5. Wait for propagation, load https://frontiermfg.ca, confirm it serves from the Worker (valid HTTPS), run one final **live** form test (email + Notion row).
-6. Re-confirm SSL/TLS = Full (strict).
+1. ✅ **Merged `cloudflare-migration` → main** (merge commit `1848510`, June 12). Production promotion ran; form **verified working on the production `*.workers.dev` URL** (email + Notion both confirmed on the new build). `deploy.yml` was deleted in the cutover merge (commit `55de23c`), so Pages is frozen on its last working build as a rollback fallback.
+2. ✅ Added both `frontiermfg.ca` and `www.frontiermfg.ca` as Custom Domains on the Worker (June 14). **Gotcha:** the apex custom domain didn't stick on the first attempt — it left an orphaned `frontiermfg.ca` → `Worker` (Proxied) DNS record that resolved but served a Cloudflare **530** (no binding). Re-adding the bare apex `frontiermfg.ca` (no `www`) fixed it.
+3. ✅ Old GitHub Pages apex A records + `www` CNAME deleted (values saved in Rollback section). Email records (MX/SPF/DKIM/DMARC, Google + Resend) left untouched.
+   - **Verified live:** `https://frontiermfg.ca` and `https://www.frontiermfg.ca` both resolve to Cloudflare and return 200; apex serves our site and `/api/contact` GET returns the Worker's `405` — confirming the route is live on the real domain.
+4. 🔄 Turn off GitHub Pages: repo Settings → Pages → Source: None (**dashboard — TODO**); `CNAME` file deleted from repo. deploy.yml already removed in step 1.
+5. ⬜ Run one final **live** form test on https://frontiermfg.ca (email + Notion row).
+6. ⬜ Re-confirm SSL/TLS = Full (strict).
 
 ## Phase 6 — Spam hardening — ⬜ OPTIONAL (after cutover)
 
@@ -154,8 +153,29 @@ Order matters to minimize downtime:
 ## Rollback (if live site breaks after cutover)
 
 - Remove the custom domain from the Worker.
-- Re-add the old GitHub Pages DNS records (kept from Phase 5 step 3).
+- Re-add the old GitHub Pages DNS records (captured June 14 — see below).
 - Re-enable GitHub Pages: Settings → Pages → Source: GitHub Actions.
+
+### Saved GitHub Pages DNS records (for rollback)
+
+Apex `frontiermfg.ca` — four A records, **DNS only** (grey cloud), TTL Auto:
+
+| Type | Name | Content | Proxy | TTL |
+|------|------|---------|-------|-----|
+| A | frontiermfg.ca | 185.199.108.153 | DNS only | Auto |
+| A | frontiermfg.ca | 185.199.109.153 | DNS only | Auto |
+| A | frontiermfg.ca | 185.199.110.153 | DNS only | Auto |
+| A | frontiermfg.ca | 185.199.111.153 | DNS only | Auto |
+
+(These are GitHub Pages' standard apex IPs.)
+
+`www.frontiermfg.ca` — one CNAME, **DNS only** (grey cloud), TTL Auto:
+
+| Type | Name | Content | Proxy | TTL |
+|------|------|---------|-------|-----|
+| CNAME | www.frontiermfg.ca | frontiermike.github.io | DNS only | Auto |
+
+**Do NOT delete (email — unrelated to hosting, must stay):** Google MX (`aspmx.l.google.com` + alt1–4), SPF TXT (`v=spf1 include:_spf.google.com`), `google._domainkey` DKIM, `_dmarc` (`p=none`), and the Resend `send.frontiermfg.ca` MX + SPF + `resend._domainkey` records, plus the `google-site-verification` TXT.
 
 ---
 
