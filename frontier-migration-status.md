@@ -1,6 +1,22 @@
 # Frontier MFG — Migration Status
 
-**Last updated:** June 12, 2026 (Phase 4.5 fixes shipped + verified on preview)
+**Last updated:** June 14, 2026 (live cutover done — 3 wrap-up steps remain)
+
+> ## ▶️ START HERE TOMORROW
+> The live site is **already on the Cloudflare Worker** (apex + www, HTTPS, contact
+> form route confirmed). DNS cutover is done. Only three wrap-up items are left —
+> none of them affect whether the site is up:
+>
+> 1. **Live form test** — on https://frontiermfg.ca submit the contact form once;
+>    confirm success line + email to info@frontiermfg.ca + new Notion **Leads** row.
+> 2. **Turn off GitHub Pages** — repo **Settings → Pages → Source: None**.
+>    (Workflow + CNAME already removed, so Pages can't rebuild; this just formalizes it.)
+> 3. **Confirm SSL/TLS mode** — Cloudflare → **SSL/TLS → Overview** = **Full** or
+>    **Full (strict)** (NOT Flexible).
+>
+> After those three, Phase 5 is complete. Phase 6 (Turnstile) is optional — leave
+> it until real spam appears. Rollback values (old Pages DNS) are saved at the
+> bottom of this file if ever needed.
 **Goal:** Move hosting from GitHub Pages → **Cloudflare Workers** (static assets + a Worker), and replace the broken `mailto:` contact form with a real endpoint that (1) emails info@frontiermfg.ca via Resend and (2) logs each submission to a Notion database.
 
 > **Platform note:** Site is served as static assets by a Worker; the Worker also handles the `/api/contact` route. No Astro adapter is needed (the site stays a static build).
@@ -17,8 +33,10 @@
 | 3 | Code changes (Worker script + wrangler.jsonc + Contact.astro + .nvmrc) | ✅ Done |
 | 4 | Configure Workers project + env vars, deploy + test on preview | ✅ Done — **happy path working on preview** |
 | 4.5 | Clean the Worker before merge (remove debug, fix error handling) | ✅ Done — **fixed + verified on preview** |
-| 5 | Cutover (custom domain on Worker, DNS off GitHub Pages) | 🔄 In progress — **NEXT** |
+| 5 | Cutover (custom domain on Worker, DNS off GitHub Pages) | 🔄 Live cutover done — **3 wrap-up steps left** (see top) |
 | 6 | Spam hardening (Turnstile) | ⬜ Optional, after cutover |
+
+**Phase 5 remaining:** ⬜ live form test · ⬜ turn off GitHub Pages · ⬜ confirm SSL/TLS = Full(strict)
 
 ---
 
