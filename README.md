@@ -35,18 +35,38 @@ Cloudflare Worker (frontiermfgwebsite)
 
 ```text
 /
-├── public/                     # static assets
+├── public/                      # static assets, copied to dist as-is
+│   ├── favicon.ico / favicon.svg
+│   └── icons/                   # service + UI SVG icons
 ├── src/
-│   ├── components/
-│   │   └── Contact.astro        # contact form + client fetch to /api/contact
+│   ├── layouts/
+│   │   └── Base.astro           # <html> shell, <head>, global wiring
+│   ├── styles/
+│   │   └── global.css           # Tailwind entry + global styles
+│   ├── components/              # section components (see below)
+│   │   ├── Nav.astro
+│   │   ├── Hero.astro
+│   │   ├── ConsultBanner.astro
+│   │   ├── Ticker.astro
+│   │   ├── Services.astro
+│   │   ├── Team.astro
+│   │   ├── Process.astro
+│   │   ├── Contact.astro        # contact form + client fetch to /api/contact
+│   │   └── Footer.astro
 │   └── pages/
-│       └── index.astro
+│       └── index.astro          # single page; composes the section components
 ├── worker/
 │   └── index.js                 # Worker: serves assets + handles /api/contact
 ├── wrangler.jsonc               # Worker config (name, main, assets dir/binding)
+├── astro.config.mjs             # Astro config (Tailwind via Vite plugin)
+├── DESIGN.md                    # visual/design spec for the site
 ├── .nvmrc                       # pins Node 22 for the build
 └── package.json
 ```
+
+The site is a **single page** (`src/pages/index.astro`) assembled from section
+components in the order: Nav → Hero → ConsultBanner → Ticker → Services → Team →
+Process → Contact → Footer, all wrapped by `layouts/Base.astro`.
 
 > Note: this project does **not** use a Cloudflare Pages `functions/` directory. Server logic lives in `worker/index.js` (Workers, not Pages).
 
