@@ -1,7 +1,10 @@
 ---
-// The "SEE" payoff: a real machine streaming to a real dashboard. Video autoplays
-// muted + loops so it reads as live without controls. ponytail: no poster frame
+// The "SEE" payoff: a real machine streaming to a real dashboard. Videos autoplay
+// muted + loop so it reads as live without controls. ponytail: no poster frame
 // (no ffmpeg on this box) — the dark frame background covers the load flash.
+// The tall dashboard was screen-captured in 4 equal-width horizontal bands; stacked
+// at w-full they rebuild the whole board. Lengths differ (not synced — that's fine).
+const clips = [1, 2, 3, 4];
 ---
 <section id="dashboard" class="bg-card py-24 border-t border-white/7">
   <div class="max-w-7xl mx-auto px-6">
@@ -21,18 +24,20 @@
       </p>
     </div>
 
-    <!-- Video showcase -->
-    <div class="relative border border-white/7 bg-[#080908] overflow-hidden">
-      <video
-        class="block w-full h-auto"
-        src="/baseline-demo.mp4"
-        autoplay
-        muted
-        loop
-        playsinline
-        preload="metadata"
-        aria-label="Live production dashboard demo — OEE, downtime and machine status"
-      ></video>
+    <!-- Video showcase: 4 stacked bands = the full tall dashboard -->
+    <div class="relative border border-white/7 bg-[#080908] overflow-hidden" aria-label="Live production dashboard demo — OEE, downtime and machine status">
+      {clips.map((n) => (
+        <video
+          class="block w-full h-auto"
+          src={`/baseline-demo-${n}.mp4`}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          aria-hidden="true"
+        ></video>
+      ))}
       <span class="absolute top-4 left-4 flex items-center gap-2 bg-dark/80 backdrop-blur px-3 py-1.5 font-display text-[10px] font-bold tracking-[0.18em] uppercase text-accent">
         <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span> Live Demo
       </span>
