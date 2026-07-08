@@ -1,0 +1,57 @@
+---
+// The spine of the page: SEE -> TARGET -> PROVE. Replaces the old 4-step Process
+// as the core narrative (the engagement steps now live in Start.astro as the pilot).
+const steps = [
+  {
+    num: "01",
+    key: "See",
+    title: "See",
+    description: "An unobtrusive kit gives you live OEE, downtime, and MTBF in days — not months. No PLC changes, no line stoppage, no IT project. Your data stays on your network.",
+  },
+  {
+    num: "02",
+    key: "Target",
+    title: "Target",
+    description: "The data exposes where money actually leaks — the real bottleneck, not the assumed one. We scope automation and process changes with statistical backing, not gut feel.",
+  },
+  {
+    num: "03",
+    key: "Prove",
+    title: "Prove",
+    description: "The same dashboard shows before and after. Improvement is measured on your own numbers, not promised in a slide deck — ROI you can see the next shift.",
+  },
+];
+---
+<section id="method" class="bg-dark py-24">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="mb-16 max-w-2xl">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-6 h-px bg-accent"></div>
+        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">How We Work</span>
+      </div>
+      <h2
+        class="font-display font-extrabold uppercase text-primary mb-4"
+        style="font-size: clamp(36px, 4vw, 56px);"
+      >See → Target → Prove</h2>
+      <p class="text-muted text-[15px] leading-relaxed">
+        A measure-first loop. Make production visible, aim automation where it actually pays,
+        then prove the result on the same numbers.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-px bg-white/7">
+      {steps.map((step) => (
+        <div class="relative bg-dark p-8 overflow-hidden">
+          <div class="absolute left-0 top-0 w-0.5 bg-accent" style="height: 40%;"></div>
+          <div class="flex items-baseline gap-3 mb-5">
+            <span class="font-display font-extrabold text-accent text-[13px] tracking-[0.15em]">{step.num}</span>
+            <h3 class="font-display font-extrabold text-[26px] uppercase tracking-[0.05em] text-primary leading-none">{step.title}</h3>
+          </div>
+          <p class="text-muted text-[14px] leading-relaxed">{step.description}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

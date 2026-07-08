@@ -1,52 +1,53 @@
 ---
+// Reordered so the data-driven work leads (what we do once you can see).
 const services = [
   {
     num: "01",
-    title: "Process Automation",
-    description: "Identify automation opportunities and implement solutions that reduce manual labour and increase throughput.",
-    icon: "/icons/01-process-automation.svg",
-  },
-  {
-    num: "02",
-    title: "PLC / SCADA Programming",
-    description: "Custom logic, HMI design, and commissioning support for Allen-Bradley, Siemens, and more.",
-    icon: "/icons/02-plc-scada-programming.svg",
-  },
-  {
-    num: "03",
-    title: "Hardware & Software Integration",
-    description: "Bridging the gap between industrial hardware and software systems — sensors, controllers, networks, and custom software.",
-    icon: "/icons/03-hardware-software-integration.svg",
-  },
-  {
-    num: "04",
     title: "Process Improvement",
-    description: "Lean-informed analysis of production workflows to eliminate bottlenecks and reduce waste.",
+    description: "Lean-informed analysis of production workflows to eliminate bottlenecks and reduce waste — aimed by what the data actually shows.",
     icon: "/icons/04-process-improvement.svg",
   },
   {
-    num: "05",
+    num: "02",
     title: "Feasibility Studies",
     description: "Technical and economic assessments to validate automation or production change investments before you commit.",
     icon: "/icons/05-feasibility-studies.svg",
   },
   {
+    num: "03",
+    title: "Process Automation",
+    description: "Identify automation opportunities and implement solutions that reduce manual labour and increase throughput.",
+    icon: "/icons/01-process-automation.svg",
+  },
+  {
+    num: "04",
+    title: "PLC / SCADA Programming",
+    description: "Custom logic, HMI design, and commissioning support for Allen-Bradley, Siemens, and more.",
+    icon: "/icons/02-plc-scada-programming.svg",
+  },
+  {
+    num: "05",
+    title: "Controls Design",
+    description: "Panel layouts, I/O schematics, and control architecture — designed for reliability and ease of maintenance.",
+    icon: "/icons/08-Controls-pulse-waveform.svg",
+  },
+  {
     num: "06",
+    title: "Hardware & Software Integration",
+    description: "Bridging the gap between industrial hardware and software systems — sensors, controllers, networks, and custom software.",
+    icon: "/icons/03-hardware-software-integration.svg",
+  },
+  {
+    num: "07",
     title: "Design for Manufacturing",
     description: "DFM reviews that bridge design intent with production reality — reducing rework and material waste.",
     icon: "/icons/06-design-for-manufacturing.svg",
   },
   {
-    num: "07",
+    num: "08",
     title: "Machining Consultation",
     description: "Process parameters, toolpath strategy, and fixturing advice for CNC machining operations.",
     icon: "/icons/07-machining-consultation.svg",
-  },
-  {
-    num: "08",
-    title: "Controls Design",
-    description: "Panel layouts, I/O schematics, and control architecture — designed for reliability and ease of maintenance.",
-    icon: "/icons/08-Controls-pulse-waveform.svg",
   },
 ];
 ---
@@ -57,14 +58,15 @@ const services = [
     <div class="mb-16">
       <div class="flex items-center gap-3 mb-4">
         <div class="w-6 h-px bg-accent"></div>
-        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">What We Do</span>
+        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">What We Do With It</span>
       </div>
       <h2
         class="font-display font-extrabold uppercase text-primary mb-4"
         style="font-size: clamp(36px, 4vw, 56px);"
       >SERVICES</h2>
       <p class="text-muted text-[15px] max-w-xl leading-relaxed">
-        From automation strategy to hands-on implementation — we cover the full spectrum of industrial automation and manufacturing consulting.
+        Every engagement starts from what the data shows — then we cover the full spectrum,
+        from process improvement to hands-on automation and controls.
       </p>
     </div>
 

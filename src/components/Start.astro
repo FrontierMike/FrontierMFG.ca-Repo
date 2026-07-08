@@ -1,0 +1,95 @@
+---
+// Two ways to start: the BASELINE monitoring pilot (coming soon) and direct
+// consulting (available now). This is the page's single loud conversion point —
+// it absorbs the old ConsultBanner CTA and the old engagement Process.
+---
+<section id="start" class="bg-card py-24 border-t border-white/7">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="mb-16 max-w-2xl">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-6 h-px bg-accent"></div>
+        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">Two Ways To Start</span>
+      </div>
+      <h2
+        class="font-display font-extrabold uppercase text-primary mb-4"
+        style="font-size: clamp(36px, 4vw, 56px);"
+      >Start Small. Start Sure.</h2>
+      <p class="text-muted text-[15px] leading-relaxed">
+        Prove the value on your own floor with a low-commitment monitoring pilot — or just
+        book a call and talk through the problem. No sales pitch either way.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-px bg-white/7">
+
+      <!-- BASELINE pilot -->
+      <div class="relative bg-card p-8 md:p-10 flex flex-col">
+        <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-accent"></div>
+        <div class="flex items-center gap-3 mb-5">
+          <span class="font-display font-extrabold text-[22px] uppercase tracking-[0.08em] text-primary">BASELINE</span>
+          <span class="font-display text-[10px] font-bold tracking-[0.18em] uppercase text-accent border border-accent/40 px-2 py-1">Coming Soon</span>
+        </div>
+        <p class="font-display text-[13px] font-semibold tracking-[0.12em] uppercase text-accent mb-5">The Monitoring Pilot</p>
+        <p class="text-muted text-[15px] leading-relaxed mb-6">
+          A small kit on one machine, streaming live OEE, downtime, and MTBF to a dashboard
+          in days. See what you've been missing before you commit to anything bigger.
+        </p>
+        <ul class="flex flex-col gap-3 mb-8">
+          {[
+            "Live OEE, downtime & MTBF in days",
+            "No PLC changes, no line stoppage",
+            "Your data stays on your network",
+          ].map((f) => (
+            <li class="flex items-start gap-3 text-muted text-[14px] leading-relaxed">
+              <span class="text-accent mt-0.5 flex-shrink-0">→</span>{f}
+            </li>
+          ))}
+        </ul>
+        <div class="mt-auto flex items-center gap-5">
+          <a
+            href="#contact"
+            class="inline-flex items-center bg-accent hover:bg-accent-dark text-dark font-display font-bold text-[13px] tracking-[0.1em] uppercase px-6 py-3.5 transition-all duration-200 hover:-translate-y-0.5"
+          >
+            Join the Pilot List
+          </a>
+          <span class="font-display text-[11px] font-semibold tracking-[0.15em] uppercase text-dim">Pricing coming soon</span>
+        </div>
+      </div>
+
+      <!-- Consulting now -->
+      <div class="relative bg-card p-8 md:p-10 flex flex-col">
+        <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-white/15"></div>
+        <div class="flex items-center gap-3 mb-5">
+          <span class="font-display font-extrabold text-[22px] uppercase tracking-[0.08em] text-primary">Talk To Us</span>
+          <span class="font-display text-[10px] font-bold tracking-[0.18em] uppercase text-muted border border-white/15 px-2 py-1">Available Now</span>
+        </div>
+        <p class="font-display text-[13px] font-semibold tracking-[0.12em] uppercase text-muted mb-5">Consulting & Automation</p>
+        <p class="text-muted text-[15px] leading-relaxed mb-6">
+          Already know the problem? We do the full spectrum — automation, PLC/SCADA, controls,
+          process improvement. A free 30-minute call to scope it, no commitment.
+        </p>
+        <ul class="flex flex-col gap-3 mb-8">
+          {[
+            "Free 30-minute discovery call",
+            "Written proposal, fixed or hourly",
+            "Two people who build what they spec",
+          ].map((f) => (
+            <li class="flex items-start gap-3 text-muted text-[14px] leading-relaxed">
+              <span class="text-accent mt-0.5 flex-shrink-0">→</span>{f}
+            </li>
+          ))}
+        </ul>
+        <div class="mt-auto">
+          <a
+            href="#contact"
+            class="inline-flex items-center border-2 border-accent text-accent hover:bg-accent hover:text-dark font-display font-bold text-[13px] tracking-[0.1em] uppercase px-6 py-3.5 transition-all duration-200"
+          >
+            Book a Free Consultation →
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -175,13 +175,9 @@ All headings, eyebrows, and labels should be **uppercase** with letter-spacing 0
   - Role (small, accent colour, uppercase, letter-spaced)  
   - Bio paragraph
 
-**Card 1 — `[YOUR NAME]`** Role: `EIT · Automation & Manufacturing Consultant` Bio: Registered Engineer-in-Training with hands-on expertise in automation, manufacturing process improvement, PLC/SCADA programming, and design for manufacturing. Focused on practical solutions for production floor challenges.
+**Card 1 — `[YOUR NAME]`** Role: `Automation & Manufacturing Consultant` Bio: Hands-on expertise in automation, manufacturing process improvement, PLC/SCADA programming, and design for manufacturing. Focused on practical solutions for production floor challenges.
 
 **Card 2 — `[PARTNER NAME]`** Role: `Software & Hardware Engineer · 40 Years Experience` Bio: Senior software and hardware engineer with four decades of experience in industrial systems, embedded development, and technology leadership. Has held senior roles across multiple industries — bringing deep technical credibility to every engagement.
-
-**EIT Disclaimer (below team cards, important):** Style as a left-bordered callout: 3px solid accent left border, slight amber tint background (`rgba(232,160,32,0.05)`), padded.
-
-Frontier Manufacturing Services is operated by a registered Engineer-in-Training (EIT) in British Columbia. We provide consulting and technical services; we do not offer licensed professional engineering services.
 
 ### 7\. Process
 
@@ -248,9 +244,8 @@ Frontier Manufacturing Services is operated by a registered Engineer-in-Training
 
 ## Important Constraints
 
-- **Never use the phrase "engineering services"** anywhere on the site (legal — owner is EIT, not PEng)  
+- **Avoid the phrase "engineering services"** anywhere on the site — the firm offers consulting and technical services, not licensed engineering
 - Safe alternative terms: consulting, technical services, automation services, process consulting, hardware & software integration  
-- The EIT disclaimer in the Team section is legally important — keep visible  
 - Set proper `<title>`, meta description, OG tags in the base layout for SEO
 
 ## Meta tags
