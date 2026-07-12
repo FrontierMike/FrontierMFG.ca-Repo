@@ -1,121 +1,50 @@
 ---
-// Reordered so the data-driven work leads (what we do once you can see).
+// Condensed to a strip: consulting is the upsell once BASELINE finds the problem.
+// ponytail: was 9 icon cards — full grid lives in git history if it's ever wanted back.
 const services = [
-  {
-    num: "01",
-    title: "Process Improvement",
-    description: "Lean-informed analysis of production workflows to eliminate bottlenecks and reduce waste — aimed by what the data actually shows.",
-    icon: "/icons/04-process-improvement.svg",
-  },
-  {
-    num: "02",
-    title: "Feasibility Studies",
-    description: "Technical and economic assessments to validate automation or production change investments before you commit.",
-    icon: "/icons/05-feasibility-studies.svg",
-  },
-  {
-    num: "03",
-    title: "Process Automation",
-    description: "Identify automation opportunities and implement solutions that reduce manual labour and increase throughput.",
-    icon: "/icons/01-process-automation.svg",
-  },
-  {
-    num: "04",
-    title: "PLC / SCADA Programming",
-    description: "Custom logic, HMI design, and commissioning support for Allen-Bradley, Siemens, and more.",
-    icon: "/icons/02-plc-scada-programming.svg",
-  },
-  {
-    num: "05",
-    title: "Controls Design",
-    description: "Panel layouts, I/O schematics, and control architecture — designed for reliability and ease of maintenance.",
-    icon: "/icons/08-Controls-pulse-waveform.svg",
-  },
-  {
-    num: "06",
-    title: "Hardware & Software Integration",
-    description: "Bridging the gap between industrial hardware and software systems — sensors, controllers, networks, and custom software.",
-    icon: "/icons/03-hardware-software-integration.svg",
-  },
-  {
-    num: "07",
-    title: "Design for Manufacturing",
-    description: "DFM reviews that bridge design intent with production reality — reducing rework and material waste.",
-    icon: "/icons/06-design-for-manufacturing.svg",
-  },
-  {
-    num: "08",
-    title: "Machining Consultation",
-    description: "Process parameters, toolpath strategy, and fixturing advice for CNC machining operations.",
-    icon: "/icons/07-machining-consultation.svg",
-  },
+  "Process Improvement",
+  "Feasibility Studies",
+  "Process Automation",
+  "PLC / SCADA Programming",
+  "Controls Design",
+  "Hardware & Software Integration",
+  "Design for Manufacturing",
+  "Machining Consultation",
 ];
 ---
-<section id="services" class="bg-card py-24">
+<section id="services" class="bg-card py-20 border-t border-white/7">
   <div class="max-w-7xl mx-auto px-6">
 
-    <!-- Header -->
-    <div class="mb-16">
+    <div class="mb-10 max-w-2xl">
       <div class="flex items-center gap-3 mb-4">
         <div class="w-6 h-px bg-accent"></div>
-        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">What We Do With It</span>
+        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">When The Data Finds It</span>
       </div>
       <h2
         class="font-display font-extrabold uppercase text-primary mb-4"
         style="font-size: clamp(36px, 4vw, 56px);"
-      >SERVICES</h2>
-      <p class="text-muted text-[15px] max-w-xl leading-relaxed">
-        Every engagement starts from what the data shows — then we cover the full spectrum,
-        from process improvement to hands-on automation and controls.
+      >We Fix It Too</h2>
+      <p class="text-muted text-[15px] leading-relaxed">
+        BASELINE finds the problem — and we cover the fix. The full spectrum, from
+        process improvement to hands-on automation and controls.
       </p>
     </div>
 
-    <!-- Card grid -->
-    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-px bg-white/7">
-
-      {services.map((service) => (
-        <div class="relative group bg-card p-8 overflow-hidden hover:bg-surface transition-colors duration-300 cursor-default">
-          <!-- Left accent border -->
-          <div
-            class="absolute left-0 top-0 w-0.5 bg-accent transition-all duration-500 group-hover:h-full"
-            style="height: 40%;"
-          ></div>
-
-          <span class="font-display text-[12px] font-semibold tracking-[0.15em] uppercase text-dim block mb-6">
-            {service.num}
-          </span>
-
-          <img src={service.icon} alt="" width="32" height="32" class="mb-4" aria-hidden="true" />
-
-          <h3 class="font-display font-bold text-[20px] uppercase tracking-[0.05em] text-primary mb-3">
-            {service.title}
-          </h3>
-
-          <p class="text-muted text-[14px] leading-relaxed">
-            {service.description}
-          </p>
-        </div>
+    <ul class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-4 mb-10">
+      {services.map((title, i) => (
+        <li class="flex items-baseline gap-3 border-l-2 border-accent/40 pl-4 py-1">
+          <span class="font-display text-[11px] font-semibold tracking-[0.15em] text-dim">{String(i + 1).padStart(2, "0")}</span>
+          <span class="font-display font-bold text-[15px] uppercase tracking-[0.05em] text-primary">{title}</span>
+        </li>
       ))}
+    </ul>
 
-      <!-- CTA card -->
-      <div class="relative bg-card p-8 overflow-hidden hover:bg-surface transition-colors duration-300 flex flex-col justify-between">
-        <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-accent"></div>
+    <a
+      href="#contact"
+      class="font-display font-semibold text-[13px] tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors duration-200"
+    >
+      Already know your problem? Book a free call →
+    </a>
 
-        <div>
-          <img src="/icons/09-get-in-touch.svg" alt="" width="32" height="32" class="mb-6" aria-hidden="true" />
-          <p class="text-muted text-[15px] leading-relaxed mb-8">
-            Not sure where to start? Let's talk through your problem — free, no commitment.
-          </p>
-        </div>
-
-        <a
-          href="#contact"
-          class="inline-flex items-center self-start bg-accent hover:bg-accent-dark text-dark font-display font-bold text-[13px] tracking-[0.1em] uppercase px-5 py-3 transition-all duration-200 hover:-translate-y-0.5"
-        >
-          Book Free Call →
-        </a>
-      </div>
-
-    </div>
   </div>
 </section>
