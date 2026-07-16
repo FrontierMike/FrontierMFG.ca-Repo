@@ -1,13 +1,13 @@
 ---
-// Condensed to a strip: consulting is the upsell once BASELINE finds the problem.
-// ponytail: was 9 icon cards — full grid lives in git history if it's ever wanted back.
+// Home teaser for the full /services page. Consulting-first ordering; the full
+// icon-card grid + engagement process live on /services.
 const services = [
-  "Process Improvement",
-  "Feasibility Studies",
   "Process Automation",
   "PLC / SCADA Programming",
   "Controls Design",
   "Hardware & Software Integration",
+  "Process Improvement",
+  "Feasibility Studies",
   "Design for Manufacturing",
   "Machining Consultation",
 ];
@@ -18,15 +18,16 @@ const services = [
     <div class="mb-10 max-w-2xl">
       <div class="flex items-center gap-3 mb-4">
         <div class="w-6 h-px bg-accent"></div>
-        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">When The Data Finds It</span>
+        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">What We Do</span>
       </div>
       <h2
         class="font-display font-extrabold uppercase text-primary mb-4"
         style="font-size: clamp(36px, 4vw, 56px);"
-      >We Fix It Too</h2>
+      >Services</h2>
       <p class="text-muted text-[15px] leading-relaxed">
-        BASELINE finds the problem — and we cover the fix. The full spectrum, from
-        process improvement to hands-on automation and controls.
+        Hands-on help across the full spectrum — from automation and controls to process
+        improvement and shop-floor monitoring. Available now for manufacturers across
+        Western Canada.
       </p>
     </div>
 
@@ -39,12 +40,20 @@ const services = [
       ))}
     </ul>
 
-    <a
-      href="#contact"
-      class="font-display font-semibold text-[13px] tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors duration-200"
-    >
-      Already know your problem? Book a free call →
-    </a>
+    <div class="flex flex-wrap items-center gap-6">
+      <a
+        href="/services"
+        class="inline-flex items-center bg-accent hover:bg-accent-dark text-dark font-display font-bold text-[13px] tracking-[0.1em] uppercase px-6 py-3.5 transition-all duration-200 hover:-translate-y-0.5"
+      >
+        Explore All Services →
+      </a>
+      <a
+        href="#contact"
+        class="font-display font-semibold text-[13px] tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors duration-200"
+      >
+        Already know your problem? Book a free call →
+      </a>
+    </div>
 
   </div>
 </section>

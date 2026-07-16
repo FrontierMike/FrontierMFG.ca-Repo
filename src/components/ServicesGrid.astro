@@ -1,0 +1,97 @@
+---
+// Full services grid for /services. Icon-less cards matching the site's existing
+// number + title + description + left-accent-bar pattern (see Benefits/Method).
+// Consulting-first order. Note: DESIGN.md forbids the phrase "engineering services".
+const services = [
+  {
+    title: "Process Automation",
+    description:
+      "Find the automation opportunities that actually pay, then implement them — cutting manual labour and lifting throughput. Sized to the payback, from a single sensor interlock to a full cell.",
+  },
+  {
+    title: "PLC / SCADA Programming",
+    description:
+      "Custom logic, HMI design, and commissioning support for Allen-Bradley, Siemens, and more — written to be read and maintained by the people who run it.",
+  },
+  {
+    title: "Controls Design",
+    description:
+      "Panel layouts, I/O schematics, and control architecture designed for reliability and easy maintenance — not a black box only the installer understands.",
+  },
+  {
+    title: "Hardware & Software Integration",
+    description:
+      "Bridging industrial hardware and software — sensors, controllers, networks, and custom software that actually talk to each other and to the systems you already run.",
+  },
+  {
+    title: "Process Improvement",
+    description:
+      "Lean-informed analysis of production workflows to eliminate bottlenecks and cut waste — grounded in what the floor is actually doing, not a whiteboard.",
+  },
+  {
+    title: "Feasibility Studies",
+    description:
+      "Technical and economic assessments that validate an automation or production-change investment before you commit the capital.",
+  },
+  {
+    title: "Design for Manufacturing",
+    description:
+      "DFM reviews that bridge design intent with production reality — reducing rework and material waste before parts ever hit the floor.",
+  },
+  {
+    title: "Machining Consultation",
+    description:
+      "Process parameters, toolpath strategy, and fixturing advice for CNC machining operations — from problem parts to cycle-time gains.",
+  },
+];
+---
+<section id="services" class="bg-dark py-24">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="mb-16 max-w-2xl">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-6 h-px bg-accent"></div>
+        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">What We Do</span>
+      </div>
+      <h2
+        class="font-display font-extrabold uppercase text-primary mb-4"
+        style="font-size: clamp(36px, 4vw, 56px);"
+      >The Full Spectrum</h2>
+      <p class="text-muted text-[15px] leading-relaxed">
+        Two people who scope, spec, and build the work themselves — no handoffs, no
+        junior team learning on your dime. Everything below is available today.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-px bg-white/7">
+      {services.map((s, i) => (
+        <div class="relative bg-dark p-8 overflow-hidden">
+          <div class="absolute left-0 top-0 w-0.5 bg-accent" style="height: 40%;"></div>
+          <span class="font-display font-extrabold text-accent text-[13px] tracking-[0.15em] block mb-4">{String(i + 1).padStart(2, "0")}</span>
+          <h3 class="font-display font-bold text-[20px] uppercase tracking-[0.05em] text-primary mb-3">
+            {s.title}
+          </h3>
+          <p class="text-muted text-[14px] leading-relaxed">{s.description}</p>
+        </div>
+      ))}
+
+      <!-- 9th tile: CTA, fills the grid -->
+      <div class="relative bg-surface p-8 flex flex-col justify-center">
+        <h3 class="font-display font-bold text-[20px] uppercase tracking-[0.05em] text-primary mb-3">
+          Not Sure Where To Start?
+        </h3>
+        <p class="text-muted text-[14px] leading-relaxed mb-6">
+          Tell us what's slowing the floor down. The first call is free — no commitment,
+          no sales pitch.
+        </p>
+        <a
+          href="/#contact"
+          class="inline-flex self-start items-center bg-accent hover:bg-accent-dark text-dark font-display font-bold text-[12px] tracking-[0.1em] uppercase px-5 py-3 transition-all duration-200 hover:-translate-y-0.5"
+        >
+          Book a Free Call →
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>

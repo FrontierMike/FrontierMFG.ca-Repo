@@ -1,0 +1,28 @@
+---
+// Top-of-page hero for subpages. Accounts for the fixed 64px nav (pt-16) and
+// gives /services and /what-is-oee a consistent header.
+interface Props {
+  eyebrow: string;
+  title: string;
+  subtitle?: string;
+}
+const { eyebrow, title, subtitle } = Astro.props;
+---
+<section class="bg-dark pt-16 border-b border-white/7">
+  <div class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+    <div class="max-w-3xl">
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-8 h-px bg-accent flex-shrink-0"></div>
+        <span class="min-w-0 font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">{eyebrow}</span>
+      </div>
+      <h1
+        class="font-display font-extrabold uppercase leading-none text-primary mb-6"
+        style="font-size: clamp(38px, 7vw, 76px); letter-spacing: 0.02em;"
+        set:html={title}
+      />
+      {subtitle && (
+        <p class="text-muted text-[16px] leading-relaxed max-w-2xl">{subtitle}</p>
+      )}
+    </div>
+  </div>
+</section>

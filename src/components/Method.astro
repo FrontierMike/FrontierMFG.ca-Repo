@@ -1,24 +1,25 @@
 ---
-// The spine of the page: SEE -> TARGET -> PROVE. Replaces the old 4-step Process
-// as the core narrative (the engagement steps now live in Start.astro as the pilot).
+// The engagement spine: SEE -> TARGET -> PROVE. This is how we consult — measure
+// first, fix what pays, prove it. BASELINE (our monitoring kit) is the tool inside
+// "See", not the headline.
 const steps = [
   {
     num: "01",
     key: "See",
     title: "See",
-    description: "BASELINE clamps onto the machines you already run and streams live OEE, downtime, and MTBF to a dashboard on your own network — in days, not months. No PLC changes, no line stoppage, no big IT project. For the first time you see exactly when each asset runs, stalls, and starves, shift by shift.",
+    description: "We start by making production visible. Often that means BASELINE — our own monitoring kit that clamps onto the machines you already run and streams live OEE, downtime, and MTBF to a dashboard on your network, in days, with no PLC changes. Already have the data? We'll work from yours. Either way, the goal is the same: see exactly when each asset runs, stalls, and starves — shift by shift.",
   },
   {
     num: "02",
     key: "Target",
     title: "Target",
-    description: "The data ends the guesswork. It shows where money actually leaks — the real constraint, not the one everyone blames — and what each hour of downtime costs. From there we scope the fix and right-size the automation: sometimes a cobot or a hard-automation cell, sometimes just a changeover tweak or a sensor interlock. Every recommendation is ranked by dollars recovered and backed by weeks of your own production data — so you spend capital where the payback is provable, not where a vendor points.",
+    description: "The data ends the guesswork. It shows where money actually leaks — the real constraint, not the one everyone blames — and what each hour of downtime costs. From there we scope the fix and right-size the automation: sometimes a cobot or a hard-automation cell, sometimes just a changeover tweak or a sensor interlock. Every recommendation is ranked by dollars recovered and backed by real production data — so you spend capital where the payback is provable, not where a vendor points.",
   },
   {
     num: "03",
     key: "Prove",
     title: "Prove",
-    description: "After the change, the same dashboard shows before and after — same machines, same math. Throughput, uptime, and OEE move on your numbers, not in a slide deck. You see the ROI the next shift, and the kit keeps measuring so the gains hold instead of quietly eroding.",
+    description: "After the change, the same numbers show before and after — same machines, same math. Throughput, uptime, and OEE move on your data, not in a slide deck. You see the ROI the next shift, and if the monitoring stays in place, the gains hold instead of quietly eroding.",
   },
 ];
 ---
@@ -35,8 +36,8 @@ const steps = [
         style="font-size: clamp(36px, 4vw, 56px);"
       >See → Target → Prove</h2>
       <p class="text-muted text-[15px] leading-relaxed">
-        BASELINE makes production visible. From there, aim automation where it actually
-        pays — and prove the result on the same numbers.
+        We don't guess. We make production visible, aim the fix where it actually pays,
+        and prove the result on the same numbers — automation, controls, or process.
       </p>
     </div>
 

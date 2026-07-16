@@ -1,0 +1,28 @@
+---
+// Reusable closing CTA band for subpages. Points back to the contact form on home.
+interface Props {
+  heading?: string;
+  body?: string;
+}
+const {
+  heading = "Let's Talk Through Your Problem",
+  body = "First call is always free — 30 minutes, no commitment, no sales pitch. Tell us what's slowing the floor down and we'll tell you what we'd do about it.",
+} = Astro.props;
+---
+<section class="bg-dark py-24 border-t border-white/7">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="max-w-2xl">
+      <h2
+        class="font-display font-extrabold uppercase text-primary mb-5"
+        style="font-size: clamp(32px, 4vw, 52px);"
+      >{heading}</h2>
+      <p class="text-muted text-[15px] leading-relaxed mb-9 max-w-xl">{body}</p>
+      <a
+        href="/#contact"
+        class="inline-flex items-center bg-accent hover:bg-accent-dark text-dark font-display font-bold text-[13px] tracking-[0.1em] uppercase px-7 py-4 transition-all duration-200 hover:-translate-y-0.5"
+      >
+        Book a Free Consultation →
+      </a>
+    </div>
+  </div>
+</section>
