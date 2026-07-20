@@ -1,61 +1,55 @@
 ---
-// The page's loud conversion point. Consulting (available now) is the primary
-// amber card; the BASELINE monitoring pilot (coming soon) is the secondary path.
+// The page's conversion point. Consulting (available now) is the primary card;
+// the BASELINE pilot (coming soon) is the secondary path.
 ---
-<section id="start" class="bg-card py-24 border-t border-white/7">
+<section id="start" class="bg-page py-20 md:py-24">
   <div class="max-w-7xl mx-auto px-6">
 
-    <div class="mb-16 max-w-2xl">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="w-6 h-px bg-accent"></div>
-        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">Two Ways To Start</span>
-      </div>
-      <h2
-        class="font-display font-extrabold uppercase text-primary mb-4"
-        style="font-size: clamp(36px, 4vw, 56px);"
-      >Start With A Conversation</h2>
-      <p class="text-muted text-[15px] leading-relaxed">
+    <div class="mb-12 max-w-2xl">
+      <p class="text-[12px] font-semibold tracking-[0.16em] uppercase text-accent mb-3">Two ways to start</p>
+      <h2 class="text-ink font-bold mb-4" style="font-size: clamp(30px, 3.5vw, 44px);">Start with a conversation</h2>
+      <p class="text-muted text-[16px] leading-relaxed">
         Book a free call and talk through the problem — no commitment, no sales pitch. Or
         get on the list for a low-commitment monitoring pilot when spots open.
       </p>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-px bg-white/7">
+    <div class="grid lg:grid-cols-2 gap-6">
 
       <!-- Consulting now (primary) -->
-      <div class="relative bg-card p-8 md:p-10 flex flex-col">
-        <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-accent"></div>
-        <div class="flex items-center gap-3 mb-5">
-          <span class="font-display font-extrabold text-[22px] uppercase tracking-[0.08em] text-primary">Consulting</span>
-          <span class="font-display text-[10px] font-bold tracking-[0.18em] uppercase text-accent border border-accent/40 px-2 py-1">Available Now</span>
+      <div class="relative bg-white border border-line rounded-xl shadow-sm p-8 md:p-10 flex flex-col overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-accent"></div>
+        <div class="flex items-center gap-3 mb-4">
+          <h3 class="text-ink font-bold text-[22px]">Consulting</h3>
+          <span class="text-[11px] font-bold uppercase tracking-[0.08em] text-accent bg-accent/8 rounded-full px-3 py-1">Available now</span>
         </div>
-        <p class="font-display text-[13px] font-semibold tracking-[0.12em] uppercase text-accent mb-5">Automation, Controls &amp; Process</p>
-        <p class="text-muted text-[15px] leading-relaxed mb-6">
+        <p class="text-[13px] font-semibold text-accent mb-4">Automation, controls &amp; process</p>
+        <p class="text-muted text-[15.5px] leading-relaxed mb-6">
           The full spectrum, from automation and controls to process. A free 30-minute
           call to scope it, then a clear written proposal. No commitment to find out if
           it's worth doing.
         </p>
-        <ul class="flex flex-col gap-3 mb-8">
+        <ul class="flex flex-col gap-2.5 mb-8">
           {[
             "Free 30-minute discovery call",
             "Written proposal, fixed or hourly",
             "Two people who build what they spec",
           ].map((f) => (
-            <li class="flex items-start gap-3 text-muted text-[14px] leading-relaxed">
-              <span class="text-accent mt-0.5 flex-shrink-0">→</span>{f}
+            <li class="flex items-start gap-3 text-muted text-[15px] leading-relaxed">
+              <span class="text-accent font-bold mt-0.5 flex-shrink-0">→</span>{f}
             </li>
           ))}
         </ul>
-        <div class="mt-auto flex items-center gap-5">
+        <div class="mt-auto flex flex-wrap items-center gap-5">
           <a
             href="#contact"
-            class="inline-flex items-center bg-accent hover:bg-accent-dark text-dark font-display font-bold text-[14px] tracking-[0.1em] uppercase px-6 py-3.5 transition-all duration-200 hover:-translate-y-0.5"
+            class="inline-flex items-center bg-accent hover:bg-accent-dark text-white font-semibold text-[15px] px-6 py-3 rounded-md transition-colors duration-200"
           >
-            Book a Free Consultation
+            Book a free consultation
           </a>
           <a
             href="/services"
-            class="font-display text-[11px] font-semibold tracking-[0.15em] uppercase text-dim hover:text-accent transition-colors"
+            class="text-muted hover:text-accent font-medium text-[14px] transition-colors"
           >
             See all services →
           </a>
@@ -63,39 +57,38 @@
       </div>
 
       <!-- BASELINE pilot (coming soon) -->
-      <div class="relative bg-card p-8 md:p-10 flex flex-col">
-        <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-white/15"></div>
-        <div class="flex items-center gap-3 mb-5">
-          <span class="font-display font-extrabold text-[22px] uppercase tracking-[0.08em] text-primary">BASELINE</span>
-          <span class="font-display text-[10px] font-bold tracking-[0.18em] uppercase text-muted border border-white/15 px-2 py-1">Pilot — Coming Soon</span>
+      <div class="bg-white border border-line rounded-xl shadow-sm p-8 md:p-10 flex flex-col">
+        <div class="flex items-center gap-3 mb-4">
+          <h3 class="text-ink font-bold text-[22px]">BASELINE</h3>
+          <span class="text-[11px] font-bold uppercase tracking-[0.08em] text-muted bg-tint border border-line rounded-full px-3 py-1">Pilot — coming soon</span>
         </div>
-        <p class="font-display text-[13px] font-semibold tracking-[0.12em] uppercase text-muted mb-5">The Monitoring Pilot</p>
-        <p class="text-muted text-[15px] leading-relaxed mb-6">
+        <p class="text-[13px] font-semibold text-muted mb-4">The monitoring pilot</p>
+        <p class="text-muted text-[15.5px] leading-relaxed mb-6">
           BASELINE is our manufacturing IoT platform — a small kit on one or more machines,
           streaming live OEE, downtime, and MTBF to a dashboard in days. Get on the list to
           see what you've been missing before you commit to anything bigger.
         </p>
-        <ul class="flex flex-col gap-3 mb-8">
+        <ul class="flex flex-col gap-2.5 mb-8">
           {[
             "Live OEE, downtime & MTBF in days",
             "No PLC changes, no line stoppage",
             "Your data stays on your network",
           ].map((f) => (
-            <li class="flex items-start gap-3 text-muted text-[14px] leading-relaxed">
-              <span class="text-accent mt-0.5 flex-shrink-0">→</span>{f}
+            <li class="flex items-start gap-3 text-muted text-[15px] leading-relaxed">
+              <span class="text-accent font-bold mt-0.5 flex-shrink-0">→</span>{f}
             </li>
           ))}
         </ul>
-        <div class="mt-auto flex items-center gap-5">
+        <div class="mt-auto flex flex-wrap items-center gap-5">
           <a
             href="#contact"
-            class="inline-flex items-center border-2 border-accent text-accent hover:bg-accent hover:text-dark font-display font-bold text-[14px] tracking-[0.1em] uppercase px-6 py-3.5 transition-all duration-200"
+            class="inline-flex items-center border-2 border-accent text-accent hover:bg-accent hover:text-white font-semibold text-[15px] px-6 py-[10px] rounded-md transition-colors duration-200"
           >
-            Join the Pilot List →
+            Join the pilot list →
           </a>
           <a
             href="/baseline"
-            class="font-display text-[11px] font-semibold tracking-[0.15em] uppercase text-dim hover:text-accent transition-colors"
+            class="text-muted hover:text-accent font-medium text-[14px] transition-colors"
           >
             Learn more →
           </a>

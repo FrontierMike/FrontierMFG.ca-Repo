@@ -14,7 +14,7 @@ const description = "Automation, PLC/SCADA, controls, integration, process impro
   <Nav />
   <main>
     <PageHero
-      eyebrow="Automation & Manufacturing Consulting"
+      eyebrow="Automation & manufacturing consulting"
       title="Services"
       subtitle="Practical, hands-on help across automation, controls, and process — available today. We scope the work, prove it's worth doing, and build it ourselves."
     />
@@ -22,20 +22,19 @@ const description = "Automation, PLC/SCADA, controls, integration, process impro
     <ServicesGrid />
 
     <!-- BASELINE monitoring: one highlighted offering, coming soon -->
-    <section class="bg-card py-24 border-t border-white/7">
+    <section class="bg-page py-20 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="relative bg-surface border border-white/7 p-8 md:p-12 overflow-hidden">
-          <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-accent"></div>
+        <div class="bg-band rounded-2xl p-8 md:p-12 overflow-hidden">
           <div class="grid lg:grid-cols-[1.4fr_1fr] gap-10 lg:gap-16 items-center">
             <div>
-              <div class="flex items-center gap-3 mb-5">
-                <span class="font-display font-extrabold text-[22px] uppercase tracking-[0.08em] text-primary">BASELINE</span>
-                <span class="font-display text-[10px] font-bold tracking-[0.18em] uppercase text-muted border border-white/15 px-2 py-1">Pilot — Coming Soon</span>
+              <div class="flex items-center gap-3 mb-4">
+                <span class="text-white font-bold text-[20px]">BASELINE</span>
+                <span class="text-[11px] font-bold uppercase tracking-[0.08em] text-white/70 border border-white/25 rounded-full px-3 py-1">Pilot — coming soon</span>
               </div>
-              <h2 class="font-display font-bold text-[24px] md:text-[28px] uppercase tracking-[0.04em] text-primary mb-4 leading-tight">
-                Shop-Floor Monitoring & OEE
+              <h2 class="text-white font-bold text-[24px] md:text-[28px] mb-4 leading-tight">
+                Shop-floor monitoring &amp; OEE
               </h2>
-              <p class="text-muted text-[15px] leading-relaxed mb-6 max-w-xl">
+              <p class="text-white/65 text-[15.5px] leading-relaxed mb-6 max-w-xl">
                 You can't fix what you can't see. BASELINE is our own manufacturing IoT
                 platform — a small kit that clamps onto the machines you already run and
                 streams live OEE, downtime, and MTBF to a dashboard on your network, in
@@ -45,13 +44,13 @@ const description = "Automation, PLC/SCADA, controls, integration, process impro
               <div class="flex flex-wrap items-center gap-6">
                 <a
                   href="/what-is-oee"
-                  class="font-display font-semibold text-[13px] tracking-[0.1em] uppercase text-accent hover:text-accent-dark transition-colors duration-200"
+                  class="text-[#e25a4f] hover:text-white font-medium text-[15px] transition-colors duration-200"
                 >
                   What is OEE? →
                 </a>
                 <a
                   href="/baseline"
-                  class="font-display font-semibold text-[13px] tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors duration-200"
+                  class="text-white/60 hover:text-white font-medium text-[15px] transition-colors duration-200"
                 >
                   See a live dashboard →
                 </a>
@@ -64,8 +63,8 @@ const description = "Automation, PLC/SCADA, controls, integration, process impro
                 "Your data stays on your own network",
                 "Hardware that costs less than a day of downtime",
               ].map((f) => (
-                <li class="flex items-start gap-3 text-muted text-[14px] leading-relaxed">
-                  <span class="text-accent mt-0.5 flex-shrink-0">→</span>{f}
+                <li class="flex items-start gap-3 text-white/70 text-[15px] leading-relaxed">
+                  <span class="text-[#e25a4f] font-bold mt-0.5 flex-shrink-0">→</span>{f}
                 </li>
               ))}
             </ul>

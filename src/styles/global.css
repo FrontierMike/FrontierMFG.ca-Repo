@@ -1,15 +1,22 @@
 @import "tailwindcss";
 
+/*
+  Design system (2026-07 redesign): light professional ground, charcoal ink,
+  deep red accent reserved for CTAs, links, and small data details. Dark
+  charcoal "band" sections (hero, BASELINE teaser, closing CTA, footer) give
+  the page rhythm. Sentence-case headlines; uppercase only on small eyebrows.
+*/
 @theme {
-  --color-dark: #0e0f0d;
-  --color-card: #111210;
-  --color-surface: #161714;
-  --color-accent: #9e161b;
-  --color-accent-dark: #741016;
-  --color-primary: #f0ece2;
-  --color-muted: #888880;
-  --color-dim: #444441;
-  --font-display: "Barlow Condensed", sans-serif;
+  --color-page: #ffffff;    /* main section ground */
+  --color-tint: #f4f6f8;    /* alternating section ground */
+  --color-band: #152028;    /* dark charcoal-navy band sections */
+  --color-ink: #1e2732;     /* headings / primary text on light */
+  --color-muted: #5a6570;   /* body text on light */
+  --color-dim: #98a2ac;     /* captions, placeholders */
+  --color-accent: #b3261e;  /* deep red — CTAs, links, key data */
+  --color-accent-dark: #8f1d17;
+  --color-line: #e3e7eb;    /* borders on light */
+  --font-display: "Barlow", sans-serif;
 }
 
 html {
@@ -23,10 +30,10 @@ section[id] {
 }
 
 body {
-  background-color: #0e0f0d;
-  color: #f0ece2;
+  background-color: #ffffff;
+  color: #1e2732;
   font-family: "Barlow", sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   overflow-x: hidden;
 }
 

@@ -1,55 +1,46 @@
 ---
-// Consulting differentiators, in the site's number/left-accent-bar card style.
+// Consulting differentiators as white cards.
 const reasons = [
   {
-    title: "Two People, No Handoffs",
+    title: "Two people, no handoffs",
     description:
       "The people who scope the work are the people who spec it and build it. No account managers, no junior team learning on your dime.",
   },
   {
-    title: "40+ Years Combined",
+    title: "40+ years combined",
     description:
       "Senior hardware and software experience across industrial systems, embedded development, and manufacturing.",
   },
   {
-    title: "Vendor-Neutral",
+    title: "Vendor-neutral",
     description:
       "We don't sell hardware. Recommendations are ranked by payback, not commission — if the right fix is a $200 sensor, that's the proposal.",
   },
   {
-    title: "Right-Sized Fixes",
+    title: "Right-sized fixes",
     description:
       "Sometimes it's a full automation cell. Often it's a changeover tweak or an interlock. You get the smallest fix that pays, not the biggest one that sells.",
   },
 ];
 ---
-<section id="why" class="bg-dark py-24">
+<section id="why" class="bg-page py-20 md:py-24">
   <div class="max-w-7xl mx-auto px-6">
 
-    <div class="mb-16 max-w-2xl">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="w-6 h-px bg-accent flex-shrink-0"></div>
-        <span class="min-w-0 font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">Why Frontier</span>
-      </div>
-      <h2
-        class="font-display font-extrabold uppercase text-primary mb-4"
-        style="font-size: clamp(36px, 4vw, 56px);"
-      >Worth The Call</h2>
-      <p class="text-muted text-[15px] leading-relaxed">
+    <div class="mb-12 max-w-2xl">
+      <p class="text-[12px] font-semibold tracking-[0.16em] uppercase text-accent mb-3">Why Frontier</p>
+      <h2 class="text-ink font-bold mb-4" style="font-size: clamp(30px, 3.5vw, 44px);">Worth the call</h2>
+      <p class="text-muted text-[16px] leading-relaxed">
         A small firm on purpose. You talk to the people doing the work, and the advice
         isn't attached to a hardware catalogue.
       </p>
     </div>
 
-    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-px bg-white/7">
+    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
       {reasons.map((r, i) => (
-        <div class="relative bg-dark p-8 overflow-hidden">
-          <div class="absolute left-0 top-0 w-0.5 bg-accent" style="height: 40%;"></div>
-          <span class="font-display font-extrabold text-accent text-[13px] tracking-[0.15em] block mb-4">{String(i + 1).padStart(2, "0")}</span>
-          <h3 class="font-display font-bold text-[20px] uppercase tracking-[0.05em] text-primary mb-3">
-            {r.title}
-          </h3>
-          <p class="text-muted text-[14px] leading-relaxed">{r.description}</p>
+        <div class="bg-white border border-line rounded-xl p-7 shadow-sm hover:shadow-md transition-shadow duration-200">
+          <span class="text-[13px] font-bold text-accent block mb-3">{String(i + 1).padStart(2, "0")}</span>
+          <h3 class="text-ink font-semibold text-[18px] mb-2.5">{r.title}</h3>
+          <p class="text-muted text-[14.5px] leading-relaxed">{r.description}</p>
         </div>
       ))}
     </div>

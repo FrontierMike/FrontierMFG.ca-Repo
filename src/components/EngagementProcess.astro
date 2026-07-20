@@ -1,55 +1,46 @@
 ---
-// How an engagement runs, start to finish. Lives on /services under the grid.
+// How an engagement runs, start to finish. Used on home and /services.
 const steps = [
   {
-    num: "01",
-    title: "Free Discovery Call",
+    num: "1",
+    title: "Free discovery call",
     description: "A free 30-minute call to understand your operation, constraints, and goals. No commitment, no sales pitch.",
   },
   {
-    num: "02",
-    title: "Site Assessment",
+    num: "2",
+    title: "Site assessment",
     description: "Where it helps, we visit the facility to observe processes, audit equipment, and gather the data the decision actually needs.",
   },
   {
-    num: "03",
-    title: "Proposal & Scope",
+    num: "3",
+    title: "Proposal & scope",
     description: "A clear written proposal with defined deliverables, timeline, and fixed or hourly pricing — so you know exactly what you're buying.",
   },
   {
-    num: "04",
+    num: "4",
     title: "Delivery",
     description: "We do the work, keep you informed throughout, and hand over documentation at completion — built to run without us.",
   },
 ];
 ---
-<section id="process" class="bg-card py-24 border-t border-white/7">
+<section id="process" class="bg-tint py-20 md:py-24 border-y border-line">
   <div class="max-w-7xl mx-auto px-6">
 
-    <div class="mb-16 max-w-2xl">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="w-6 h-px bg-accent"></div>
-        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">How It Works</span>
-      </div>
-      <h2
-        class="font-display font-extrabold uppercase text-primary mb-4"
-        style="font-size: clamp(36px, 4vw, 56px);"
-      >Our Process</h2>
-      <p class="text-muted text-[15px] leading-relaxed">
+    <div class="mb-12 max-w-2xl">
+      <p class="text-[12px] font-semibold tracking-[0.16em] uppercase text-accent mb-3">How it works</p>
+      <h2 class="text-ink font-bold mb-4" style="font-size: clamp(30px, 3.5vw, 44px);">Our process</h2>
+      <p class="text-muted text-[16px] leading-relaxed">
         Low-risk by design. You find out whether the work is worth doing before you spend
         a dollar on it.
       </p>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/7">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
       {steps.map((step) => (
-        <div class="relative bg-card p-8 overflow-hidden">
-          <div class="absolute left-0 top-0 w-0.5 bg-accent" style="height: 40%;"></div>
-          <span class="font-display font-extrabold text-accent text-[13px] tracking-[0.15em] block mb-4">{step.num}</span>
-          <h3 class="font-display font-bold text-[18px] uppercase tracking-[0.05em] text-primary mb-3 leading-tight">
-            {step.title}
-          </h3>
-          <p class="text-muted text-[14px] leading-relaxed">{step.description}</p>
+        <div class="bg-white border border-line rounded-xl p-7 shadow-sm">
+          <span class="flex items-center justify-center w-10 h-10 rounded-full border-2 border-accent text-accent font-bold text-[16px] mb-4">{step.num}</span>
+          <h3 class="text-ink font-semibold text-[17px] mb-2.5 leading-snug">{step.title}</h3>
+          <p class="text-muted text-[14.5px] leading-relaxed">{step.description}</p>
         </div>
       ))}
     </div>

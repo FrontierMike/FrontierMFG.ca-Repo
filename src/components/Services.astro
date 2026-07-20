@@ -1,55 +1,48 @@
 ---
-// Home teaser for the full /services page. Consulting-first ordering; the full
-// icon-card grid + engagement process live on /services.
+// Home teaser for the full /services page. Consulting-first ordering.
 const services = [
-  "Process Automation",
-  "PLC / SCADA Programming",
-  "Controls Design",
-  "Hardware & Software Integration",
-  "Process Improvement",
-  "Feasibility Studies",
-  "Design for Manufacturing",
-  "Machining Consultation",
+  "Process automation",
+  "PLC / SCADA programming",
+  "Controls design",
+  "Hardware & software integration",
+  "Process improvement",
+  "Feasibility studies",
+  "Design for manufacturing",
+  "Machining consultation",
 ];
 ---
-<section id="services" class="bg-card py-20 border-t border-white/7">
+<section id="services" class="bg-tint py-20 md:py-24 border-y border-line">
   <div class="max-w-7xl mx-auto px-6">
 
     <div class="mb-10 max-w-2xl">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="w-6 h-px bg-accent"></div>
-        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">What We Do</span>
-      </div>
-      <h2
-        class="font-display font-extrabold uppercase text-primary mb-4"
-        style="font-size: clamp(36px, 4vw, 56px);"
-      >Services</h2>
-      <p class="text-muted text-[15px] leading-relaxed">
+      <p class="text-[12px] font-semibold tracking-[0.16em] uppercase text-accent mb-3">What we do</p>
+      <h2 class="text-ink font-bold mb-4" style="font-size: clamp(30px, 3.5vw, 44px);">Services</h2>
+      <p class="text-muted text-[16px] leading-relaxed">
         Hands-on help across the full spectrum — from automation and controls to process
         improvement and shop-floor monitoring. Available now for manufacturers across
         Western Canada.
       </p>
     </div>
 
-    <ul class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-4 mb-10">
+    <ul class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-3 mb-10">
       {services.map((title, i) => (
-        <li class="flex items-baseline gap-3 border-l-2 border-accent/40 pl-4 py-1">
-          <span class="font-display text-[11px] font-semibold tracking-[0.15em] text-dim">{String(i + 1).padStart(2, "0")}</span>
-          <span class="font-display font-bold text-[15px] uppercase tracking-[0.05em] text-primary">{title}</span>
+        <li class="flex items-baseline gap-3 bg-white border border-line rounded-lg px-4 py-3">
+          <span class="text-[12px] font-bold text-accent">{String(i + 1).padStart(2, "0")}</span>
+          <span class="text-ink font-medium text-[15px]">{title}</span>
         </li>
       ))}
     </ul>
 
-    <div class="flex flex-wrap items-center gap-6">
+    <div class="flex flex-wrap items-center gap-5">
       <a
         href="/services"
-        class="inline-flex items-center bg-accent hover:bg-accent-dark text-dark font-display font-bold text-[14px] tracking-[0.1em] uppercase px-6 py-3.5 transition-all duration-200 hover:-translate-y-0.5"
+        class="inline-flex items-center bg-accent hover:bg-accent-dark text-white font-semibold text-[15px] px-6 py-3 rounded-md transition-colors duration-200"
       >
-        Explore All Services →
+        Explore all services →
       </a>
       <a
         href="#contact"
-        class="font-display font-semibold text-[13px] tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors duration-200"
+        class="text-muted hover:text-accent font-medium text-[15px] transition-colors duration-200"
       >
         Already know your problem? Book a free call →
       </a>

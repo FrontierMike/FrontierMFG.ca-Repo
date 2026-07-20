@@ -1,27 +1,24 @@
 ---
-// Small home-page teaser pointing at /baseline — the product keeps one honest
-// slot on the consulting home page instead of leaking into every section.
+// The product's one slot on the consulting home page: a dark band pointing at
+// /baseline. Mirrors the hero band for page rhythm.
 ---
-<section class="bg-card border-y border-white/7">
-  <div class="max-w-7xl mx-auto px-6 py-12 md:py-14 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+<section class="bg-band">
+  <div class="max-w-7xl mx-auto px-6 py-14 md:py-16 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
     <div class="max-w-2xl">
-      <div class="flex items-center gap-3 mb-3">
-        <div class="w-6 h-px bg-accent flex-shrink-0"></div>
-        <span class="min-w-0 font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">Our Monitoring Platform</span>
-      </div>
-      <p class="font-display font-extrabold uppercase text-primary leading-tight mb-3" style="font-size: clamp(22px, 2.5vw, 34px);">
-        BASELINE — Your Real OEE In Days
+      <p class="text-[12px] font-semibold tracking-[0.16em] uppercase text-white/50 mb-3">Our monitoring platform</p>
+      <p class="text-white font-bold leading-tight mb-3" style="font-size: clamp(24px, 2.6vw, 34px);">
+        BASELINE — your real OEE in days
       </p>
-      <p class="text-muted text-[15px] leading-relaxed">
+      <p class="text-white/65 text-[15.5px] leading-relaxed">
         A small kit on the machines you already run, streaming live OEE, downtime, and
         MTBF to a dashboard on your own network. Pilots opening soon.
       </p>
     </div>
     <a
       href="/baseline"
-      class="inline-flex self-start md:self-center items-center whitespace-nowrap border-2 border-accent text-accent hover:bg-accent hover:text-dark font-display font-bold text-[14px] tracking-[0.1em] uppercase px-6 py-3.5 transition-all duration-200"
+      class="inline-flex self-start md:self-center items-center whitespace-nowrap bg-accent hover:bg-accent-dark text-white font-semibold text-[15px] px-6 py-3.5 rounded-md transition-colors duration-200"
     >
-      See The Platform →
+      See the platform →
     </a>
   </div>
 </section>

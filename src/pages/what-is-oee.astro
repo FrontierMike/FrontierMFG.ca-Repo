@@ -6,7 +6,7 @@ import Benefits from '../components/Benefits.astro';
 import CTASection from '../components/CTASection.astro';
 import Footer from '../components/Footer.astro';
 
-const title = "What Is OEE? | Frontier Manufacturing Services";
+const title = "What is OEE? | Frontier Manufacturing Services";
 const description = "A plain-language guide to Overall Equipment Effectiveness (OEE): what it measures, the three factors (Availability, Performance, Quality), how it's calculated, and why it pays. From Frontier Manufacturing Services.";
 
 // The three OEE factors, explained in plain language with a relatable loss + example.
@@ -39,37 +39,34 @@ const factors = [
   <main>
     <PageHero
       eyebrow="Overall Equipment Effectiveness"
-      title={`What Is <span class="text-accent">OEE</span>?`}
+      title={`What is <span class="text-accent">OEE</span>?`}
       subtitle="OEE is a single score for how much good product a machine actually makes, compared to the most it could make running perfectly. It turns a vague feeling that “the line is slow” into a number you can act on."
     />
 
     <!-- The hidden factory -->
-    <section class="bg-card py-24 border-t border-white/7">
+    <section class="bg-tint py-20 md:py-24 border-b border-line">
       <div class="max-w-7xl mx-auto px-6">
         <div class="max-w-3xl">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-6 h-px bg-accent"></div>
-            <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">The Hidden Factory</span>
-          </div>
-          <h2 class="font-display font-extrabold uppercase text-primary mb-6" style="font-size: clamp(30px, 3.5vw, 48px);">
-            You're Already Paying For Capacity You Don't Get
+          <p class="text-[12px] font-semibold tracking-[0.16em] uppercase text-accent mb-3">The hidden factory</p>
+          <h2 class="text-ink font-bold mb-6" style="font-size: clamp(26px, 3vw, 40px);">
+            You're already paying for capacity you don't get
           </h2>
           <div class="flex flex-col gap-5 text-muted text-[16px] leading-relaxed">
             <p>
               Every machine has a ceiling — the amount it would produce running flat-out,
               all shift, with zero scrap. No shop ever hits that ceiling. The gap between
-              what a machine <em class="not-italic text-primary">could</em> make and what it
-              <em class="not-italic text-primary">actually</em> makes is often called the
-              “hidden factory”: real output you're paying rent, wages, and power for, but
-              never see.
+              what a machine <em class="not-italic font-semibold text-ink">could</em> make and what it
+              <em class="not-italic font-semibold text-ink">actually</em> makes is often
+              called the “hidden factory”: real output you're paying rent, wages, and power
+              for, but never see.
             </p>
             <p>
               OEE measures that gap. An OEE of 100% would mean every scheduled minute made a
               good part at full speed — perfect, and impossible. A real number, say
-              <span class="text-primary">74%</span>, means about a quarter of your potential
-              output quietly disappeared to stops, slow running, and scrap. The point isn't
-              the score itself. It's that OEE breaks the loss into three parts you can
-              actually do something about.
+              <span class="font-semibold text-ink">74%</span>, means about a quarter of your
+              potential output quietly disappeared to stops, slow running, and scrap. The
+              point isn't the score itself. It's that OEE breaks the loss into three parts
+              you can actually do something about.
             </p>
           </div>
         </div>
@@ -77,34 +74,30 @@ const factors = [
     </section>
 
     <!-- The three factors -->
-    <section class="bg-dark py-24">
+    <section class="bg-page py-20 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="mb-16 max-w-2xl">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-6 h-px bg-accent"></div>
-            <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">The Three Factors</span>
-          </div>
-          <h2 class="font-display font-extrabold uppercase text-primary mb-4" style="font-size: clamp(36px, 4vw, 56px);">
+        <div class="mb-12 max-w-2xl">
+          <p class="text-[12px] font-semibold tracking-[0.16em] uppercase text-accent mb-3">The three factors</p>
+          <h2 class="text-ink font-bold mb-4" style="font-size: clamp(28px, 3.5vw, 44px);">
             Availability × Performance × Quality
           </h2>
-          <p class="text-muted text-[15px] leading-relaxed">
+          <p class="text-muted text-[16px] leading-relaxed">
             OEE is three simple questions about every machine. Each one is a percentage,
             and each points at a different kind of loss.
           </p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-px bg-white/7">
+        <div class="grid md:grid-cols-3 gap-5">
           {factors.map((f) => (
-            <div class="relative bg-dark p-8 overflow-hidden">
-              <div class="absolute left-0 top-0 w-0.5 bg-accent" style="height: 40%;"></div>
-              <div class="flex items-baseline gap-3 mb-5">
-                <span class="font-display font-extrabold text-accent leading-none" style="font-size: 2.5rem;">{f.letter}</span>
-                <h3 class="font-display font-extrabold text-[24px] uppercase tracking-[0.05em] text-primary leading-none">{f.name}</h3>
+            <div class="bg-white border border-line rounded-xl p-7 shadow-sm">
+              <div class="flex items-baseline gap-3 mb-4">
+                <span class="text-accent font-bold leading-none" style="font-size: 2.4rem;">{f.letter}</span>
+                <h3 class="text-ink font-bold text-[20px]">{f.name}</h3>
               </div>
-              <p class="font-display text-primary text-[15px] font-semibold mb-4 leading-snug">{f.question}</p>
-              <p class="text-muted text-[14px] leading-relaxed mb-5">{f.loss}</p>
-              <p class="text-dim text-[13px] leading-relaxed border-t border-white/7 pt-4">
-                <span class="font-display font-semibold tracking-[0.12em] uppercase text-dim text-[11px] block mb-1.5">Example</span>
+              <p class="text-ink text-[15.5px] font-semibold mb-3 leading-snug">{f.question}</p>
+              <p class="text-muted text-[14.5px] leading-relaxed mb-5">{f.loss}</p>
+              <p class="text-dim text-[13.5px] leading-relaxed border-t border-line pt-4">
+                <span class="font-semibold uppercase tracking-[0.08em] text-dim text-[11px] block mb-1.5">Example</span>
                 {f.example}
               </p>
             </div>
@@ -114,50 +107,46 @@ const factors = [
     </section>
 
     <!-- The math / worked example -->
-    <section class="bg-card py-24 border-t border-white/7">
+    <section class="bg-tint py-20 md:py-24 border-y border-line">
       <div class="max-w-7xl mx-auto px-6">
-        <div class="mb-14 max-w-2xl">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-6 h-px bg-accent"></div>
-            <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">The Math</span>
-          </div>
-          <h2 class="font-display font-extrabold uppercase text-primary mb-4" style="font-size: clamp(36px, 4vw, 56px);">
-            Multiply The Three
+        <div class="mb-12 max-w-2xl">
+          <p class="text-[12px] font-semibold tracking-[0.16em] uppercase text-accent mb-3">The math</p>
+          <h2 class="text-ink font-bold mb-4" style="font-size: clamp(28px, 3.5vw, 44px);">
+            Multiply the three
           </h2>
-          <p class="text-muted text-[15px] leading-relaxed">
+          <p class="text-muted text-[16px] leading-relaxed">
             Because you multiply the factors, losses stack. Three “pretty good” numbers can
             add up to a mediocre OEE — which is exactly why it's worth measuring.
           </p>
         </div>
 
         <!-- formula row: vertical equation on mobile, horizontal on desktop -->
-        <div class="flex flex-col sm:flex-row items-stretch gap-px bg-white/7 mb-10">
+        <div class="flex flex-col sm:flex-row items-stretch gap-4 mb-8">
           {[
             { k: "Availability", v: "89%" },
             { k: "Performance", v: "88%" },
             { k: "Quality", v: "94%" },
           ].map((cell, i) => (
             <>
-              <div class="flex-1 bg-card p-6 text-center flex flex-col justify-center">
-                <div class="font-display font-extrabold text-primary leading-none" style="font-size: 2.5rem;">{cell.v}</div>
-                <div class="font-display text-[11px] font-semibold tracking-[0.15em] uppercase text-dim mt-2">{cell.k}</div>
+              <div class="flex-1 bg-white border border-line rounded-xl shadow-sm p-6 text-center flex flex-col justify-center">
+                <div class="font-bold text-ink leading-none" style="font-size: 2.4rem;">{cell.v}</div>
+                <div class="text-[13px] font-medium text-dim mt-2">{cell.k}</div>
               </div>
               {i < 2 && (
-                <div class="bg-card px-6 py-3 sm:py-6 flex items-center justify-center">
-                  <span class="font-display font-extrabold text-accent text-[28px]">×</span>
+                <div class="flex items-center justify-center px-2 py-1 sm:py-0">
+                  <span class="text-accent font-bold text-[26px]">×</span>
                 </div>
               )}
             </>
           ))}
         </div>
 
-        <div class="relative bg-surface border border-white/7 p-8 md:p-10 overflow-hidden max-w-3xl">
-          <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-accent"></div>
+        <div class="bg-white border border-line rounded-xl shadow-sm p-8 md:p-10 max-w-3xl">
           <div class="flex flex-wrap items-baseline gap-4 mb-4">
-            <span class="font-display text-[13px] font-semibold tracking-[0.15em] uppercase text-dim">OEE =</span>
-            <span class="font-display font-extrabold text-accent leading-none" style="font-size: clamp(44px, 6vw, 64px);">74%</span>
+            <span class="text-[14px] font-semibold uppercase tracking-[0.08em] text-dim">OEE =</span>
+            <span class="font-bold text-accent leading-none" style="font-size: clamp(40px, 6vw, 60px);">74%</span>
           </div>
-          <p class="text-muted text-[15px] leading-relaxed max-w-xl">
+          <p class="text-muted text-[15.5px] leading-relaxed max-w-xl">
             0.89 × 0.88 × 0.94 ≈ 0.74. Each factor looked healthy on its own — but stacked,
             more than a quarter of the machine's potential output is gone. That 26% is the
             hidden factory, and it's where the money is.
@@ -167,44 +156,41 @@ const factors = [
     </section>
 
     <!-- Benchmarks / payoff -->
-    <section class="bg-dark py-24 border-t border-white/7">
+    <section class="bg-page py-20 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid lg:grid-cols-2 gap-12 xl:gap-20 items-start">
           <div>
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-6 h-px bg-accent"></div>
-              <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">Where You Stand</span>
-            </div>
-            <h2 class="font-display font-extrabold uppercase text-primary mb-6" style="font-size: clamp(30px, 3.5vw, 48px);">
-              What's A Good Number?
+            <p class="text-[12px] font-semibold tracking-[0.16em] uppercase text-accent mb-3">Where you stand</p>
+            <h2 class="text-ink font-bold mb-6" style="font-size: clamp(26px, 3vw, 40px);">
+              What's a good number?
             </h2>
-            <div class="flex flex-col gap-5 text-muted text-[15px] leading-relaxed">
+            <div class="flex flex-col gap-5 text-muted text-[15.5px] leading-relaxed">
               <p>
-                As a rule of thumb, <span class="text-primary">~85% OEE is world-class</span>
+                As a rule of thumb, <span class="font-semibold text-ink">~85% OEE is world-class</span>
                 for a discrete manufacturer, and a typical shop that has never measured
-                often lands nearer <span class="text-primary">~60%</span>. Most operations
+                often lands nearer <span class="font-semibold text-ink">~60%</span>. Most operations
                 sit somewhere in between and are surprised how much lower their real number
                 is than their gut feel.
               </p>
               <p>
                 But the benchmark matters less than the trend. The value is watching
-                <em class="not-italic text-primary">your</em> number move as you fix things —
+                <em class="not-italic font-semibold text-ink">your</em> number move as you fix things —
                 and knowing which of the three factors to chase first.
               </p>
             </div>
           </div>
 
-          <div class="flex flex-col gap-px bg-white/7 border border-white/7">
+          <div class="flex flex-col gap-4">
             {[
               { band: "~85%", label: "World-class", note: "The realistic ceiling for most discrete manufacturing." },
               { band: "~60%", label: "Typical / unmeasured", note: "Common for a shop running on paper and gut feel." },
               { band: "Every point", label: "Is real output", note: "One OEE point is capacity you already pay for — recovered without buying a machine." },
             ].map((row) => (
-              <div class="bg-dark p-6 flex items-baseline gap-5">
-                <span class="font-display font-extrabold text-accent text-[22px] tracking-[0.02em] w-28 flex-shrink-0">{row.band}</span>
+              <div class="bg-white border border-line rounded-xl shadow-sm p-6 flex items-baseline gap-5">
+                <span class="text-accent font-bold text-[20px] w-28 flex-shrink-0">{row.band}</span>
                 <div>
-                  <div class="font-display font-bold text-[14px] uppercase tracking-[0.08em] text-primary mb-1">{row.label}</div>
-                  <p class="text-muted text-[13px] leading-relaxed">{row.note}</p>
+                  <div class="text-ink font-semibold text-[15px] mb-1">{row.label}</div>
+                  <p class="text-muted text-[14px] leading-relaxed">{row.note}</p>
                 </div>
               </div>
             ))}
@@ -217,19 +203,16 @@ const factors = [
     <Benefits />
 
     <!-- How Frontier measures it -->
-    <section class="bg-card py-24 border-t border-white/7">
+    <section class="bg-page py-20 md:py-24">
       <div class="max-w-7xl mx-auto px-6">
         <div class="max-w-3xl">
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-6 h-px bg-accent"></div>
-            <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">How We Measure It</span>
-          </div>
-          <h2 class="font-display font-extrabold uppercase text-primary mb-6" style="font-size: clamp(30px, 3.5vw, 48px);">
-            From Guesswork To Your Real Number
+          <p class="text-[12px] font-semibold tracking-[0.16em] uppercase text-accent mb-3">How we measure it</p>
+          <h2 class="text-ink font-bold mb-6" style="font-size: clamp(26px, 3vw, 40px);">
+            From guesswork to your real number
           </h2>
           <p class="text-muted text-[16px] leading-relaxed mb-6">
             You don't need a plant-wide software rollout to get an honest OEE. We use
-            <span class="text-primary">BASELINE</span>, our own monitoring kit, to read the
+            <span class="font-semibold text-ink">BASELINE</span>, our own monitoring kit, to read the
             machines you already run and put live Availability, Performance, and Quality on a
             dashboard in days — no PLC changes, no line stoppage, your data on your own
             network. From there we help you target the biggest loss and prove the fix on the
@@ -238,13 +221,13 @@ const factors = [
           <div class="flex flex-wrap items-center gap-6">
             <a
               href="/baseline"
-              class="font-display font-semibold text-[13px] tracking-[0.1em] uppercase text-accent hover:text-accent-dark transition-colors duration-200"
+              class="text-accent hover:text-accent-dark font-medium text-[15px] transition-colors duration-200"
             >
               See BASELINE in action →
             </a>
             <a
               href="/services"
-              class="font-display font-semibold text-[13px] tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors duration-200"
+              class="text-muted hover:text-accent font-medium text-[15px] transition-colors duration-200"
             >
               Explore our services →
             </a>
@@ -254,7 +237,7 @@ const factors = [
     </section>
 
     <CTASection
-      heading="Curious What Your OEE Actually Is?"
+      heading="Curious what your OEE actually is?"
       body="Book a free 30-minute call. We'll talk through your floor, what's likely costing you the most, and how we'd measure it — no commitment, no sales pitch."
     />
   </main>

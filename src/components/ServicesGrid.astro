@@ -1,94 +1,93 @@
 ---
-// Full services grid for /services. Icon-less cards matching the site's existing
-// number + title + description + left-accent-bar pattern (see Benefits/Method).
-// Consulting-first order. Note: DESIGN.md forbids the phrase "engineering services".
+// Full services grid for /services: white cards with icon tiles.
+// Icons live in /public/icons (stroke recolored to the accent red).
+// Note: DESIGN.md forbids the phrase "engineering services".
 const services = [
   {
-    title: "Process Automation",
+    title: "Process automation",
+    icon: "/icons/01-process-automation.svg",
     description:
       "Find the automation opportunities that actually pay, then implement them — cutting manual labour and lifting throughput. Sized to the payback, from a single sensor interlock to a full cell.",
   },
   {
-    title: "PLC / SCADA Programming",
+    title: "PLC / SCADA programming",
+    icon: "/icons/02-plc-scada-programming.svg",
     description:
       "Custom logic, HMI design, and commissioning support for Allen-Bradley, Siemens, and more — written to be read and maintained by the people who run it.",
   },
   {
-    title: "Controls Design",
+    title: "Controls design",
+    icon: "/icons/08-Controls-pulse-waveform.svg",
     description:
       "Panel layouts, I/O schematics, and control architecture designed for reliability and easy maintenance — not a black box only the installer understands.",
   },
   {
-    title: "Hardware & Software Integration",
+    title: "Hardware & software integration",
+    icon: "/icons/03-hardware-software-integration.svg",
     description:
       "Bridging industrial hardware and software — sensors, controllers, networks, and custom software that actually talk to each other and to the systems you already run.",
   },
   {
-    title: "Process Improvement",
+    title: "Process improvement",
+    icon: "/icons/04-process-improvement.svg",
     description:
       "Lean-informed analysis of production workflows to eliminate bottlenecks and cut waste — grounded in what the floor is actually doing, not a whiteboard.",
   },
   {
-    title: "Feasibility Studies",
+    title: "Feasibility studies",
+    icon: "/icons/05-feasibility-studies.svg",
     description:
       "Technical and economic assessments that validate an automation or production-change investment before you commit the capital.",
   },
   {
-    title: "Design for Manufacturing",
+    title: "Design for manufacturing",
+    icon: "/icons/06-design-for-manufacturing.svg",
     description:
       "DFM reviews that bridge design intent with production reality — reducing rework and material waste before parts ever hit the floor.",
   },
   {
-    title: "Machining Consultation",
+    title: "Machining consultation",
+    icon: "/icons/07-machining-consultation.svg",
     description:
       "Process parameters, toolpath strategy, and fixturing advice for CNC machining operations — from problem parts to cycle-time gains.",
   },
 ];
 ---
-<section id="services" class="bg-dark py-24">
+<section id="services" class="bg-tint py-20 md:py-24">
   <div class="max-w-7xl mx-auto px-6">
 
-    <div class="mb-16 max-w-2xl">
-      <div class="flex items-center gap-3 mb-4">
-        <div class="w-6 h-px bg-accent"></div>
-        <span class="font-display text-[11px] font-semibold tracking-[0.22em] uppercase text-accent">What We Do</span>
-      </div>
-      <h2
-        class="font-display font-extrabold uppercase text-primary mb-4"
-        style="font-size: clamp(36px, 4vw, 56px);"
-      >The Full Spectrum</h2>
-      <p class="text-muted text-[15px] leading-relaxed">
+    <div class="mb-12 max-w-2xl">
+      <p class="text-[12px] font-semibold tracking-[0.16em] uppercase text-accent mb-3">What we do</p>
+      <h2 class="text-ink font-bold mb-4" style="font-size: clamp(30px, 3.5vw, 44px);">The full spectrum</h2>
+      <p class="text-muted text-[16px] leading-relaxed">
         Two people who scope, spec, and build the work themselves — no handoffs, no
         junior team learning on your dime. Everything below is available today.
       </p>
     </div>
 
-    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-px bg-white/7">
-      {services.map((s, i) => (
-        <div class="relative bg-dark p-8 overflow-hidden">
-          <div class="absolute left-0 top-0 w-0.5 bg-accent" style="height: 40%;"></div>
-          <span class="font-display font-extrabold text-accent text-[13px] tracking-[0.15em] block mb-4">{String(i + 1).padStart(2, "0")}</span>
-          <h3 class="font-display font-bold text-[20px] uppercase tracking-[0.05em] text-primary mb-3">
-            {s.title}
-          </h3>
-          <p class="text-muted text-[14px] leading-relaxed">{s.description}</p>
+    <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+      {services.map((s) => (
+        <div class="bg-white border border-line rounded-xl p-7 shadow-sm hover:shadow-md transition-shadow duration-200">
+          <span class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-accent/8 mb-4">
+            <img src={s.icon} alt="" width="26" height="26" loading="lazy" />
+          </span>
+          <h3 class="text-ink font-semibold text-[18px] mb-2.5">{s.title}</h3>
+          <p class="text-muted text-[14.5px] leading-relaxed">{s.description}</p>
         </div>
       ))}
 
-      <!-- 9th tile: CTA, fills the grid -->
-      <div class="relative bg-surface p-8 flex flex-col justify-center">
-        <h3 class="font-display font-bold text-[20px] uppercase tracking-[0.05em] text-primary mb-3">
-          Not Sure Where To Start?
-        </h3>
-        <p class="text-muted text-[14px] leading-relaxed mb-6">
+      <!-- 9th tile: CTA -->
+      <div class="bg-white border border-line rounded-xl p-7 shadow-sm flex flex-col justify-center">
+        <h3 class="text-ink font-semibold text-[18px] mb-2.5">Not sure where to start?</h3>
+        <p class="text-muted text-[14.5px] leading-relaxed mb-5">
           Tell us what's slowing the floor down. The first call is free — no commitment,
           no sales pitch.
         </p>
         <a
           href="/#contact"
-          class="inline-flex self-start items-center bg-accent hover:bg-accent-dark text-dark font-display font-bold text-[14px] tracking-[0.1em] uppercase px-5 py-3 transition-all duration-200 hover:-translate-y-0.5"
+          class="inline-flex self-start items-center bg-accent hover:bg-accent-dark text-white font-semibold text-[14px] px-5 py-2.5 rounded-md transition-colors duration-200"
         >
-          Book a Free Call →
+          Book a free call →
         </a>
       </div>
     </div>

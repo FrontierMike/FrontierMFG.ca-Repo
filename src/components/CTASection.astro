@@ -1,5 +1,5 @@
 ---
-// Reusable closing CTA band for subpages. Points back to the contact form on home.
+// Reusable closing CTA band (dark) for subpages.
 interface Props {
   heading?: string;
   body?: string;
@@ -7,23 +7,20 @@ interface Props {
   ctaHref?: string;
 }
 const {
-  heading = "Let's Talk Through Your Problem",
+  heading = "Let's talk through your problem",
   body = "First call is always free — 30 minutes, no commitment, no sales pitch. Tell us what's slowing the floor down and we'll tell you what we'd do about it.",
-  ctaLabel = "Book a Free Consultation →",
+  ctaLabel = "Book a free consultation →",
   ctaHref = "/#contact",
 } = Astro.props;
 ---
-<section class="bg-dark py-24 border-t border-white/7">
+<section class="bg-band py-20 md:py-24">
   <div class="max-w-7xl mx-auto px-6">
     <div class="max-w-2xl">
-      <h2
-        class="font-display font-extrabold uppercase text-primary mb-5"
-        style="font-size: clamp(32px, 4vw, 52px);"
-      >{heading}</h2>
-      <p class="text-muted text-[15px] leading-relaxed mb-9 max-w-xl">{body}</p>
+      <h2 class="text-white font-bold mb-4" style="font-size: clamp(28px, 3.5vw, 44px);">{heading}</h2>
+      <p class="text-white/65 text-[16px] leading-relaxed mb-8 max-w-xl">{body}</p>
       <a
         href={ctaHref}
-        class="inline-flex items-center bg-accent hover:bg-accent-dark text-dark font-display font-bold text-[14px] tracking-[0.1em] uppercase px-7 py-4 transition-all duration-200 hover:-translate-y-0.5"
+        class="inline-flex items-center bg-accent hover:bg-accent-dark text-white font-semibold text-[15px] px-7 py-3.5 rounded-md transition-colors duration-200"
       >
         {ctaLabel}
       </a>
