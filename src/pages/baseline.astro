@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import PageHero from '../components/PageHero.astro';
+import Problem from '../components/Problem.astro';
+import Method from '../components/Method.astro';
+import Dashboard from '../components/Dashboard.astro';
+import CTASection from '../components/CTASection.astro';
+import Footer from '../components/Footer.astro';
+
+const title = "BASELINE — Shop-Floor Monitoring & OEE | Frontier Manufacturing Services";
+const description = "BASELINE is our manufacturing IoT platform: live OEE, downtime, and MTBF from the machines you already run, on your own network, in days — no PLC changes, no line stoppage. Pilot spots opening soon.";
+---
+<Base title={title} description={description}>
+  <Nav />
+  <main>
+    <PageHero
+      eyebrow="Our Monitoring Platform · Pilot Opening Soon"
+      title={`<span class="text-accent">BASELINE</span>`}
+      subtitle="A manufacturing IoT platform that clamps onto the machines you already run and streams live OEE, downtime, and MTBF to a dashboard on your own network — in days, with no PLC changes and no line stoppage."
+    />
+    <Problem />
+    <Method />
+    <Dashboard />
+    <CTASection
+      heading="Get On The Pilot List"
+      body="Pilot spots are limited and first come, first served. Tell us about your floor — machines, shifts, what you wish you could see — and we'll reserve you a conversation before spots open."
+      ctaLabel="Join the Pilot List →"
+    />
+  </main>
+  <Footer />
+</Base>
