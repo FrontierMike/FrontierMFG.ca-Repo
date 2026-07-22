@@ -155,5 +155,5 @@ Build command: `npm run build` · Output/assets: `./dist`
 ## Email / DNS notes
 
 - Incoming mail: **Google Workspace** (MX → Google). Outgoing transactional mail from the form: **Resend** (sending domain frontiermfg.ca verified; receiving off).
-- SPF/DKIM/DMARC configured in Cloudflare DNS. DMARC currently `p=none` (monitor).
+- SPF/DKIM/DMARC configured in Cloudflare DNS. DMARC currently `p=quarantine` (unauthenticated mail is quarantined). Form mail via Resend passes DKIM (selector `resend`) and SPF (`send.frontiermfg.ca`), both aligned to `frontiermfg.ca`.
 - Cloudflare SSL/TLS mode must be **Full** or **Full (strict)** — Flexible causes redirect loops.
