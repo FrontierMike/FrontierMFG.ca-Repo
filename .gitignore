@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# unused stock photography (new design uses no photos; some are editorial-use-only)
+public/AdobeStock_*
+
+# redundant design-handoff archive (extracted folder is kept in the repo)
+Tailwind webpage creation.zip

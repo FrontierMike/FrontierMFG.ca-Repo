@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frontier MFG — Automation &amp; manufacturing consulting</title>
+<meta name="description" content="Frontier MFG helps small and mid-size manufacturers modernize — automation, controls, and real-time KPI tracking. Practical upgrades, measurable results, no jargon.">
+<meta name="theme-color" content="#16202a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20x='9'%20y='9'%20width='14'%20height='14'%20rx='2'%20transform='rotate(45%2016%2016)'%20fill='%23b3261e'/%3E%3C/svg%3E">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #ffffff; color: #16202a; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: #b3261e; text-decoration: none; }
+  a:hover { color: #8f1d17; }
+  section[id] { scroll-margin-top: 84px; }
+  input, select, textarea { font-family: inherit; }
+  @keyframes fmfg-marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  @keyframes fmfg-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.82); } }
+  .fmfg-marquee-wrap:hover .fmfg-marquee-track { animation-play-state: paused; }
+</style>
+</helmet>
+
+<div style="background:#ffffff;">
+
+  <header style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);border-bottom:1px solid #e6e9ec;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 32px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="Home.dc.html" style="display:flex;align-items:center;gap:10px;color:#16202a;font-weight:700;font-size:19px;letter-spacing:0.01em;">
+        <span style="display:inline-block;width:10px;height:10px;background:#b3261e;border-radius:2px;transform:rotate(45deg);"></span>
+        FRONTIER<span style="color:#b3261e;">&nbsp;MFG</span>
+      </a>
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;align-items:center;gap:28px;">
+        <a href="Services.dc.html" style="color:#566169;font-size:14px;font-weight:500;">Services</a>
+        <a href="Baseline.dc.html" style="color:#566169;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px;">Baseline <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;background:#fbe9e8;color:#b3261e;padding:2px 6px;border-radius:100px;">SOON</span></a>
+        <a href="#process" style="color:#566169;font-size:14px;font-weight:500;">Process</a>
+        <a href="#about" style="color:#566169;font-size:14px;font-weight:500;">About</a>
+        <a href="#contact" style="display:inline-flex;align-items:center;gap:8px;background:#b3261e;color:#fff;font-size:14px;font-weight:500;padding:10px 18px;border-radius:8px;" style-hover="background:#8f1d17;">Book a free consultation</a>
+      </nav>
+      </sc-if>
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Toggle menu" style="display:flex;flex-direction:column;justify-content:center;gap:4px;width:44px;height:44px;background:transparent;border:1px solid #cbd2d8;border-radius:8px;cursor:pointer;padding:0 11px;">
+        <span style="display:block;height:2px;width:100%;background:#16202a;border-radius:2px;"></span>
+        <span style="display:block;height:2px;width:100%;background:#16202a;border-radius:2px;"></span>
+        <span style="display:block;height:2px;width:100%;background:#16202a;border-radius:2px;"></span>
+      </button>
+      </sc-if>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav style="display:flex;flex-direction:column;padding:6px 32px 18px;border-top:1px solid #e6e9ec;background:rgba(255,255,255,0.98);">
+      <a href="Services.dc.html" onClick="{{ closeMenu }}" style="padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;border-bottom:1px solid #f0f2f4;">Services</a>
+      <a href="Baseline.dc.html" onClick="{{ closeMenu }}" style="padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;border-bottom:1px solid #f0f2f4;display:inline-flex;align-items:center;gap:8px;">Baseline <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;background:#fbe9e8;color:#b3261e;padding:2px 6px;border-radius:100px;">SOON</span></a>
+      <a href="#process" onClick="{{ closeMenu }}" style="padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;border-bottom:1px solid #f0f2f4;">Process</a>
+      <a href="#about" onClick="{{ closeMenu }}" style="padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;border-bottom:1px solid #f0f2f4;">About</a>
+      <a href="#contact" onClick="{{ closeMenu }}" style="margin-top:14px;text-align:center;background:#b3261e;color:#fff;font-size:15px;font-weight:500;padding:14px;border-radius:8px;" style-hover="background:#8f1d17;">Book a free consultation</a>
+    </nav>
+    </sc-if>
+  </header>
+
+  <section style="background:radial-gradient(circle,rgba(22,32,42,0.16) 1px,transparent 1.7px) 0 0/22px 22px,linear-gradient(180deg,#ffffff 0%,#f5f7f9 100%);border-bottom:1px solid #e6e9ec;">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,96px) 32px;display:flex;flex-wrap:wrap;gap:56px;align-items:center;">
+      <div style="flex:1 1 440px;min-width:300px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
+          <span style="display:block;width:32px;height:2px;background:#b3261e;"></span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;">Automation &amp; Manufacturing Consulting</span>
+        </div>
+        <h1 style="font-size:clamp(40px,5.2vw,68px);line-height:1.03;letter-spacing:-0.025em;font-weight:600;color:#16202a;margin:0 0 22px;text-wrap:balance;">Bring your shop floor into the age of data.</h1>
+        <p style="font-size:18px;line-height:1.6;color:#566169;margin:0 0 32px;max-width:520px;">Frontier MFG helps small and mid-size manufacturers modernize — from automation and controls to real-time KPI tracking. Practical upgrades, measurable results, and no jargon.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:36px;">
+          <a href="#contact" style="display:inline-flex;align-items:center;gap:8px;background:#b3261e;color:#fff;font-size:16px;font-weight:500;padding:15px 26px;border-radius:8px;" style-hover="background:#8f1d17;">Book a free consultation <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+          <a href="#modernize" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#16202a;font-size:16px;font-weight:500;padding:15px 26px;border-radius:8px;border:1px solid #cbd2d8;" style-hover="border-color:#16202a;">See how it works</a>
+        </div>
+        <div style="font-size:13.5px;color:#8a949c;margin:-22px 0 36px;">Free 30 minutes · no commitment — and if you don't need us, we'll say so.</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.03em;color:#566169;">
+          <span>20+ yrs in manufacturing</span>
+          <span style="color:#cbd2d8;">/</span>
+          <span>B.Eng, EIT</span>
+          <span style="color:#cbd2d8;">/</span>
+          <span style="display:inline-flex;align-items:center;gap:7px;"><img src="icons/maple-leaf-from-the-flag-of-Canada.svg" width="14" height="14" alt="Canada"> Lower Mainland, BC</span>
+        </div>
+      </div>
+
+      <sc-if value="{{ showDash }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:1 1 420px;min-width:300px;">
+        <div style="background:#0a0e13;border:1px solid rgba(255,255,255,0.08);border-radius:14px;box-shadow:0 30px 60px -24px rgba(19,28,36,0.5);padding:14px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0 2px 2px;">
+            <div style="display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#c3cad2;">
+              <span style="display:inline-block;width:7px;height:7px;border-radius:100px;background:#73bf69;animation:fmfg-pulse 1.6s ease-in-out infinite;"></span>
+              BASELINE · CNC-01
+            </div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#6b7079;">LIVE · 14 D</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+            <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
+              <div style="font-size:10px;color:#8b929b;margin-bottom:8px;">OEE (14 d)</div>
+              <div style="font-size:27px;font-weight:400;color:#73bf69;letter-spacing:-0.01em;line-height:1;">82<span style="font-size:14px;color:#8b929b;"> %</span></div>
+            </div>
+            <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
+              <div style="font-size:10px;color:#8b929b;margin-bottom:8px;">MTBF (14 d)</div>
+              <div style="font-size:27px;font-weight:400;color:#d9a520;letter-spacing:-0.01em;line-height:1;">20.5<span style="font-size:14px;color:#8b929b;"> h</span></div>
+            </div>
+            <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
+              <div style="font-size:10px;color:#8b929b;margin-bottom:8px;">Downtime</div>
+              <div style="font-size:27px;font-weight:400;color:#f2495c;letter-spacing:-0.01em;line-height:1;">7.9<span style="font-size:14px;color:#8b929b;"> h</span></div>
+            </div>
+          </div>
+          <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
+            <div style="font-size:10px;color:#8b929b;margin-bottom:12px;">▾ OUTPUT &amp; TREND — OEE DAILY %</div>
+            <div style="display:flex;gap:7px;">
+              <div style="display:flex;flex-direction:column;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#5f656e;height:82px;padding-bottom:14px;"><span>60</span><span>40</span><span>20</span><span>0</span></div>
+              <div style="flex:1;">
+                <div style="display:flex;align-items:flex-end;gap:3px;height:82px;border-left:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.09);padding-left:6px;">
+                  <div style="flex:1;height:62%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:70%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:58%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:67%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:61%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:64%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:69%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:57%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:66%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:71%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:60%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:63%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:59%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                  <div style="flex:1;height:66%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#5f656e;margin-top:5px;padding-left:6px;"><span>06/24</span><span>06/30</span><span>07/07</span></div>
+              </div>
+            </div>
+          </div>
+          <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
+            <div style="font-size:10px;color:#8b929b;margin-bottom:10px;">MACHINE STATE — LAST 24 H</div>
+            <div style="height:28px;border-radius:3px;background-image:repeating-linear-gradient(90deg,transparent 0,transparent 74px,#f2495c 74px,#f2495c 80px,transparent 80px,transparent 166px),repeating-linear-gradient(90deg,#73bf69 0,#73bf69 5px,#0e141b 5px,#0e141b 7px);"></div>
+            <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#5f656e;margin-top:6px;"><span>23:00</span><span>05:00</span><span>11:00</span><span>17:00</span><span>22:00</span></div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#9aa4ad;">BASELINE DASHBOARD — PRODUCT PREVIEW</div>
+      </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <sc-if value="{{ showTicker }}" hint-placeholder-val="{{ true }}">
+  <div class="fmfg-marquee-wrap" style="background:#131c24;overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.06);">
+    <div class="fmfg-marquee-track" style="display:flex;width:max-content;animation:fmfg-marquee 38s linear infinite;">
+      <div style="display:flex;align-items:center;gap:0;padding:16px 0;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#9aa4ad;">
+        <span style="padding:0 26px;">Process Automation</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">PLC / SCADA Programming</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">Controls Design</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">Real-Time KPI Tracking</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">Industrial IoT</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">Feasibility Studies</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">Design for Manufacturing</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">Process Improvement</span><span style="color:#b3261e;">◆</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:0;padding:16px 0;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#9aa4ad;" aria-hidden="true">
+        <span style="padding:0 26px;">Process Automation</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">PLC / SCADA Programming</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">Controls Design</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">Real-Time KPI Tracking</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">Industrial IoT</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">Feasibility Studies</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">Design for Manufacturing</span><span style="color:#b3261e;">◆</span>
+        <span style="padding:0 26px;">Process Improvement</span><span style="color:#b3261e;">◆</span>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <section id="modernize" style="background:#ffffff;background-image:radial-gradient(circle,rgba(22,32,42,0.15) 1px,transparent 1.7px);background-size:22px 22px;">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
+      <div style="max-width:720px;margin-bottom:56px;">
+        <div style="width:72px;height:9px;margin-bottom:16px;background:repeating-linear-gradient(90deg,#b3261e,#b3261e 1.5px,transparent 1.5px,transparent 9px);"></div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:18px;">Why modernize</div>
+        <h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 18px;">You can't improve what you can't measure.</h2>
+        <p style="font-size:18px;line-height:1.6;color:#566169;margin:0;">"Industry 4.0" just means connecting your equipment so it produces data — then using that data to run a smarter operation. You don't need to understand the buzzwords. Here's what it actually gets you.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:#e6e9ec;border:1px solid #e6e9ec;border-radius:12px;overflow:hidden;">
+        <div style="background:#fff;padding:32px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;margin-bottom:20px;">01</div>
+          <h3 style="font-size:20px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">See what's really happening</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">Real-time visibility into output, downtime, and bottlenecks — instead of guesswork and month-end spreadsheets that are already out of date.</p>
+        </div>
+        <div style="background:#fff;padding:32px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;margin-bottom:20px;">02</div>
+          <h3 style="font-size:20px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">Catch problems early</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">Live KPIs flag issues the moment they happen, so a small hiccup on the line doesn't quietly turn into an expensive shutdown.</p>
+        </div>
+        <div style="background:#fff;padding:32px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;margin-bottom:20px;">03</div>
+          <h3 style="font-size:20px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">Decide with data</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">Replace gut-feel and hallway anecdotes with hard numbers your whole team can see and trust — from the floor to the front office.</p>
+        </div>
+        <div style="background:#fff;padding:32px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;margin-bottom:20px;">04</div>
+          <h3 style="font-size:20px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">Get ready for AI</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">Clean, consistent data is the foundation. Once it's flowing, forecasting and AI-driven optimization stop being hype and start being useful.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" style="background:#f5f7f9;background-image:radial-gradient(circle,rgba(22,32,42,0.17) 1px,transparent 1.7px);background-size:22px 22px;border-top:1px solid #e6e9ec;border-bottom:1px solid #e6e9ec;">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
+      <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-end;margin-bottom:48px;">
+        <div style="max-width:640px;">
+          <div style="width:72px;height:9px;margin-bottom:16px;background:repeating-linear-gradient(90deg,#b3261e,#b3261e 1.5px,transparent 1.5px,transparent 9px);"></div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:18px;">What we do</div>
+          <h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 16px;">Services</h2>
+          <p style="font-size:18px;line-height:1.6;color:#566169;margin:0;">Hands-on consulting across automation, controls, and process improvement — plus the data foundation to keep getting better.</p>
+        </div>
+        <a href="Services.dc.html" style="display:inline-flex;align-items:center;gap:8px;color:#b3261e;font-size:15px;font-weight:500;white-space:nowrap;">All services in detail <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1px;background:#e6e9ec;border:1px solid #e6e9ec;border-radius:12px;overflow:hidden;">
+        <div style="background:#fff;padding:30px;position:relative;" style-hover="background:#fafbfc;">
+          <div style="position:absolute;left:0;top:24px;width:2px;height:38px;background:#b3261e;"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/01-process-automation.svg" width="30" height="30" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">01</span></div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;letter-spacing:-0.01em;">Process Automation</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">Identify automation opportunities and implement solutions that reduce manual labour and increase throughput.</p>
+        </div>
+        <div style="background:#fff;padding:30px;position:relative;" style-hover="background:#fafbfc;">
+          <div style="position:absolute;left:0;top:24px;width:2px;height:38px;background:#b3261e;"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/02-plc-scada-programming.svg" width="30" height="30" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">02</span></div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;letter-spacing:-0.01em;">PLC / SCADA Programming</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">Custom logic, HMI design, and commissioning support for Allen-Bradley, Siemens, and more.</p>
+        </div>
+        <div style="background:#fff;padding:30px;position:relative;" style-hover="background:#fafbfc;">
+          <div style="position:absolute;left:0;top:24px;width:2px;height:38px;background:#b3261e;"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/03-hardware-software-integration.svg" width="30" height="30" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">03</span></div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;letter-spacing:-0.01em;">Hardware &amp; Software Integration</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">Bridging industrial hardware and software — sensors, controllers, networks, and custom software.</p>
+        </div>
+        <div style="background:#fff;padding:30px;position:relative;" style-hover="background:#fafbfc;">
+          <div style="position:absolute;left:0;top:24px;width:2px;height:38px;background:#b3261e;"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/04-process-improvement.svg" width="30" height="30" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">04</span></div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;letter-spacing:-0.01em;">Process Improvement</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">Lean-informed analysis of production workflows to eliminate bottlenecks and reduce waste.</p>
+        </div>
+        <div style="background:#fff;padding:30px;position:relative;" style-hover="background:#fafbfc;">
+          <div style="position:absolute;left:0;top:24px;width:2px;height:38px;background:#b3261e;"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/05-feasibility-studies.svg" width="30" height="30" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">05</span></div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;letter-spacing:-0.01em;">Feasibility Studies</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">Technical and economic assessments to validate automation investments before you commit.</p>
+        </div>
+        <div style="background:#fff;padding:30px;position:relative;" style-hover="background:#fafbfc;">
+          <div style="position:absolute;left:0;top:24px;width:2px;height:38px;background:#b3261e;"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/06-design-for-manufacturing.svg" width="30" height="30" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">06</span></div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;letter-spacing:-0.01em;">Design for Manufacturing</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">DFM reviews that bridge design intent with production reality — reducing rework and material waste.</p>
+        </div>
+        <div style="background:#fff;padding:30px;position:relative;" style-hover="background:#fafbfc;">
+          <div style="position:absolute;left:0;top:24px;width:2px;height:38px;background:#b3261e;"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/07-machining-consultation.svg" width="30" height="30" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">07</span></div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;letter-spacing:-0.01em;">Machining Consultation</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">Process parameters, toolpath strategy, and fixturing advice for CNC machining operations.</p>
+        </div>
+        <div style="background:#fff;padding:30px;position:relative;" style-hover="background:#fafbfc;">
+          <div style="position:absolute;left:0;top:24px;width:2px;height:38px;background:#b3261e;"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/08-Controls-pulse-waveform.svg" width="30" height="30" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">08</span></div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;letter-spacing:-0.01em;">Controls Design</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">Panel layouts, I/O schematics, and control architecture — designed for reliability and easy maintenance.</p>
+        </div>
+        <a href="Services.dc.html" style="background:#131c24;padding:30px;display:flex;flex-direction:column;justify-content:space-between;min-height:180px;color:#fff;" style-hover="background:#0e161d;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#9aa4ad;">Not sure where to start?</div>
+          <div>
+            <div style="font-size:19px;font-weight:600;color:#fff;margin-bottom:14px;line-height:1.3;">Let's talk through your problem — free, no commitment.</div>
+            <span style="display:inline-flex;align-items:center;gap:8px;color:#fff;font-size:15px;font-weight:500;">See all services <span style="font-family:'IBM Plex Mono',monospace;color:#b3261e;">→</span></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#131c24;color:#fff;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:56px 56px;"></div>
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;position:relative;display:flex;flex-wrap:wrap;gap:56px;align-items:center;">
+      <div style="flex:1 1 420px;min-width:300px;">
+        <div style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:22px;background:rgba(179,38,30,0.12);border:1px solid rgba(179,38,30,0.35);padding:7px 14px;border-radius:100px;">
+          <span style="display:inline-block;width:7px;height:7px;border-radius:100px;background:#b3261e;"></span> Coming soon — Baseline
+        </div>
+        <h2 style="font-size:clamp(30px,3.8vw,50px);line-height:1.06;letter-spacing:-0.02em;font-weight:600;color:#fff;margin:0 0 20px;">KPI tracking, without the IT project.</h2>
+        <p style="font-size:18px;line-height:1.65;color:#c3ccd3;margin:0 0 28px;max-width:520px;">Unobtrusive wireless sensors that automatically track your key manufacturing metrics and stream them to a live dashboard — precise visibility into productivity, without rewiring your plant or hiring a data team.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;">
+          <div style="display:flex;align-items:center;gap:12px;color:#e4e9ec;font-size:15.5px;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">→</span> Wireless data, standard wall power — no rewiring, no plant downtime</div>
+          <div style="display:flex;align-items:center;gap:12px;color:#e4e9ec;font-size:15.5px;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">→</span> Automatic KPI capture — OEE, output, downtime, cycle time</div>
+          <div style="display:flex;align-items:center;gap:12px;color:#e4e9ec;font-size:15.5px;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">→</span> Real-time dashboard the whole team can read at a glance</div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;">
+          <a href="Baseline.dc.html#pilot" style="display:inline-flex;align-items:center;gap:8px;background:#b3261e;color:#fff;font-size:16px;font-weight:500;padding:15px 26px;border-radius:8px;" style-hover="background:#8f1d17;">Join the pilot <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+          <a href="Baseline.dc.html" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#fff;font-size:16px;font-weight:500;padding:15px 26px;border-radius:8px;border:1px solid rgba(255,255,255,0.25);" style-hover="border-color:#fff;">Learn about Baseline</a>
+        </div>
+      </div>
+      <div style="flex:1 1 360px;min-width:280px;">
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:28px;backdrop-filter:blur(4px);">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;letter-spacing:0.06em;">
+            <span>SENSOR NETWORK</span><span style="color:#64b450;">● 4 ONLINE</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
+            <div style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style="width:8px;height:8px;border-radius:100px;background:#64b450;display:inline-block;"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9aa4ad;">S-01 PRESS</span></div>
+              <div style="font-size:22px;font-weight:600;color:#fff;">98<span style="font-size:13px;color:#9aa4ad;">%</span></div>
+            </div>
+            <div style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style="width:8px;height:8px;border-radius:100px;background:#64b450;display:inline-block;"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9aa4ad;">S-02 CNC</span></div>
+              <div style="font-size:22px;font-weight:600;color:#fff;">76<span style="font-size:13px;color:#9aa4ad;">%</span></div>
+            </div>
+            <div style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style="width:8px;height:8px;border-radius:100px;background:#c88c28;display:inline-block;"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9aa4ad;">S-03 WELD</span></div>
+              <div style="font-size:22px;font-weight:600;color:#fff;">61<span style="font-size:13px;color:#9aa4ad;">%</span></div>
+            </div>
+            <div style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style="width:8px;height:8px;border-radius:100px;background:#64b450;display:inline-block;"></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9aa4ad;">S-04 PACK</span></div>
+              <div style="font-size:22px;font-weight:600;color:#fff;">89<span style="font-size:13px;color:#9aa4ad;">%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" style="background:#f5f7f9;background-image:radial-gradient(circle,rgba(22,32,42,0.17) 1px,transparent 1.7px);background-size:22px 22px;border-top:1px solid #e6e9ec;border-bottom:1px solid #e6e9ec;">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
+      <div style="max-width:640px;margin-bottom:56px;">
+        <div style="width:72px;height:9px;margin-bottom:16px;background:repeating-linear-gradient(90deg,#b3261e,#b3261e 1.5px,transparent 1.5px,transparent 9px);"></div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:18px;">How it works</div>
+        <h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0;">A clear path, start to finish.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:32px;">
+        <div>
+          <div style="width:56px;height:56px;border:1.5px solid #b3261e;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#b3261e;margin-bottom:22px;">01</div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;">Free discovery call</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">A free 30-minute call to understand your operation, constraints, and goals. No commitment required.</p>
+        </div>
+        <div>
+          <div style="width:56px;height:56px;border:1.5px solid #b3261e;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#b3261e;margin-bottom:22px;">02</div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;">Site assessment</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">Where needed, we visit your facility to observe processes, audit equipment, and gather technical data.</p>
+        </div>
+        <div>
+          <div style="width:56px;height:56px;border:1.5px solid #b3261e;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#b3261e;margin-bottom:22px;">03</div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;">Proposal &amp; scope</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">A clear written proposal with defined deliverables, timeline, and fixed or hourly pricing — no surprises.</p>
+        </div>
+        <div>
+          <div style="width:56px;height:56px;border:1.5px solid #b3261e;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#b3261e;margin-bottom:22px;">04</div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;">Delivery</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">We execute the work, keep you informed throughout, and provide handover documentation at completion.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="background:#ffffff;background-image:radial-gradient(circle,rgba(22,32,42,0.15) 1px,transparent 1.7px);background-size:22px 22px;">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
+      <div style="max-width:680px;margin-bottom:56px;">
+        <div style="width:72px;height:9px;margin-bottom:16px;background:repeating-linear-gradient(90deg,#b3261e,#b3261e 1.5px,transparent 1.5px,transparent 9px);"></div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:18px;">Who we are</div>
+        <h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 18px;">A small firm with deep manufacturing roots.</h2>
+        <p style="font-size:18px;line-height:1.6;color:#566169;margin:0;">Frontier MFG pairs hands-on manufacturing and process expertise with four decades of senior hardware and software experience. You work directly with the people doing the work — no account managers, no handoffs.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;">
+        <div style="border:1px solid #e6e9ec;border-radius:14px;padding:32px;background:#fff;">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:22px;">
+            <div style="width:64px;height:64px;border-radius:14px;flex-shrink:0;background:#16202a;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;letter-spacing:0.04em;color:#fff;position:relative;">MW<span style="position:absolute;top:9px;right:9px;width:7px;height:7px;background:#b3261e;border-radius:1px;transform:rotate(45deg);"></span></div>
+            <div>
+              <div style="font-size:19px;font-weight:600;color:#16202a;">Mike Wait</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#b3261e;margin-top:3px;">Founder &amp; Principal Consultant</div>
+            </div>
+          </div>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 16px;">Mechanical engineer (EIT) with a B.Eng from BCIT and 20 years of hands-on manufacturing experience — automated machinery design, robotics, production commissioning, CNC machining, tooling and fixture development, and steel and aluminum fabrication and welding.</p>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0;">Focused on practical solutions for real production-floor challenges: process optimization, equipment integration, and ramp-up troubleshooting.</p>
+        </div>
+        <div style="border:1px solid #e6e9ec;border-radius:14px;padding:32px;background:#fff;">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:22px;">
+            <div style="width:64px;height:64px;border-radius:14px;flex-shrink:0;background:#16202a;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;letter-spacing:0.04em;color:#fff;position:relative;">GW<span style="position:absolute;top:9px;right:9px;width:7px;height:7px;background:#b3261e;border-radius:1px;transform:rotate(45deg);"></span></div>
+            <div>
+              <div style="font-size:19px;font-weight:600;color:#16202a;">Gord Wait</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#b3261e;margin-top:3px;">Advisor &amp; Product Design Expert</div>
+            </div>
+          </div>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 16px;">Senior software and hardware engineer with four decades of experience in industrial systems, embedded development, and technology leadership across multiple industries.</p>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0;">Brings deep technical credibility to every engagement, and lends senior product-design expertise to Baseline, our wireless KPI-tracking system.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="background:#131c24;color:#fff;">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;display:flex;flex-wrap:wrap;gap:56px;">
+      <div style="flex:1 1 380px;min-width:300px;">
+        <div style="width:72px;height:9px;margin-bottom:16px;background:repeating-linear-gradient(90deg,#b3261e,#b3261e 1.5px,transparent 1.5px,transparent 9px);"></div><div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:18px;">Get in touch</div>
+        <h2 style="font-size:clamp(30px,3.8vw,50px);line-height:1.06;letter-spacing:-0.02em;font-weight:600;color:#fff;margin:0 0 20px;">Let's talk.</h2>
+        <p style="font-size:18px;line-height:1.65;color:#c3ccd3;margin:0 0 40px;max-width:460px;">Tell us about your project or your goals for modernizing. The first call is always free — we typically respond within one business day.</p>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div style="display:flex;align-items:center;gap:14px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#9aa4ad;width:80px;">WEB</span><span style="font-size:16px;color:#e4e9ec;">frontiermfg.ca</span></div>
+          <div style="height:1px;background:rgba(255,255,255,0.08);"></div>
+          <div style="display:flex;align-items:center;gap:14px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#9aa4ad;width:80px;">LOCATION</span><span style="font-size:16px;color:#e4e9ec;">Lower Mainland, British Columbia</span></div>
+          <div style="height:1px;background:rgba(255,255,255,0.08);"></div>
+          <div style="display:flex;align-items:center;gap:14px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#9aa4ad;width:80px;">SERVING</span><span style="font-size:16px;color:#e4e9ec;">Vancouver, the Lower Mainland &amp; Western Canada</span></div>
+        </div>
+        <div style="margin-top:36px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:22px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#9aa4ad;margin-bottom:14px;">A first engagement looks like</div>
+          <div style="display:flex;flex-direction:column;gap:11px;">
+            <div style="display:flex;gap:12px;font-size:15px;line-height:1.5;color:#e4e9ec;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">01</span> A free 30-minute call about your operation</div>
+            <div style="display:flex;gap:12px;font-size:15px;line-height:1.5;color:#e4e9ec;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">02</span> A walk-through of your floor, where it helps</div>
+            <div style="display:flex;gap:12px;font-size:15px;line-height:1.5;color:#e4e9ec;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">03</span> A written assessment with prioritized upgrades — and a clear go / no-go</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1 1 420px;min-width:300px;">
+        <form onSubmit="{{ onSubmit }}" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:28px;">
+          <div style="display:flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#c3ccd3;margin-bottom:20px;"><span style="display:inline-block;width:7px;height:7px;border-radius:100px;background:#1f9d55;"></span> WE REPLY WITHIN ONE BUSINESS DAY</div>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
+            <div style="flex:1 1 140px;">
+              <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#9aa4ad;margin-bottom:8px;">First name</label>
+              <input type="text" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:12px 14px;color:#fff;font-size:15px;" style-focus="border-color:#b3261e;outline:none;">
+            </div>
+            <div style="flex:1 1 140px;">
+              <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#9aa4ad;margin-bottom:8px;">Last name</label>
+              <input type="text" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:12px 14px;color:#fff;font-size:15px;" style-focus="border-color:#b3261e;outline:none;">
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
+            <div style="flex:1 1 140px;">
+              <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#9aa4ad;margin-bottom:8px;">Email</label>
+              <input type="email" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:12px 14px;color:#fff;font-size:15px;" style-focus="border-color:#b3261e;outline:none;">
+            </div>
+            <div style="flex:1 1 140px;">
+              <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#9aa4ad;margin-bottom:8px;">Company</label>
+              <input type="text" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:12px 14px;color:#fff;font-size:15px;" style-focus="border-color:#b3261e;outline:none;">
+            </div>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#9aa4ad;margin-bottom:8px;">Service of interest</label>
+            <select style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:12px 14px;color:#fff;font-size:15px;" style-focus="border-color:#b3261e;outline:none;">
+              <option style="color:#16202a;">Process Automation</option>
+              <option style="color:#16202a;">PLC / SCADA Programming</option>
+              <option style="color:#16202a;">Hardware &amp; Software Integration</option>
+              <option style="color:#16202a;">Controls Design</option>
+              <option style="color:#16202a;">Manufacturing Process Improvement</option>
+              <option style="color:#16202a;">Feasibility Study</option>
+              <option style="color:#16202a;">Design for Manufacturing</option>
+              <option style="color:#16202a;">Machining Consultation</option>
+              <option style="color:#16202a;">Baseline KPI tracking</option>
+              <option style="color:#16202a;">Not sure yet</option>
+            </select>
+          </div>
+          <div style="margin-bottom:20px;">
+            <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#9aa4ad;margin-bottom:8px;">Message</label>
+            <textarea rows="4" style="width:100%;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:8px;padding:12px 14px;color:#fff;font-size:15px;resize:vertical;" style-focus="border-color:#b3261e;outline:none;"></textarea>
+          </div>
+          <button type="submit" style="width:100%;background:#b3261e;color:#fff;font-size:16px;font-weight:500;padding:15px;border:none;border-radius:8px;cursor:pointer;" style-hover="background:#8f1d17;">Send message</button>
+          <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:16px 0 0;font-size:14px;color:#7ecb9a;text-align:center;">Thanks — we'll be in touch within one business day.</p>
+          </sc-if>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#0e161d;color:#9aa4ad;border-top:1px solid rgba(255,255,255,0.06);">
+    <div style="max-width:1200px;margin:0 auto;padding:40px 32px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;">
+      <a href="Home.dc.html" style="display:flex;align-items:center;gap:10px;color:#e4e9ec;font-weight:700;font-size:16px;">
+        <span style="display:inline-block;width:9px;height:9px;background:#b3261e;border-radius:2px;transform:rotate(45deg);"></span>
+        FRONTIER<span style="color:#b3261e;">&nbsp;MFG</span><span style="color:#566169;font-weight:400;">&nbsp;Services</span>
+      </a>
+      <nav style="display:flex;flex-wrap:wrap;gap:24px;">
+        <a href="Services.dc.html" style="color:#9aa4ad;font-size:14px;">Services</a>
+        <a href="Baseline.dc.html" style="color:#9aa4ad;font-size:14px;">Baseline</a>
+        <a href="#process" style="color:#9aa4ad;font-size:14px;">Process</a>
+        <a href="#about" style="color:#9aa4ad;font-size:14px;">About</a>
+        <a href="#contact" style="color:#9aa4ad;font-size:14px;">Contact</a>
+      </nav>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#566169;">© {{ year }} Frontier Manufacturing Services · Vancouver &amp; the Lower Mainland, BC</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;showHeroDashboard&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Layout&quot; },
+  &quot;showCapabilitiesTicker&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Layout&quot; }
+}">
+class Component extends DCLogic {
+  state = { sent: false, isMobile: false, menuOpen: false };
+  componentDidMount() {
+    this._onResize = () => {
+      const m = window.innerWidth < 860;
+      this.setState(s => ({ isMobile: m, menuOpen: m ? s.menuOpen : false }));
+    };
+    this._onResize();
+    window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() { if (this._onResize) window.removeEventListener('resize', this._onResize); }
+  renderVals() {
+    return {
+      showDash: this.props.showHeroDashboard ?? true,
+      showTicker: this.props.showCapabilitiesTicker ?? true,
+      sent: this.state.sent,
+      year: 2026,
+      onSubmit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      isDesktop: !this.state.isMobile,
+      isMobile: this.state.isMobile,
+      menuOpen: this.state.isMobile && this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

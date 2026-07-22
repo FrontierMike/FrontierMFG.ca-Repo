@@ -1,21 +1,24 @@
 ---
+interface Props {
+  page?: 'home' | 'services' | 'baseline';
+}
+const { page = 'home' } = Astro.props;
+const p = page === 'home' ? '' : '/';
+const year = new Date().getFullYear();
 ---
-<footer class="border-t border-white/7" style="background-color: #080908;">
-  <div class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-6">
-
-    <a href="/" class="font-display font-bold tracking-[0.18em] uppercase text-primary text-sm">
-      FRONTIER <span class="text-accent">MFG</span>
-      <span class="font-normal tracking-normal normal-case text-muted text-xs ml-1">Services</span>
+<footer style="background:#0e161d;color:#9aa4ad;border-top:1px solid rgba(255,255,255,0.06);">
+  <div style="max-width:1200px;margin:0 auto;padding:40px 32px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;">
+    <a href="/" style="display:flex;align-items:center;gap:10px;color:#e4e9ec;font-weight:700;font-size:16px;">
+      <span style="display:inline-block;width:9px;height:9px;background:#b3261e;border-radius:2px;transform:rotate(45deg);"></span>
+      FRONTIER<span style="color:#b3261e;">&nbsp;MFG</span><span style="color:#566169;font-weight:400;">&nbsp;Services</span>
     </a>
-
-    <nav class="flex items-center gap-6" aria-label="Footer navigation">
-      <a href="#dashboard" class="font-display text-[12px] font-semibold tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors">Dashboard</a>
-      <a href="#method"    class="font-display text-[12px] font-semibold tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors">Method</a>
-      <a href="#services"  class="font-display text-[12px] font-semibold tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors">Services</a>
-      <a href="#contact"   class="font-display text-[12px] font-semibold tracking-[0.1em] uppercase text-muted hover:text-accent transition-colors">Contact</a>
+    <nav style="display:flex;flex-wrap:wrap;gap:24px;">
+      <a href="/services" style="color:#9aa4ad;font-size:14px;">Services</a>
+      <a href="/baseline" style="color:#9aa4ad;font-size:14px;">Baseline</a>
+      <a href={`${p}#process`} style="color:#9aa4ad;font-size:14px;">Process</a>
+      <a href={`${p}#about`} style="color:#9aa4ad;font-size:14px;">About</a>
+      <a href={`${p}#contact`} style="color:#9aa4ad;font-size:14px;">Contact</a>
     </nav>
-
-    <p class="text-[13px] text-dim">© 2026 Frontier Manufacturing Services</p>
-
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#566169;">© {year} Frontier Manufacturing Services · Vancouver &amp; the Lower Mainland, BC</div>
   </div>
 </footer>

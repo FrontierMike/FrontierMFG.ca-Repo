@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services — Frontier MFG</title>
+<meta name="description" content="Practical technical services for manufacturers modernizing: process automation, PLC/SCADA programming, controls design, and process improvement. Independent and vendor-neutral.">
+<meta name="theme-color" content="#16202a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20x='9'%20y='9'%20width='14'%20height='14'%20rx='2'%20transform='rotate(45%2016%2016)'%20fill='%23b3261e'/%3E%3C/svg%3E">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #ffffff; color: #16202a; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: #b3261e; text-decoration: none; }
+  a:hover { color: #8f1d17; }
+  section[id] { scroll-margin-top: 84px; }
+</style>
+</helmet>
+
+<div style="background:#ffffff;">
+
+  <header style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);border-bottom:1px solid #e6e9ec;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 32px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="Home.dc.html" style="display:flex;align-items:center;gap:10px;color:#16202a;font-weight:700;font-size:19px;letter-spacing:0.01em;">
+        <span style="display:inline-block;width:10px;height:10px;background:#b3261e;border-radius:2px;transform:rotate(45deg);"></span>
+        FRONTIER<span style="color:#b3261e;">&nbsp;MFG</span>
+      </a>
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;align-items:center;gap:28px;">
+        <a href="Services.dc.html" style="color:#16202a;font-size:14px;font-weight:600;">Services</a>
+        <a href="Baseline.dc.html" style="color:#566169;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px;">Baseline <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;background:#fbe9e8;color:#b3261e;padding:2px 6px;border-radius:100px;">SOON</span></a>
+        <a href="Home.dc.html#process" style="color:#566169;font-size:14px;font-weight:500;">Process</a>
+        <a href="Home.dc.html#about" style="color:#566169;font-size:14px;font-weight:500;">About</a>
+        <a href="Home.dc.html#contact" style="display:inline-flex;align-items:center;gap:8px;background:#b3261e;color:#fff;font-size:14px;font-weight:500;padding:10px 18px;border-radius:8px;" style-hover="background:#8f1d17;">Book a free consultation</a>
+      </nav>
+      </sc-if>
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Toggle menu" style="display:flex;flex-direction:column;justify-content:center;gap:4px;width:44px;height:44px;background:transparent;border:1px solid #cbd2d8;border-radius:8px;cursor:pointer;padding:0 11px;">
+        <span style="display:block;height:2px;width:100%;background:#16202a;border-radius:2px;"></span>
+        <span style="display:block;height:2px;width:100%;background:#16202a;border-radius:2px;"></span>
+        <span style="display:block;height:2px;width:100%;background:#16202a;border-radius:2px;"></span>
+      </button>
+      </sc-if>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav style="display:flex;flex-direction:column;padding:6px 32px 18px;border-top:1px solid #e6e9ec;background:rgba(255,255,255,0.98);">
+      <a href="Services.dc.html" onClick="{{ closeMenu }}" style="padding:13px 2px;color:#16202a;font-size:16px;font-weight:600;border-bottom:1px solid #f0f2f4;">Services</a>
+      <a href="Baseline.dc.html" onClick="{{ closeMenu }}" style="padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;border-bottom:1px solid #f0f2f4;display:inline-flex;align-items:center;gap:8px;">Baseline <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;background:#fbe9e8;color:#b3261e;padding:2px 6px;border-radius:100px;">SOON</span></a>
+      <a href="Home.dc.html#process" onClick="{{ closeMenu }}" style="padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;border-bottom:1px solid #f0f2f4;">Process</a>
+      <a href="Home.dc.html#about" onClick="{{ closeMenu }}" style="padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;border-bottom:1px solid #f0f2f4;">About</a>
+      <a href="Home.dc.html#contact" onClick="{{ closeMenu }}" style="margin-top:14px;text-align:center;background:#b3261e;color:#fff;font-size:15px;font-weight:500;padding:14px;border-radius:8px;" style-hover="background:#8f1d17;">Book a free consultation</a>
+    </nav>
+    </sc-if>
+  </header>
+
+  <section style="background:radial-gradient(circle,rgba(22,32,42,0.16) 1px,transparent 1.7px) 0 0/22px 22px,linear-gradient(180deg,#ffffff 0%,#f5f7f9 100%);border-bottom:1px solid #e6e9ec;">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,88px) 32px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+        <span style="display:block;width:32px;height:2px;background:#b3261e;"></span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;">Services</span>
+      </div>
+      <h1 style="font-size:clamp(38px,4.8vw,60px);line-height:1.04;letter-spacing:-0.025em;font-weight:600;color:#16202a;margin:0 0 22px;max-width:820px;text-wrap:balance;">Practical technical services for manufacturers ready to modernize.</h1>
+      <p style="font-size:18px;line-height:1.6;color:#566169;margin:0 0 32px;max-width:600px;">From automation and controls to the data foundation behind Industry 4.0 — hands-on help, scoped to your operation and budget. Independent and vendor-neutral: we recommend what's right for you, not what we're selling.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;">
+        <a href="Home.dc.html#contact" style="display:inline-flex;align-items:center;gap:8px;background:#b3261e;color:#fff;font-size:16px;font-weight:500;padding:15px 26px;border-radius:8px;" style-hover="background:#8f1d17;">Book a free consultation <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+        <a href="Baseline.dc.html" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#16202a;font-size:16px;font-weight:500;padding:15px 26px;border-radius:8px;border:1px solid #cbd2d8;" style-hover="border-color:#16202a;">Explore Baseline KPI tracking</a>
+      </div>
+      <div style="font-size:13.5px;color:#8a949c;margin-top:14px;">Free 30 minutes · no commitment — and if you don't need us, we'll say so.</div>
+    </div>
+  </section>
+
+  <section style="background:#ffffff;background-image:radial-gradient(circle,rgba(22,32,42,0.15) 1px,transparent 1.7px);background-size:22px 22px;">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(370px,1fr));gap:24px;">
+
+        <div style="border:1px solid #e6e9ec;border-radius:14px;padding:32px;background:#fff;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/01-process-automation.svg" width="32" height="32" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">01</span></div>
+          <h2 style="font-size:22px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">Process Automation</h2>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 20px;">We find where manual, repetitive work is costing you time and consistency, then design and implement automation sized to your volume and budget.</p>
+          <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid #e6e9ec;padding-top:18px;">
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Opportunity assessment &amp; ROI</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Material handling &amp; machine tending</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Robotic &amp; pneumatic cell integration</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Commissioning &amp; operator training</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e6e9ec;border-radius:14px;padding:32px;background:#fff;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/02-plc-scada-programming.svg" width="32" height="32" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">02</span></div>
+          <h2 style="font-size:22px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">PLC / SCADA Programming</h2>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 20px;">Custom control logic, operator interfaces, and commissioning support for Allen-Bradley, Siemens, and other major platforms.</p>
+          <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid #e6e9ec;padding-top:18px;">
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Ladder &amp; structured-text programming</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> HMI &amp; SCADA screen design</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Alarm &amp; data-logging setup</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> On-site commissioning support</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e6e9ec;border-radius:14px;padding:32px;background:#fff;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/03-hardware-software-integration.svg" width="32" height="32" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">03</span></div>
+          <h2 style="font-size:22px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">Hardware &amp; Software Integration</h2>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 20px;">Connect industrial hardware to software systems so data flows end to end — from a sensor on the floor to a dashboard in the office.</p>
+          <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid #e6e9ec;padding-top:18px;">
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Sensor &amp; controller selection</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Industrial networking (Ethernet/IP, Modbus)</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Data acquisition to dashboards</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Custom software &amp; scripting</div>
+          </div>
+          <a href="Baseline.dc.html" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:14px;font-weight:500;color:#b3261e;">Related: Baseline KPI tracking <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+        </div>
+
+        <div style="border:1px solid #e6e9ec;border-radius:14px;padding:32px;background:#fff;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/04-process-improvement.svg" width="32" height="32" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">04</span></div>
+          <h2 style="font-size:22px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">Process Improvement</h2>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 20px;">Lean-informed analysis of your production workflows to eliminate bottlenecks, cut waste, and set measurable targets you can hold the line to.</p>
+          <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid #e6e9ec;padding-top:18px;">
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Value-stream &amp; workflow mapping</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Bottleneck &amp; downtime analysis</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Standard work &amp; layout</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Measurable KPI targets</div>
+          </div>
+          <a href="Baseline.dc.html" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:14px;font-weight:500;color:#b3261e;">Related: Baseline KPI tracking <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+        </div>
+
+        <div style="border:1px solid #e6e9ec;border-radius:14px;padding:32px;background:#fff;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/05-feasibility-studies.svg" width="32" height="32" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">05</span></div>
+          <h2 style="font-size:22px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">Feasibility Studies</h2>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 20px;">Technical and economic assessments that validate an automation or production-change investment before you commit real money to it.</p>
+          <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid #e6e9ec;padding-top:18px;">
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Technical feasibility review</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Cost/benefit &amp; ROI modelling</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Risk assessment</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Clear go / no-go recommendation</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e6e9ec;border-radius:14px;padding:32px;background:#fff;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/06-design-for-manufacturing.svg" width="32" height="32" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">06</span></div>
+          <h2 style="font-size:22px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">Design for Manufacturing</h2>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 20px;">DFM reviews that bridge design intent with production reality — reducing rework, material waste, and the cost of parts that are hard to make.</p>
+          <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid #e6e9ec;padding-top:18px;">
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Part &amp; assembly reviews</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Material &amp; process selection</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Tolerance &amp; cost reduction</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Prototype-to-production planning</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e6e9ec;border-radius:14px;padding:32px;background:#fff;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/07-machining-consultation.svg" width="32" height="32" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">07</span></div>
+          <h2 style="font-size:22px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">Machining Consultation</h2>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 20px;">Process parameters, toolpath strategy, and fixturing advice to get more out of your CNC machining operations — faster cycles, better finish.</p>
+          <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid #e6e9ec;padding-top:18px;">
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Speeds/feeds &amp; toolpath strategy</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Fixturing &amp; workholding</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Cycle-time reduction</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Quality &amp; finish troubleshooting</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid #e6e9ec;border-radius:14px;padding:32px;background:#fff;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src="icons/08-Controls-pulse-waveform.svg" width="32" height="32" alt=""><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">08</span></div>
+          <h2 style="font-size:22px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">Controls Design</h2>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 20px;">Control architecture and integration — designed for reliability, safety, and easy maintenance down the road.</p>
+          <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid #e6e9ec;padding-top:18px;">
+            
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Pneumatic &amp; hydraulic design</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Control architecture</div>
+            <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> Reliability &amp; maintainability review</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#f5f7f9;background-image:radial-gradient(circle,rgba(22,32,42,0.17) 1px,transparent 1.7px);background-size:22px 22px;border-top:1px solid #e6e9ec;border-bottom:1px solid #e6e9ec;">
+    <div style="max-width:1000px;margin:0 auto;padding:clamp(56px,7vw,88px) 32px;text-align:center;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:18px;">The Frontier difference</div>
+      <h2 style="font-size:clamp(26px,3vw,38px);line-height:1.12;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 16px;">Independent, hands-on, and honest about scope.</h2>
+      <p style="font-size:16px;line-height:1.6;color:#566169;margin:0 auto 40px;max-width:560px;">Every engagement ends with a written deliverable you keep.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:32px;text-align:left;">
+        <div>
+          <h3 style="font-size:18px;font-weight:600;color:#16202a;margin:0 0 8px;">Vendor-neutral</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">We don't resell equipment. Our only incentive is the solution that actually works for your plant.</p>
+        </div>
+        <div>
+          <h3 style="font-size:18px;font-weight:600;color:#16202a;margin:0 0 8px;">Fixed-scope proposals</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">Clear deliverables, timelines, and pricing up front. No open-ended invoices, no surprises.</p>
+        </div>
+        <div>
+          <h3 style="font-size:18px;font-weight:600;color:#16202a;margin:0 0 8px;">Floor-first</h3>
+          <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">Twenty years of real production experience. We speak your operators' language, not just the theory.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#131c24;color:#fff;">
+    <div style="max-width:900px;margin:0 auto;padding:clamp(64px,8vw,100px) 32px;text-align:center;">
+      <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:#fff;margin:0 0 18px;">Not sure which service you need?</h2>
+      <p style="font-size:18px;line-height:1.6;color:#c3ccd3;margin:0 auto 32px;max-width:560px;">That's what the free 30-minute call is for. Tell us the problem you're trying to solve — we'll tell you the straightest path to it.</p>
+      <a href="Home.dc.html#contact" style="display:inline-flex;align-items:center;gap:8px;background:#b3261e;color:#fff;font-size:16px;font-weight:500;padding:16px 30px;border-radius:8px;" style-hover="background:#8f1d17;">Book a free consultation <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+      <div style="display:flex;align-items:center;justify-content:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#9aa4ad;margin-top:18px;"><span style="display:inline-block;width:7px;height:7px;border-radius:100px;background:#1f9d55;"></span> WE REPLY WITHIN ONE BUSINESS DAY</div>
+    </div>
+  </section>
+
+  <footer style="background:#0e161d;color:#9aa4ad;border-top:1px solid rgba(255,255,255,0.06);">
+    <div style="max-width:1200px;margin:0 auto;padding:40px 32px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;">
+      <a href="Home.dc.html" style="display:flex;align-items:center;gap:10px;color:#e4e9ec;font-weight:700;font-size:16px;">
+        <span style="display:inline-block;width:9px;height:9px;background:#b3261e;border-radius:2px;transform:rotate(45deg);"></span>
+        FRONTIER<span style="color:#b3261e;">&nbsp;MFG</span><span style="color:#566169;font-weight:400;">&nbsp;Services</span>
+      </a>
+      <nav style="display:flex;flex-wrap:wrap;gap:24px;">
+        <a href="Services.dc.html" style="color:#9aa4ad;font-size:14px;">Services</a>
+        <a href="Baseline.dc.html" style="color:#9aa4ad;font-size:14px;">Baseline</a>
+        <a href="Home.dc.html#process" style="color:#9aa4ad;font-size:14px;">Process</a>
+        <a href="Home.dc.html#about" style="color:#9aa4ad;font-size:14px;">About</a>
+        <a href="Home.dc.html#contact" style="color:#9aa4ad;font-size:14px;">Contact</a>
+      </nav>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#566169;">© {{ year }} Frontier Manufacturing Services · Vancouver &amp; the Lower Mainland, BC</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { isMobile: false, menuOpen: false };
+  componentDidMount() {
+    this._onResize = () => {
+      const m = window.innerWidth < 860;
+      this.setState(s => ({ isMobile: m, menuOpen: m ? s.menuOpen : false }));
+    };
+    this._onResize();
+    window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() { if (this._onResize) window.removeEventListener('resize', this._onResize); }
+  renderVals() {
+    return {
+      year: 2026,
+      isDesktop: !this.state.isMobile,
+      isMobile: this.state.isMobile,
+      menuOpen: this.state.isMobile && this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

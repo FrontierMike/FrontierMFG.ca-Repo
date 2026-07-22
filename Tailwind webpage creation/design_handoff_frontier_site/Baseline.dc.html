@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baseline — Real-time KPI tracking — Frontier MFG</title>
+<meta name="description" content="Baseline: wireless sensors and a live dashboard that track your shop-floor KPIs — OEE, output, downtime, cycle time — without rewiring or an IT project. Coming soon from Frontier MFG.">
+<meta name="theme-color" content="#131c24">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Crect%20x='9'%20y='9'%20width='14'%20height='14'%20rx='2'%20transform='rotate(45%2016%2016)'%20fill='%23b3261e'/%3E%3C/svg%3E">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #ffffff; color: #16202a; font-family: 'IBM Plex Sans', sans-serif; font-weight: 400; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: #b3261e; text-decoration: none; }
+  a:hover { color: #8f1d17; }
+  section[id] { scroll-margin-top: 84px; }
+  input, select, textarea { font-family: inherit; }
+  @keyframes fmfg-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.82); } }
+</style>
+</helmet>
+
+<div style="background:#ffffff;">
+
+  <header style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);border-bottom:1px solid #e6e9ec;">
+    <div style="max-width:1200px;margin:0 auto;padding:0 32px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+      <a href="Home.dc.html" style="display:flex;align-items:center;gap:10px;color:#16202a;font-weight:700;font-size:19px;letter-spacing:0.01em;">
+        <span style="display:inline-block;width:10px;height:10px;background:#b3261e;border-radius:2px;transform:rotate(45deg);"></span>
+        FRONTIER<span style="color:#b3261e;">&nbsp;MFG</span>
+      </a>
+      <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;align-items:center;gap:28px;">
+        <a href="Services.dc.html" style="color:#566169;font-size:14px;font-weight:500;">Services</a>
+        <a href="Baseline.dc.html" style="color:#16202a;font-size:14px;font-weight:600;display:inline-flex;align-items:center;gap:6px;">Baseline <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;background:#fbe9e8;color:#b3261e;padding:2px 6px;border-radius:100px;">SOON</span></a>
+        <a href="Home.dc.html#process" style="color:#566169;font-size:14px;font-weight:500;">Process</a>
+        <a href="Home.dc.html#about" style="color:#566169;font-size:14px;font-weight:500;">About</a>
+        <a href="#pilot" style="display:inline-flex;align-items:center;gap:8px;background:#b3261e;color:#fff;font-size:14px;font-weight:500;padding:10px 18px;border-radius:8px;" style-hover="background:#8f1d17;">Join the pilot</a>
+      </nav>
+      </sc-if>
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMenu }}" aria-label="Toggle menu" style="display:flex;flex-direction:column;justify-content:center;gap:4px;width:44px;height:44px;background:transparent;border:1px solid #cbd2d8;border-radius:8px;cursor:pointer;padding:0 11px;">
+        <span style="display:block;height:2px;width:100%;background:#16202a;border-radius:2px;"></span>
+        <span style="display:block;height:2px;width:100%;background:#16202a;border-radius:2px;"></span>
+        <span style="display:block;height:2px;width:100%;background:#16202a;border-radius:2px;"></span>
+      </button>
+      </sc-if>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav style="display:flex;flex-direction:column;padding:6px 32px 18px;border-top:1px solid #e6e9ec;background:rgba(255,255,255,0.98);">
+      <a href="Services.dc.html" onClick="{{ closeMenu }}" style="padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;border-bottom:1px solid #f0f2f4;">Services</a>
+      <a href="Baseline.dc.html" onClick="{{ closeMenu }}" style="padding:13px 2px;color:#16202a;font-size:16px;font-weight:600;border-bottom:1px solid #f0f2f4;display:inline-flex;align-items:center;gap:8px;">Baseline <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.08em;background:#fbe9e8;color:#b3261e;padding:2px 6px;border-radius:100px;">SOON</span></a>
+      <a href="Home.dc.html#process" onClick="{{ closeMenu }}" style="padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;border-bottom:1px solid #f0f2f4;">Process</a>
+      <a href="Home.dc.html#about" onClick="{{ closeMenu }}" style="padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;border-bottom:1px solid #f0f2f4;">About</a>
+      <a href="#pilot" onClick="{{ closeMenu }}" style="margin-top:14px;text-align:center;background:#b3261e;color:#fff;font-size:15px;font-weight:500;padding:14px;border-radius:8px;" style-hover="background:#8f1d17;">Join the pilot</a>
+    </nav>
+    </sc-if>
+  </header>
+
+  <section style="background:#131c24;color:#fff;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:56px 56px;"></div>
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,96px) 32px;position:relative;display:flex;flex-wrap:wrap;gap:56px;align-items:center;">
+      <div style="flex:1 1 440px;min-width:300px;">
+        <div style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:24px;background:rgba(179,38,30,0.12);border:1px solid rgba(179,38,30,0.35);padding:8px 15px;border-radius:100px;">
+          <span style="display:inline-block;width:7px;height:7px;border-radius:100px;background:#b3261e;animation:fmfg-pulse 1.6s ease-in-out infinite;"></span> Launching end of year — join the pilot
+        </div>
+        <h1 style="font-size:clamp(40px,5vw,66px);line-height:1.03;letter-spacing:-0.025em;font-weight:600;color:#fff;margin:0 0 22px;text-wrap:balance;">Baseline: Real-time KPI tracking, made effortless.</h1>
+        <p style="font-size:19px;line-height:1.6;color:#c3ccd3;margin:0 0 34px;max-width:540px;">Unobtrusive wireless sensors that automatically track your key manufacturing metrics and stream them to a live dashboard — so you finally know, in real time, how your plant is actually running.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;">
+          <a href="#pilot" style="display:inline-flex;align-items:center;gap:8px;background:#b3261e;color:#fff;font-size:16px;font-weight:500;padding:15px 26px;border-radius:8px;" style-hover="background:#8f1d17;">Join the pilot <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+          <a href="#how" style="display:inline-flex;align-items:center;gap:8px;background:transparent;color:#fff;font-size:16px;font-weight:500;padding:15px 26px;border-radius:8px;border:1px solid rgba(255,255,255,0.25);" style-hover="border-color:#fff;">How it works</a>
+        </div>
+      </div>
+      <div style="flex:1 1 380px;min-width:300px;">
+        <div style="background:#0a0e13;border:1px solid rgba(255,255,255,0.08);border-radius:14px;box-shadow:0 30px 60px -24px rgba(0,0,0,0.55);padding:14px;display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0 2px 2px;font-family:'IBM Plex Mono',monospace;">
+            <span style="display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.06em;color:#c3cad2;"><span style="width:7px;height:7px;border-radius:100px;background:#73bf69;display:inline-block;animation:fmfg-pulse 1.6s ease-in-out infinite;"></span>BASELINE · CNC-01</span>
+            <span style="font-size:10px;letter-spacing:0.14em;color:#6b7079;">LIVE — RIGHT NOW</span>
+          </div>
+          <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:10px;">
+            <div style="font-size:10px;color:#8b929b;margin-bottom:9px;">Machine status</div>
+            <div style="background:linear-gradient(180deg,#67b25b,#469140);border-radius:5px;height:62px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:600;letter-spacing:0.04em;color:#fff;">RUNNING</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">
+            <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
+              <div style="font-size:10px;color:#8b929b;margin-bottom:8px;">Parts (session)</div>
+              <div style="font-size:28px;font-weight:400;color:#73bf69;line-height:1;">426</div>
+            </div>
+            <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
+              <div style="font-size:10px;color:#8b929b;margin-bottom:8px;">Parts / min</div>
+              <div style="font-size:28px;font-weight:400;color:#73bf69;line-height:1;">3.9</div>
+            </div>
+            <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
+              <div style="font-size:10px;color:#8b929b;margin-bottom:8px;">Downtime (24 h)</div>
+              <div style="font-size:28px;font-weight:400;color:#f2495c;line-height:1;">40<span style="font-size:14px;color:#8b929b;"> mins</span></div>
+            </div>
+            <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
+              <div style="font-size:10px;color:#8b929b;margin-bottom:8px;">Availability</div>
+              <div style="font-size:28px;font-weight:400;color:#73bf69;line-height:1;">90.4<span style="font-size:14px;color:#8b929b;"> %</span></div>
+            </div>
+          </div>
+          <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
+            <div style="font-size:10px;color:#8b929b;margin-bottom:12px;">Machine load — live (%)</div>
+            <div style="display:flex;gap:7px;">
+              <div style="display:flex;flex-direction:column;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#5f656e;height:60px;"><span>80</span><span>40</span><span>0</span></div>
+              <div style="flex:1;display:flex;align-items:flex-end;gap:3px;height:60px;border-left:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.09);padding-left:6px;">
+                <div style="flex:1;height:82%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                <div style="flex:1;height:64%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                <div style="flex:1;height:86%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                <div style="flex:1;height:70%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                <div style="flex:1;height:88%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                <div style="flex:1;height:60%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                <div style="flex:1;height:84%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                <div style="flex:1;height:68%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                <div style="flex:1;height:90%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                <div style="flex:1;height:72%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                <div style="flex:1;height:85%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+                <div style="flex:1;height:66%;background:#d9a520;border-top:2px solid #b7861a;"></div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:0 2px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8b929b;"><span>4 sensors online</span><span style="color:#73bf69;">● healthy</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#ffffff;background-image:linear-gradient(rgba(22,32,42,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(22,32,42,0.05) 1px,transparent 1px);background-size:26px 26px;">
+    <div style="max-width:900px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;text-align:center;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:18px;">What is Baseline</div>
+      <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 22px;">Most shops fly blind. Baseline turns the lights on.</h2>
+      <p style="font-size:19px;line-height:1.65;color:#566169;margin:0 auto;max-width:680px;">Ask most manufacturers how many good parts came off a line last Tuesday, or how much time was lost to stoppages, and the honest answer is a shrug or a stale spreadsheet. Baseline is a set of small wireless sensors we place on your equipment. They quietly measure what's happening and send it to a dashboard you can open on any screen — no rewiring, no IT project, no data team required.</p>
+      <div style="display:flex;flex-direction:column;gap:0;margin-top:48px;text-align:left;border:1px solid #e6e9ec;border-radius:16px;overflow:hidden;">
+        <div style="background:#131c24;position:relative;">
+          <video src="videos/dashboard-1.mp4" loop muted playsinline preload="none" data-lazyvid style="width:100%;height:auto;display:block;background:#0a0e13;"></video>
+          <div style="position:absolute;left:14px;bottom:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(14,22,29,0.72);padding:5px 10px;border-radius:6px;">DASHBOARD — LIVE VIEW</div>
+        </div>
+        <div style="background:#131c24;position:relative;">
+          <video src="videos/dashboard-2.mp4" loop muted playsinline preload="none" data-lazyvid style="width:100%;height:auto;display:block;background:#0a0e13;"></video>
+          <div style="position:absolute;left:14px;bottom:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(14,22,29,0.72);padding:5px 10px;border-radius:6px;">SENSOR DETAIL</div>
+        </div>
+        <div style="background:#131c24;position:relative;">
+          <video src="videos/dashboard-3.mp4" loop muted playsinline preload="none" data-lazyvid style="width:100%;height:auto;display:block;background:#0a0e13;"></video>
+          <div style="position:absolute;left:14px;bottom:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(14,22,29,0.72);padding:5px 10px;border-radius:6px;">TREND HISTORY</div>
+        </div>
+        <div style="background:#131c24;position:relative;">
+          <video src="videos/dashboard-4.mp4" loop muted playsinline preload="none" data-lazyvid style="width:100%;height:auto;display:block;background:#0a0e13;"></video>
+          <div style="position:absolute;left:14px;bottom:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(14,22,29,0.72);padding:5px 10px;border-radius:6px;">ALERTS &amp; STOPPAGES</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="learn" style="background:#f5f7f9;background-image:linear-gradient(rgba(22,32,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(22,32,42,0.06) 1px,transparent 1px);background-size:26px 26px;border-top:1px solid #e6e9ec;border-bottom:1px solid #e6e9ec;">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
+      <div style="max-width:680px;margin-bottom:48px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:18px;">New to this? Start here</div>
+        <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 16px;">The jargon, in plain English.</h2>
+        <p style="font-size:18px;line-height:1.6;color:#566169;margin:0;">You don't need to be technical to benefit from any of this. Here's what the terms actually mean — and why each one matters for your bottom line.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
+        <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:30px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#b3261e;margin-bottom:14px;">Term 01</div>
+          <h3 style="font-size:21px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">What's a KPI?</h3>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 14px;">A "Key Performance Indicator" is simply a number that tells you whether things are going well — like parts per hour, scrap rate, or on-time shipments.</p>
+          <p style="font-size:14px;line-height:1.6;color:#8a949d;margin:0;"><span style="color:#16202a;font-weight:600;">Why it matters:</span> the right few numbers, tracked honestly, keep everyone pointed at the same goal.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:30px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#b3261e;margin-bottom:14px;">Term 02</div>
+          <h3 style="font-size:21px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">What's OEE?</h3>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 14px;">"Overall Equipment Effectiveness" rolls three things — how often a machine runs, how fast, and how many good parts it makes — into one honest score out of 100%.</p>
+          <p style="font-size:14px;line-height:1.6;color:#8a949d;margin:0;"><span style="color:#16202a;font-weight:600;">Why it matters:</span> most plants sit near 60%. Every point you recover is capacity you already paid for.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:30px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#b3261e;margin-bottom:14px;">Term 03</div>
+          <h3 style="font-size:21px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">What's Industrial IoT?</h3>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 14px;">The "Industrial Internet of Things" just means factory equipment that's connected and can report on itself — sensors and machines sending data automatically instead of someone writing it on a clipboard.</p>
+          <p style="font-size:14px;line-height:1.6;color:#8a949d;margin:0;"><span style="color:#16202a;font-weight:600;">Why it matters:</span> automatic data is accurate data. No more guessing or manual logs that take up valuable time.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:30px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#b3261e;margin-bottom:14px;">Term 04</div>
+          <h3 style="font-size:21px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">What's a live dashboard?</h3>
+          <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 14px;">Screens — on the floor, in the office, or on your phone — that show your KPIs updating in real time, instead of a report you get days later.</p>
+          <p style="font-size:14px;line-height:1.6;color:#8a949d;margin:0;"><span style="color:#16202a;font-weight:600;">Why it matters:</span> you can act on a problem while the shift is still running, not after it's over.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#ffffff;background-image:linear-gradient(rgba(22,32,42,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(22,32,42,0.05) 1px,transparent 1px);background-size:26px 26px;">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
+      <div style="max-width:680px;margin-bottom:52px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:18px;">Why it matters</div>
+        <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0;">What clear data actually changes.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:40px 48px;">
+        <div>
+          <div style="font-size:34px;font-weight:600;color:#b3261e;letter-spacing:-0.02em;margin-bottom:10px;font-family:'IBM Plex Sans',sans-serif;">Find lost hours</div>
+          <p style="font-size:15.5px;line-height:1.65;color:#566169;margin:0;">Downtime is the silent profit killer. When every stoppage is logged automatically, the real cost of small, "normal" interruptions finally becomes visible — and fixable.</p>
+        </div>
+        <div>
+          <div style="font-size:34px;font-weight:600;color:#b3261e;letter-spacing:-0.02em;margin-bottom:10px;">End the guesswork</div>
+          <p style="font-size:15.5px;line-height:1.65;color:#566169;margin:0;">Quoting, scheduling, and hiring decisions get far easier when they're based on what your plant really produces — not on a hopeful estimate.</p>
+        </div>
+        <div>
+          <div style="font-size:34px;font-weight:600;color:#b3261e;letter-spacing:-0.02em;margin-bottom:10px;">Prove improvements</div>
+          <p style="font-size:15.5px;line-height:1.65;color:#566169;margin:0;">Change a process and see the impact on the same dashboard the next shift. No more debating whether something "felt" better.</p>
+        </div>
+        <div>
+          <div style="font-size:34px;font-weight:600;color:#b3261e;letter-spacing:-0.02em;margin-bottom:10px;">Win more work</div>
+          <p style="font-size:15.5px;line-height:1.65;color:#566169;margin:0;">Increasingly, larger customers want suppliers who can show real production data. Being able to is becoming a competitive edge.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" style="background:#f5f7f9;background-image:linear-gradient(rgba(22,32,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(22,32,42,0.06) 1px,transparent 1px);background-size:26px 26px;border-top:1px solid #e6e9ec;border-bottom:1px solid #e6e9ec;">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
+      <div style="max-width:680px;margin-bottom:52px;">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:18px;">How Baseline works</div>
+        <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0;">Up and running, without the IT project.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:32px;">
+        <div>
+          <div style="width:56px;height:56px;border:1.5px solid #b3261e;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#b3261e;margin-bottom:22px;">01</div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;">Place the sensors</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">Small wireless sensors attach to your machines and plug into standard wall power. No rewiring, no shutdown, no disruption to production.</p>
+        </div>
+        <div>
+          <div style="width:56px;height:56px;border:1.5px solid #b3261e;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#b3261e;margin-bottom:22px;">02</div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;">Capture automatically</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">They track cycles, run time, stoppages, and output around the clock — accurately, with no clipboards or manual entry.</p>
+        </div>
+        <div>
+          <div style="width:56px;height:56px;border:1.5px solid #b3261e;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#b3261e;margin-bottom:22px;">03</div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;">See it live</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">Your KPIs appear on a clean dashboard — on the floor, in the office, or on your phone — updating in real time.</p>
+        </div>
+        <div>
+          <div style="width:56px;height:56px;border:1.5px solid #b3261e;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#b3261e;margin-bottom:22px;">04</div>
+          <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;">Act &amp; improve</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">With Frontier's help, turn what you learn into concrete changes — and watch the numbers move.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#131c24;color:#fff;">
+    <div style="max-width:900px;margin:0 auto;padding:clamp(56px,7vw,88px) 32px;text-align:center;">
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:18px;">And then... AI</div>
+      <h2 style="font-size:clamp(26px,3.2vw,40px);line-height:1.12;letter-spacing:-0.02em;font-weight:600;color:#fff;margin:0 0 20px;">Baseline is your on-ramp to AI.</h2>
+      <p style="font-size:18px;line-height:1.65;color:#c3ccd3;margin:0 auto;max-width:640px;">The reason AI feels out of reach for most shops is simple: AI needs data, and most shops don't have any. Once Baseline is capturing clean, consistent production data, the door opens to genuinely useful AI — predicting maintenance before a breakdown, forecasting output, and spotting patterns no person would catch. Get the data right first, and AI stops being a buzzword and starts being an advantage.</p>
+    </div>
+  </section>
+
+  <section id="faq" style="background:#f5f7f9;background-image:linear-gradient(rgba(22,32,42,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(22,32,42,0.06) 1px,transparent 1px);background-size:26px 26px;border-top:1px solid #e6e9ec;border-bottom:1px solid #e6e9ec;">
+    <div style="max-width:1000px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
+      <div style="max-width:680px;margin-bottom:48px;">
+        <div style="width:72px;height:9px;margin-bottom:16px;background:repeating-linear-gradient(90deg,#b3261e,#b3261e 1.5px,transparent 1.5px,transparent 9px);"></div>
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:18px;">Common questions</div>
+        <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0;">The questions shops actually ask.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
+        <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:26px;">
+          <h3 style="font-size:17px;font-weight:600;color:#16202a;margin:0 0 10px;">Will this work with my older machines?</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">Yes. The sensors mount to equipment you already own and measure what's happening from the outside — no PLC upgrade or special controller needed. Manual, semi-automatic, and CNC all work.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:26px;">
+          <h3 style="font-size:17px;font-weight:600;color:#16202a;margin:0 0 10px;">Do I need IT people or a network project?</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">No. The sensors are wireless and run on standard wall power, and the dashboard opens in any browser. No rewiring, no server to maintain, no IT project.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:26px;">
+          <h3 style="font-size:17px;font-weight:600;color:#16202a;margin:0 0 10px;">How disruptive is installation?</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">Minimal. We place the sensors during a normal visit — no production downtime and nothing cut into or wired through your machines.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:26px;">
+          <h3 style="font-size:17px;font-weight:600;color:#16202a;margin:0 0 10px;">What can it actually track?</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">The metrics that show how the floor is really running: output and part counts, run vs. idle time, downtime and stoppages, cycle time, and OEE.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:26px;">
+          <h3 style="font-size:17px;font-weight:600;color:#16202a;margin:0 0 10px;">Is my production data private?</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">Yes. Your data is yours — we don't share it, and you control who on your team can see the dashboard.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:26px;">
+          <h3 style="font-size:17px;font-weight:600;color:#16202a;margin:0 0 10px;">What if I'm not technical?</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">That's exactly who Baseline is for. The dashboard is plain-language and built to read at a glance — no data team and no training course required.</p>
+        </div>
+        <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:26px;">
+          <h3 style="font-size:17px;font-weight:600;color:#16202a;margin:0 0 10px;">When does Baseline launch?</h3>
+          <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">General availability is targeted for the end of the year. Pilot partners are onboarded first — that's happening now.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pilot" style="background:#ffffff;">
+    <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;display:flex;flex-wrap:wrap;gap:56px;">
+      <div style="flex:1 1 380px;min-width:300px;">
+        <div style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:22px;background:#fbe9e8;border:1px solid rgba(179,38,30,0.25);padding:7px 14px;border-radius:100px;">Limited pilot — a handful of BC shops</div>
+        <h2 style="font-size:clamp(30px,3.6vw,48px);line-height:1.06;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 20px;">Be one of the first to run on Baseline.</h2>
+        <p style="font-size:18px;line-height:1.65;color:#566169;margin:0 0 32px;max-width:480px;">We're partnering with a small group of Lower Mainland manufacturers to prove Baseline on real shop floors. Pilot partners get early access, hands-on setup, and a direct say in where the product goes.</p>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div style="display:flex;gap:14px;align-items:flex-start;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;margin-top:2px;">01</span><div><div style="font-size:16px;font-weight:600;color:#16202a;margin-bottom:3px;">Hands-on setup, done for you</div><div style="font-size:14.5px;line-height:1.6;color:#566169;">We install the sensors and stand up your dashboard for you.</div></div></div>
+          <div style="display:flex;gap:14px;align-items:flex-start;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;margin-top:2px;">02</span><div><div style="font-size:16px;font-weight:600;color:#16202a;margin-bottom:3px;">Shape the product</div><div style="font-size:14.5px;line-height:1.6;color:#566169;">Your feedback directly guides what we build next.</div></div></div>
+          <div style="display:flex;gap:14px;align-items:flex-start;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;margin-top:2px;">03</span><div><div style="font-size:16px;font-weight:600;color:#16202a;margin-bottom:3px;">First in line at launch</div><div style="font-size:14.5px;line-height:1.6;color:#566169;">Pilot partners get priority when Baseline becomes generally available.</div></div></div>
+        </div>
+        <div style="margin-top:40px;">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a949c;margin-bottom:14px;">Who's behind Baseline</div>
+          <div style="display:flex;flex-wrap:wrap;gap:12px 28px;">
+            <a href="Home.dc.html#about" style="display:flex;align-items:center;gap:12px;color:#16202a;">
+              <span style="width:46px;height:46px;border-radius:11px;background:#16202a;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;color:#fff;position:relative;flex-shrink:0;">MW<span style="position:absolute;top:6px;right:6px;width:5px;height:5px;background:#b3261e;border-radius:1px;transform:rotate(45deg);"></span></span>
+              <span><span style="display:block;font-size:15px;font-weight:600;">Mike Wait</span><span style="display:block;font-size:12.5px;color:#566169;">Founder — leads Baseline</span></span>
+            </a>
+            <a href="Home.dc.html#about" style="display:flex;align-items:center;gap:12px;color:#16202a;">
+              <span style="width:46px;height:46px;border-radius:11px;background:#16202a;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;color:#fff;position:relative;flex-shrink:0;">GW<span style="position:absolute;top:6px;right:6px;width:5px;height:5px;background:#b3261e;border-radius:1px;transform:rotate(45deg);"></span></span>
+              <span><span style="display:block;font-size:15px;font-weight:600;">Gord Wait</span><span style="display:block;font-size:12.5px;color:#566169;">Product-design advisor</span></span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1 1 420px;min-width:300px;">
+        <form onSubmit="{{ onSubmit }}" style="background:#f5f7f9;border:1px solid #e6e9ec;border-radius:16px;padding:30px;">
+          <h3 style="font-size:20px;font-weight:600;color:#16202a;margin:0 0 6px;">Apply to join the pilot</h3>
+          <p style="font-size:14px;color:#566169;margin:0 0 22px;">Takes two minutes. We'll follow up within one business day.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
+            <div style="flex:1 1 140px;">
+              <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#8a949d;margin-bottom:8px;">Name</label>
+              <input type="text" style="width:100%;background:#fff;border:1px solid #cbd2d8;border-radius:8px;padding:12px 14px;color:#16202a;font-size:15px;" style-focus="border-color:#b3261e;outline:none;">
+            </div>
+            <div style="flex:1 1 140px;">
+              <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#8a949d;margin-bottom:8px;">Company</label>
+              <input type="text" style="width:100%;background:#fff;border:1px solid #cbd2d8;border-radius:8px;padding:12px 14px;color:#16202a;font-size:15px;" style-focus="border-color:#b3261e;outline:none;">
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
+            <div style="flex:1 1 140px;">
+              <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#8a949d;margin-bottom:8px;">Email</label>
+              <input type="email" style="width:100%;background:#fff;border:1px solid #cbd2d8;border-radius:8px;padding:12px 14px;color:#16202a;font-size:15px;" style-focus="border-color:#b3261e;outline:none;">
+            </div>
+            <div style="flex:1 1 140px;">
+              <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#8a949d;margin-bottom:8px;"># of machines</label>
+              <select style="width:100%;background:#fff;border:1px solid #cbd2d8;border-radius:8px;padding:12px 14px;color:#16202a;font-size:15px;" style-focus="border-color:#b3261e;outline:none;">
+                <option>1 – 5</option>
+                <option>6 – 15</option>
+                <option>16 – 40</option>
+                <option>40+</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#8a949d;margin-bottom:8px;">What do you make?</label>
+            <input type="text" style="width:100%;background:#fff;border:1px solid #cbd2d8;border-radius:8px;padding:12px 14px;color:#16202a;font-size:15px;" style-focus="border-color:#b3261e;outline:none;">
+          </div>
+          <div style="margin-bottom:20px;">
+            <label style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#8a949d;margin-bottom:8px;">What would you most want to track? (optional)</label>
+            <textarea rows="3" style="width:100%;background:#fff;border:1px solid #cbd2d8;border-radius:8px;padding:12px 14px;color:#16202a;font-size:15px;resize:vertical;"></textarea>
+          </div>
+          <button type="submit" style="width:100%;background:#b3261e;color:#fff;font-size:16px;font-weight:500;padding:15px;border:none;border-radius:8px;cursor:pointer;" style-hover="background:#8f1d17;">Apply to join the pilot</button>
+          <p style="margin:12px 0 0;font-size:12.5px;color:#8a949c;text-align:center;">No newsletter, no spam — we'll only contact you about the pilot.</p>
+          <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+            <p style="margin:16px 0 0;font-size:14px;color:#1f9d55;text-align:center;">Thanks for your interest — we'll be in touch within one business day.</p>
+          </sc-if>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background:#0e161d;color:#9aa4ad;border-top:1px solid rgba(255,255,255,0.06);">
+    <div style="max-width:1200px;margin:0 auto;padding:40px 32px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;">
+      <a href="Home.dc.html" style="display:flex;align-items:center;gap:10px;color:#e4e9ec;font-weight:700;font-size:16px;">
+        <span style="display:inline-block;width:9px;height:9px;background:#b3261e;border-radius:2px;transform:rotate(45deg);"></span>
+        FRONTIER<span style="color:#b3261e;">&nbsp;MFG</span><span style="color:#566169;font-weight:400;">&nbsp;Services</span>
+      </a>
+      <nav style="display:flex;flex-wrap:wrap;gap:24px;">
+        <a href="Services.dc.html" style="color:#9aa4ad;font-size:14px;">Services</a>
+        <a href="Baseline.dc.html" style="color:#9aa4ad;font-size:14px;">Baseline</a>
+        <a href="Home.dc.html#process" style="color:#9aa4ad;font-size:14px;">Process</a>
+        <a href="Home.dc.html#about" style="color:#9aa4ad;font-size:14px;">About</a>
+        <a href="Home.dc.html#contact" style="color:#9aa4ad;font-size:14px;">Contact</a>
+      </nav>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#566169;">© {{ year }} Frontier Manufacturing Services · Vancouver &amp; the Lower Mainland, BC</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { sent: false, isMobile: false, menuOpen: false };
+  componentDidMount() {
+    this._onResize = () => {
+      const m = window.innerWidth < 860;
+      this.setState(s => ({ isMobile: m, menuOpen: m ? s.menuOpen : false }));
+    };
+    this._onResize();
+    window.addEventListener('resize', this._onResize);
+    this._vidObs = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        const v = en.target;
+        if (en.isIntersecting) { if (v.preload === 'none') v.preload = 'auto'; if (v.play) v.play().catch(() => {}); }
+        else if (v.pause) { v.pause(); }
+      });
+    }, { rootMargin: '200px 0px' });
+    setTimeout(() => { document.querySelectorAll('video[data-lazyvid]').forEach(v => this._vidObs.observe(v)); }, 0);
+  }
+  componentWillUnmount() {
+    if (this._onResize) window.removeEventListener('resize', this._onResize);
+    if (this._vidObs) this._vidObs.disconnect();
+  }
+  renderVals() {
+    return {
+      sent: this.state.sent,
+      year: 2026,
+      onSubmit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      isDesktop: !this.state.isMobile,
+      isMobile: this.state.isMobile,
+      menuOpen: this.state.isMobile && this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const services = [
+  {
+    n: '01', icon: '01-process-automation', title: 'Process Automation',
+    copy: 'We find where manual, repetitive work is costing you time and consistency, then design and implement automation sized to your volume and budget.',
+    bullets: ['Opportunity assessment & ROI', 'Material handling & machine tending', 'Robotic & pneumatic cell integration', 'Commissioning & operator training'],
+  },
+  {
+    n: '02', icon: '02-plc-scada-programming', title: 'PLC / SCADA Programming',
+    copy: 'Custom control logic, operator interfaces, and commissioning support for Allen-Bradley, Siemens, and other major platforms.',
+    bullets: ['Ladder & structured-text programming', 'HMI & SCADA screen design', 'Alarm & data-logging setup', 'On-site commissioning support'],
+  },
+  {
+    n: '03', icon: '03-hardware-software-integration', title: 'Hardware & Software Integration',
+    copy: 'Connect industrial hardware to software systems so data flows end to end — from a sensor on the floor to a dashboard in the office.',
+    bullets: ['Sensor & controller selection', 'Industrial networking (Ethernet/IP, Modbus)', 'Data acquisition to dashboards', 'Custom software & scripting'],
+    related: true,
+  },
+  {
+    n: '04', icon: '04-process-improvement', title: 'Process Improvement',
+    copy: 'Lean-informed analysis of your production workflows to eliminate bottlenecks, cut waste, and set measurable targets you can hold the line to.',
+    bullets: ['Value-stream & workflow mapping', 'Bottleneck & downtime analysis', 'Standard work & layout', 'Measurable KPI targets'],
+    related: true,
+  },
+  {
+    n: '05', icon: '05-feasibility-studies', title: 'Feasibility Studies',
+    copy: 'Technical and economic assessments that validate an automation or production-change investment before you commit real money to it.',
+    bullets: ['Technical feasibility review', 'Cost/benefit & ROI modelling', 'Risk assessment', 'Clear go / no-go recommendation'],
+  },
+  {
+    n: '06', icon: '06-design-for-manufacturing', title: 'Design for Manufacturing',
+    copy: 'DFM reviews that bridge design intent with production reality — reducing rework, material waste, and the cost of parts that are hard to make.',
+    bullets: ['Part & assembly reviews', 'Material & process selection', 'Tolerance & cost reduction', 'Prototype-to-production planning'],
+  },
+  {
+    n: '07', icon: '07-machining-consultation', title: 'Machining Consultation',
+    copy: 'Process parameters, toolpath strategy, and fixturing advice to get more out of your CNC machining operations — faster cycles, better finish.',
+    bullets: ['Speeds/feeds & toolpath strategy', 'Fixturing & workholding', 'Cycle-time reduction', 'Quality & finish troubleshooting'],
+  },
+  {
+    n: '08', icon: '08-Controls-pulse-waveform', title: 'Controls Design',
+    copy: 'Control architecture and integration — designed for reliability, safety, and easy maintenance down the road.',
+    bullets: ['Pneumatic & hydraulic design', 'Control architecture', 'Reliability & maintainability review'],
+  },
+];
+---
+<Base
+  title="Services — Frontier MFG"
+  description="Practical technical services for manufacturers modernizing: process automation, PLC/SCADA programming, controls design, and process improvement. Independent and vendor-neutral."
+>
+  <Header page="services" />
+  <main>
+
+    <!-- Hero -->
+    <section class="dots-hero" style="border-bottom:1px solid #e6e9ec;">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,88px) 32px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+          <span style="display:block;width:32px;height:2px;background:#b3261e;"></span>
+          <span class="eyebrow">Services</span>
+        </div>
+        <h1 style="font-size:clamp(38px,4.8vw,60px);line-height:1.04;letter-spacing:-0.025em;font-weight:600;color:#16202a;margin:0 0 22px;max-width:820px;text-wrap:balance;">Practical technical services for manufacturers ready to modernize.</h1>
+        <p style="font-size:18px;line-height:1.6;color:#566169;margin:0 0 32px;max-width:600px;">From automation and controls to the data foundation behind Industry 4.0 — hands-on help, scoped to your operation and budget. Independent and vendor-neutral: we recommend what's right for you, not what we're selling.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;">
+          <a href="/#contact" class="btn-red">Book a free consultation <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+          <a href="/baseline" class="btn-outline">Explore Baseline KPI tracking</a>
+        </div>
+        <div style="font-size:13.5px;color:#8a949c;margin-top:14px;">Free 30 minutes · no commitment — and if you don't need us, we'll say so.</div>
+      </div>
+    </section>
+
+    <!-- Service cards -->
+    <section class="dots-white">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(370px,1fr));gap:24px;">
+          {services.map((s) => (
+            <div style="border:1px solid #e6e9ec;border-radius:14px;padding:32px;background:#fff;">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src={`/icons/${s.icon}.svg`} width="32" height="32" alt="" /><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#9aa4ad;">{s.n}</span></div>
+              <h2 style="font-size:22px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">{s.title}</h2>
+              <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 20px;">{s.copy}</p>
+              <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid #e6e9ec;padding-top:18px;">
+                {s.bullets.map((b) => (
+                  <div style="display:flex;gap:10px;font-size:14px;color:#566169;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;">—</span> {b}</div>
+                ))}
+              </div>
+              {s.related && (
+                <a href="/baseline" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:14px;font-weight:500;color:#b3261e;">Related: Baseline KPI tracking <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- The Frontier difference -->
+    <section class="dots-grey" style="border-top:1px solid #e6e9ec;border-bottom:1px solid #e6e9ec;">
+      <div style="max-width:1000px;margin:0 auto;padding:clamp(56px,7vw,88px) 32px;text-align:center;">
+        <div class="eyebrow" style="margin-bottom:18px;">The Frontier difference</div>
+        <h2 style="font-size:clamp(26px,3vw,38px);line-height:1.12;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 16px;">Independent, hands-on, and honest about scope.</h2>
+        <p style="font-size:16px;line-height:1.6;color:#566169;margin:0 auto 40px;max-width:560px;">Every engagement ends with a written deliverable you keep.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:32px;text-align:left;">
+          <div>
+            <h3 style="font-size:18px;font-weight:600;color:#16202a;margin:0 0 8px;">Vendor-neutral</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">We don't resell equipment. Our only incentive is the solution that actually works for your plant.</p>
+          </div>
+          <div>
+            <h3 style="font-size:18px;font-weight:600;color:#16202a;margin:0 0 8px;">Fixed-scope proposals</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">Clear deliverables, timelines, and pricing up front. No open-ended invoices, no surprises.</p>
+          </div>
+          <div>
+            <h3 style="font-size:18px;font-weight:600;color:#16202a;margin:0 0 8px;">Floor-first</h3>
+            <p style="font-size:14.5px;line-height:1.6;color:#566169;margin:0;">Twenty years of real production experience. We speak your operators' language, not just the theory.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing CTA -->
+    <section style="background:#131c24;color:#fff;">
+      <div style="max-width:900px;margin:0 auto;padding:clamp(64px,8vw,100px) 32px;text-align:center;">
+        <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:#fff;margin:0 0 18px;">Not sure which service you need?</h2>
+        <p style="font-size:18px;line-height:1.6;color:#c3ccd3;margin:0 auto 32px;max-width:560px;">That's what the free 30-minute call is for. Tell us the problem you're trying to solve — we'll tell you the straightest path to it.</p>
+        <a href="/#contact" class="btn-red" style="padding:16px 30px;">Book a free consultation <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+        <div style="display:flex;align-items:center;justify-content:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#9aa4ad;margin-top:18px;"><span style="display:inline-block;width:7px;height:7px;border-radius:100px;background:#1f9d55;"></span> WE REPLY WITHIN ONE BUSINESS DAY</div>
+      </div>
+    </section>
+
+  </main>
+  <Footer page="services" />
+</Base>
