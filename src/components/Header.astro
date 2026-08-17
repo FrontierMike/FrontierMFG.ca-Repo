@@ -10,14 +10,14 @@ const cta = page === 'baseline'
   ? { href: '#pilot', label: 'Join the pilot' }
   : { href: `${p}#contact`, label: 'Book a free consultation' };
 
-const active = 'color:#16202a;font-size:0.875rem;font-weight:600;';
-const idle = 'color:#566169;font-size:0.875rem;font-weight:500;';
-const mActive = 'padding:13px 2px;color:#16202a;font-size:1rem;font-weight:600;border-bottom:1px solid #f0f2f4;';
-const mIdle = 'padding:13px 2px;color:#16202a;font-size:1rem;font-weight:500;border-bottom:1px solid #f0f2f4;';
+const active = 'color:#16202a;font-size:14px;font-weight:600;';
+const idle = 'color:#566169;font-size:14px;font-weight:500;';
+const mActive = 'padding:13px 2px;color:#16202a;font-size:16px;font-weight:600;border-bottom:1px solid #f0f2f4;';
+const mIdle = 'padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;border-bottom:1px solid #f0f2f4;';
 ---
 <header style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.9);backdrop-filter:blur(10px);border-bottom:1px solid #e6e9ec;">
   <div style="max-width:1200px;margin:0 auto;padding:0 32px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
-    <a href="/" style="display:flex;align-items:center;gap:10px;color:#16202a;font-weight:700;font-size:1.1875rem;letter-spacing:0.01em;">
+    <a href="/" style="display:flex;align-items:center;gap:10px;color:#16202a;font-weight:700;font-size:19px;letter-spacing:0.01em;">
       <span style="display:inline-block;width:10px;height:10px;background:#b3261e;border-radius:2px;transform:rotate(45deg);"></span>
       FRONTIER<span style="color:#b3261e;">&nbsp;MFG</span>
     </a>
@@ -39,7 +39,7 @@ const mIdle = 'padding:13px 2px;color:#16202a;font-size:1rem;font-weight:500;bor
     <a href="/baseline" style={(page === 'baseline' ? mActive : mIdle) + 'display:inline-flex;align-items:center;gap:8px;'}>Baseline <span class="pill-soon">SOON</span></a>
     <a href={`${p}#process`} style={mIdle}>Process</a>
     <a href={`${p}#about`} style={mIdle}>About</a>
-    <a href={cta.href} class="btn-red" style="margin-top:14px;font-size:0.9375rem;padding:14px;">{cta.label}</a>
+    <a href={cta.href} class="btn-red" style="margin-top:14px;font-size:15px;padding:14px;">{cta.label}</a>
   </nav>
 </header>
 

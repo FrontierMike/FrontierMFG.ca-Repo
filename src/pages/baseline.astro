@@ -69,11 +69,11 @@ const pilotBenefits = [
       <div class="grid-dark-overlay"></div>
       <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,96px) 32px;position:relative;display:flex;flex-wrap:wrap;gap:56px;align-items:center;">
         <div style="flex:1 1 440px;min-width:300px;">
-          <div style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:24px;background:rgba(179,38,30,0.12);border:1px solid rgba(179,38,30,0.35);padding:8px 15px;border-radius:100px;">
+          <div style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:24px;background:rgba(179,38,30,0.12);border:1px solid rgba(179,38,30,0.35);padding:8px 15px;border-radius:100px;">
             <span class="pulse-dot" style="display:inline-block;width:7px;height:7px;border-radius:100px;background:#b3261e;"></span> Launching end of year — join the pilot
           </div>
           <h1 style="font-size:clamp(40px,5vw,66px);line-height:1.03;letter-spacing:-0.025em;font-weight:600;color:#fff;margin:0 0 22px;text-wrap:balance;">Baseline: Real-time KPI tracking, made effortless.</h1>
-          <p style="font-size:1.1875rem;line-height:1.6;color:#c3ccd3;margin:0 0 34px;max-width:540px;">Unobtrusive wireless sensors that automatically track your key manufacturing metrics and stream them to a live dashboard — so you finally know, in real time, how your plant is actually running.</p>
+          <p style="font-size:19px;line-height:1.6;color:#c3ccd3;margin:0 0 34px;max-width:540px;">Unobtrusive wireless sensors that automatically track your key manufacturing metrics and stream them to a live dashboard — so you finally know, in real time, how your plant is actually running.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a href="#pilot" class="btn-red">Join the pilot <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
             <a href="#how" class="btn-ghost-dark">How it works</a>
@@ -83,31 +83,31 @@ const pilotBenefits = [
         <div style="flex:1 1 380px;min-width:300px;">
           <div style="background:#0a0e13;border:1px solid rgba(255,255,255,0.08);border-radius:14px;box-shadow:0 30px 60px -24px rgba(0,0,0,0.55);padding:14px;display:flex;flex-direction:column;gap:10px;">
             <div style="display:flex;align-items:center;justify-content:space-between;padding:0 2px 2px;font-family:'IBM Plex Mono',monospace;">
-              <span style="display:flex;align-items:center;gap:8px;font-size:0.6875rem;letter-spacing:0.06em;color:#c3cad2;"><span class="pulse-dot" style="width:7px;height:7px;border-radius:100px;background:#73bf69;display:inline-block;"></span>BASELINE · CNC-01</span>
-              <span style="font-size:0.625rem;letter-spacing:0.14em;color:#6b7079;">LIVE — RIGHT NOW</span>
+              <span style="display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.06em;color:#c3cad2;"><span class="pulse-dot" style="width:7px;height:7px;border-radius:100px;background:#73bf69;display:inline-block;"></span>BASELINE · CNC-01</span>
+              <span style="font-size:10px;letter-spacing:0.14em;color:#6b7079;">LIVE — RIGHT NOW</span>
             </div>
             <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:10px;">
-              <div style="font-size:0.625rem;color:#8b929b;margin-bottom:9px;">Machine status</div>
+              <div style="font-size:10px;color:#8b929b;margin-bottom:9px;">Machine status</div>
               <div style="background:linear-gradient(180deg,#67b25b,#469140);border-radius:5px;height:62px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:600;letter-spacing:0.04em;color:#fff;">RUNNING</div>
             </div>
             <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">
               {stats.map((s) => (
                 <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
-                  <div style="font-size:0.625rem;color:#8b929b;margin-bottom:8px;">{s.label}</div>
-                  <div style={`font-size:28px;font-weight:400;color:${s.color};line-height:1;`}>{s.value}{s.unit && <span style="font-size:0.875rem;color:#8b929b;">{s.unit}</span>}</div>
+                  <div style="font-size:10px;color:#8b929b;margin-bottom:8px;">{s.label}</div>
+                  <div style={`font-size:28px;font-weight:400;color:${s.color};line-height:1;`}>{s.value}{s.unit && <span style="font-size:14px;color:#8b929b;">{s.unit}</span>}</div>
                 </div>
               ))}
             </div>
             <div style="background:#0e141b;border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
-              <div style="font-size:0.625rem;color:#8b929b;margin-bottom:12px;">Machine load — live (%)</div>
+              <div style="font-size:10px;color:#8b929b;margin-bottom:12px;">Machine load — live (%)</div>
               <div style="display:flex;gap:7px;">
-                <div style="display:flex;flex-direction:column;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:0.5rem;color:#5f656e;height:60px;"><span>80</span><span>40</span><span>0</span></div>
+                <div style="display:flex;flex-direction:column;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#5f656e;height:60px;"><span>80</span><span>40</span><span>0</span></div>
                 <div style="flex:1;display:flex;align-items:flex-end;gap:3px;height:60px;border-left:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.09);padding-left:6px;">
                   {loadBars.map((h) => <div style={`flex:1;height:${h}%;background:#d9a520;border-top:2px solid #b7861a;`}></div>)}
                 </div>
               </div>
             </div>
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:0 2px;font-family:'IBM Plex Mono',monospace;font-size:0.6875rem;color:#8b929b;"><span>4 sensors online</span><span style="color:#73bf69;">● healthy</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:0 2px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8b929b;"><span>4 sensors online</span><span style="color:#73bf69;">● healthy</span></div>
           </div>
         </div>
       </div>
@@ -118,12 +118,12 @@ const pilotBenefits = [
       <div style="max-width:900px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;text-align:center;">
         <div class="eyebrow" style="margin-bottom:18px;">What is Baseline</div>
         <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 22px;">Most shops fly blind. Baseline turns the lights on.</h2>
-        <p style="font-size:1.1875rem;line-height:1.65;color:#566169;margin:0 auto;max-width:680px;">Ask most manufacturers how many good parts came off a line last Tuesday, or how much time was lost to stoppages, and the honest answer is a shrug or a stale spreadsheet. Baseline is a set of small wireless sensors we place on your equipment. They quietly measure what's happening and send it to a dashboard you can open on any screen — no rewiring, no IT project, no data team required.</p>
+        <p style="font-size:19px;line-height:1.65;color:#566169;margin:0 auto;max-width:680px;">Ask most manufacturers how many good parts came off a line last Tuesday, or how much time was lost to stoppages, and the honest answer is a shrug or a stale spreadsheet. Baseline is a set of small wireless sensors we place on your equipment. They quietly measure what's happening and send it to a dashboard you can open on any screen — no rewiring, no IT project, no data team required.</p>
         <div style="display:flex;flex-direction:column;gap:0;margin-top:48px;text-align:left;border:1px solid #e6e9ec;border-radius:16px;overflow:hidden;">
           {videos.map((v) => (
             <div style="background:#131c24;position:relative;">
               <video src={`/${v.src}.mp4`} loop muted playsinline preload="none" data-lazyvid style="width:100%;height:auto;display:block;background:#0a0e13;"></video>
-              <div style="position:absolute;left:14px;bottom:12px;font-family:'IBM Plex Mono',monospace;font-size:0.6875rem;letter-spacing:0.06em;color:#fff;background:rgba(14,22,29,0.72);padding:5px 10px;border-radius:6px;">{v.caption}</div>
+              <div style="position:absolute;left:14px;bottom:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#fff;background:rgba(14,22,29,0.72);padding:5px 10px;border-radius:6px;">{v.caption}</div>
             </div>
           ))}
         </div>
@@ -136,15 +136,15 @@ const pilotBenefits = [
         <div style="max-width:680px;margin-bottom:48px;">
           <div class="eyebrow" style="margin-bottom:18px;">New to this? Start here</div>
           <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 16px;">The jargon, in plain English.</h2>
-          <p style="font-size:1.125rem;line-height:1.6;color:#566169;margin:0;">You don't need to be technical to benefit from any of this. Here's what the terms actually mean — and why each one matters for your bottom line.</p>
+          <p style="font-size:18px;line-height:1.6;color:#566169;margin:0;">You don't need to be technical to benefit from any of this. Here's what the terms actually mean — and why each one matters for your bottom line.</p>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
           {terms.map((t) => (
             <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:30px;">
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:0.6875rem;letter-spacing:0.12em;text-transform:uppercase;color:#b3261e;margin-bottom:14px;">{t.n}</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#b3261e;margin-bottom:14px;">{t.n}</div>
               <h3 style="font-size:21px;font-weight:600;color:#16202a;margin:0 0 12px;letter-spacing:-0.01em;">{t.title}</h3>
-              <p style="font-size:0.9375rem;line-height:1.65;color:#566169;margin:0 0 14px;">{t.copy}</p>
-              <p style="font-size:0.875rem;line-height:1.6;color:#8a949d;margin:0;"><span style="color:#16202a;font-weight:600;">Why it matters:</span> {t.why}</p>
+              <p style="font-size:15px;line-height:1.65;color:#566169;margin:0 0 14px;">{t.copy}</p>
+              <p style="font-size:14px;line-height:1.6;color:#8a949d;margin:0;"><span style="color:#16202a;font-weight:600;">Why it matters:</span> {t.why}</p>
             </div>
           ))}
         </div>
@@ -162,7 +162,7 @@ const pilotBenefits = [
           {benefits.map((b) => (
             <div>
               <div style="font-size:34px;font-weight:600;color:#b3261e;letter-spacing:-0.02em;margin-bottom:10px;">{b.title}</div>
-              <p style="font-size:0.9688rem;line-height:1.65;color:#566169;margin:0;">{b.copy}</p>
+              <p style="font-size:15.5px;line-height:1.65;color:#566169;margin:0;">{b.copy}</p>
             </div>
           ))}
         </div>
@@ -179,9 +179,9 @@ const pilotBenefits = [
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:32px;">
           {how.map((h) => (
             <div>
-              <div style="width:56px;height:56px;border:1.5px solid #b3261e;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:1.125rem;color:#b3261e;margin-bottom:22px;">{h.n}</div>
-              <h3 style="font-size:1.1875rem;font-weight:600;color:#16202a;margin:0 0 10px;">{h.title}</h3>
-              <p style="font-size:0.9375rem;line-height:1.6;color:#566169;margin:0;">{h.copy}</p>
+              <div style="width:56px;height:56px;border:1.5px solid #b3261e;border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:#b3261e;margin-bottom:22px;">{h.n}</div>
+              <h3 style="font-size:19px;font-weight:600;color:#16202a;margin:0 0 10px;">{h.title}</h3>
+              <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">{h.copy}</p>
             </div>
           ))}
         </div>
@@ -193,7 +193,7 @@ const pilotBenefits = [
       <div style="max-width:900px;margin:0 auto;padding:clamp(56px,7vw,88px) 32px;text-align:center;">
         <div class="eyebrow" style="margin-bottom:18px;">And then... AI</div>
         <h2 style="font-size:clamp(26px,3.2vw,40px);line-height:1.12;letter-spacing:-0.02em;font-weight:600;color:#fff;margin:0 0 20px;">Baseline is your on-ramp to AI.</h2>
-        <p style="font-size:1.125rem;line-height:1.65;color:#c3ccd3;margin:0 auto;max-width:640px;">The reason AI feels out of reach for most shops is simple: AI needs data, and most shops don't have any. Once Baseline is capturing clean, consistent production data, the door opens to genuinely useful AI — predicting maintenance before a breakdown, forecasting output, and spotting patterns no person would catch. Get the data right first, and AI stops being a buzzword and starts being an advantage.</p>
+        <p style="font-size:18px;line-height:1.65;color:#c3ccd3;margin:0 auto;max-width:640px;">The reason AI feels out of reach for most shops is simple: AI needs data, and most shops don't have any. Once Baseline is capturing clean, consistent production data, the door opens to genuinely useful AI — predicting maintenance before a breakdown, forecasting output, and spotting patterns no person would catch. Get the data right first, and AI stops being a buzzword and starts being an advantage.</p>
       </div>
     </section>
 
@@ -208,8 +208,8 @@ const pilotBenefits = [
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
           {faqs.map((f) => (
             <div style="background:#fff;border:1px solid #e6e9ec;border-radius:14px;padding:26px;">
-              <h3 style="font-size:1.0625rem;font-weight:600;color:#16202a;margin:0 0 10px;">{f.q}</h3>
-              <p style="font-size:0.9375rem;line-height:1.6;color:#566169;margin:0;">{f.a}</p>
+              <h3 style="font-size:17px;font-weight:600;color:#16202a;margin:0 0 10px;">{f.q}</h3>
+              <p style="font-size:15px;line-height:1.6;color:#566169;margin:0;">{f.a}</p>
             </div>
           ))}
         </div>
@@ -220,32 +220,32 @@ const pilotBenefits = [
     <section id="pilot" style="background:#ffffff;">
       <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;display:flex;flex-wrap:wrap;gap:56px;">
         <div style="flex:1 1 380px;min-width:300px;">
-          <div style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:0.75rem;letter-spacing:0.14em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:22px;background:#fbe9e8;border:1px solid rgba(179,38,30,0.25);padding:7px 14px;border-radius:100px;">Limited pilot — a handful of BC shops</div>
+          <div style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#b3261e;font-weight:500;margin-bottom:22px;background:#fbe9e8;border:1px solid rgba(179,38,30,0.25);padding:7px 14px;border-radius:100px;">Limited pilot — a handful of BC shops</div>
           <h2 style="font-size:clamp(30px,3.6vw,48px);line-height:1.06;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 20px;">Be one of the first to run on Baseline.</h2>
-          <p style="font-size:1.125rem;line-height:1.65;color:#566169;margin:0 0 32px;max-width:480px;">We're partnering with a small group of Lower Mainland manufacturers to prove Baseline on real shop floors. Pilot partners get early access, hands-on setup, and a direct say in where the product goes.</p>
+          <p style="font-size:18px;line-height:1.65;color:#566169;margin:0 0 32px;max-width:480px;">We're partnering with a small group of Lower Mainland manufacturers to prove Baseline on real shop floors. Pilot partners get early access, hands-on setup, and a direct say in where the product goes.</p>
           <div style="display:flex;flex-direction:column;gap:16px;">
             {pilotBenefits.map((p) => (
-              <div style="display:flex;gap:14px;align-items:flex-start;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;margin-top:2px;">{p.n}</span><div><div style="font-size:1rem;font-weight:600;color:#16202a;margin-bottom:3px;">{p.title}</div><div style="font-size:0.9063rem;line-height:1.6;color:#566169;">{p.copy}</div></div></div>
+              <div style="display:flex;gap:14px;align-items:flex-start;"><span style="color:#b3261e;font-family:'IBM Plex Mono',monospace;margin-top:2px;">{p.n}</span><div><div style="font-size:16px;font-weight:600;color:#16202a;margin-bottom:3px;">{p.title}</div><div style="font-size:14.5px;line-height:1.6;color:#566169;">{p.copy}</div></div></div>
             ))}
           </div>
           <div style="margin-top:40px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:0.6875rem;letter-spacing:0.12em;text-transform:uppercase;color:#8a949c;margin-bottom:14px;">Who's behind Baseline</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8a949c;margin-bottom:14px;">Who's behind Baseline</div>
             <div style="display:flex;flex-wrap:wrap;gap:12px 28px;">
               <a href="/#about" style="display:flex;align-items:center;gap:12px;color:#16202a;">
-                <span style="width:46px;height:46px;border-radius:11px;background:#16202a;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:0.9375rem;color:#fff;position:relative;flex-shrink:0;">MW<span style="position:absolute;top:6px;right:6px;width:5px;height:5px;background:#b3261e;border-radius:1px;transform:rotate(45deg);"></span></span>
-                <span><span style="display:block;font-size:0.9375rem;font-weight:600;">Mike Wait</span><span style="display:block;font-size:0.7813rem;color:#566169;">Founder — leads Baseline</span></span>
+                <span style="width:46px;height:46px;border-radius:11px;background:#16202a;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;color:#fff;position:relative;flex-shrink:0;">MW<span style="position:absolute;top:6px;right:6px;width:5px;height:5px;background:#b3261e;border-radius:1px;transform:rotate(45deg);"></span></span>
+                <span><span style="display:block;font-size:15px;font-weight:600;">Mike Wait</span><span style="display:block;font-size:12.5px;color:#566169;">Founder — leads Baseline</span></span>
               </a>
               <a href="/#about" style="display:flex;align-items:center;gap:12px;color:#16202a;">
-                <span style="width:46px;height:46px;border-radius:11px;background:#16202a;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:0.9375rem;color:#fff;position:relative;flex-shrink:0;">GW<span style="position:absolute;top:6px;right:6px;width:5px;height:5px;background:#b3261e;border-radius:1px;transform:rotate(45deg);"></span></span>
-                <span><span style="display:block;font-size:0.9375rem;font-weight:600;">Gord Wait</span><span style="display:block;font-size:0.7813rem;color:#566169;">Product-design advisor</span></span>
+                <span style="width:46px;height:46px;border-radius:11px;background:#16202a;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:15px;color:#fff;position:relative;flex-shrink:0;">GW<span style="position:absolute;top:6px;right:6px;width:5px;height:5px;background:#b3261e;border-radius:1px;transform:rotate(45deg);"></span></span>
+                <span><span style="display:block;font-size:15px;font-weight:600;">Gord Wait</span><span style="display:block;font-size:12.5px;color:#566169;">Product-design advisor</span></span>
               </a>
             </div>
           </div>
         </div>
         <div style="flex:1 1 420px;min-width:300px;">
           <form id="pilot-form" style="background:#f5f7f9;border:1px solid #e6e9ec;border-radius:16px;padding:30px;">
-            <h3 style="font-size:1.25rem;font-weight:600;color:#16202a;margin:0 0 6px;">Apply to join the pilot</h3>
-            <p style="font-size:0.875rem;color:#566169;margin:0 0 22px;">Takes two minutes. We'll follow up within one business day.</p>
+            <h3 style="font-size:20px;font-weight:600;color:#16202a;margin:0 0 6px;">Apply to join the pilot</h3>
+            <p style="font-size:14px;color:#566169;margin:0 0 22px;">Takes two minutes. We'll follow up within one business day.</p>
             <input type="text" name="company-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;" />
             <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
               <div style="flex:1 1 140px;">
@@ -281,8 +281,8 @@ const pilotBenefits = [
               <textarea id="pf-track" name="track" rows="3" class="input-light" style="resize:vertical;"></textarea>
             </div>
             <button type="submit" class="btn-red" style="width:100%;">Apply to join the pilot</button>
-            <p style="margin:12px 0 0;font-size:0.7813rem;color:#8a949c;text-align:center;">No newsletter, no spam — we'll only contact you about the pilot.</p>
-            <p id="pilot-status" style="margin:16px 0 0;font-size:0.875rem;text-align:center;display:none;"></p>
+            <p style="margin:12px 0 0;font-size:12.5px;color:#8a949c;text-align:center;">No newsletter, no spam — we'll only contact you about the pilot.</p>
+            <p id="pilot-status" style="margin:16px 0 0;font-size:14px;text-align:center;display:none;"></p>
           </form>
         </div>
       </div>
