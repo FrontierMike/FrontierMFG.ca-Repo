@@ -24,6 +24,7 @@ const terms = [
   { n: 'Term 02', title: "What's OEE?", copy: '"Overall Equipment Effectiveness" rolls three things — how often a machine runs, how fast, and how many good parts it makes — into one honest score out of 100%.', why: 'most plants sit near 60%. Every point you recover is capacity you already paid for.' },
   { n: 'Term 03', title: "What's Industrial IoT?", copy: 'The "Industrial Internet of Things" just means factory equipment that\'s connected and can report on itself — sensors and machines sending data automatically instead of someone writing it on a clipboard.', why: 'automatic data is accurate data. No more guessing or manual logs that take up valuable time.' },
   { n: 'Term 04', title: "What's a live dashboard?", copy: 'Screens — on the floor, in the office, or on your phone — that show your KPIs updating in real time, instead of a report you get days later.', why: 'you can act on a problem while the shift is still running, not after it\'s over.' },
+  { n: 'Term 05', title: 'Where does my data live?', copy: 'In the Lightwell database, running on a small computer we install in your shop — not in the cloud. The sensors write to it around the clock and the dashboard reads from it, all over your own network.', why: 'your production data never leaves the building, and there is nothing for you to administer.' },
 ];
 
 const benefits = [
@@ -34,31 +35,31 @@ const benefits = [
 ];
 
 const how = [
-  { n: '01', title: 'Place the sensors', copy: 'Small wireless sensors attach to your machines and plug into standard wall power. No rewiring, no shutdown, no disruption to production.' },
-  { n: '02', title: 'Capture automatically', copy: 'They track cycles, run time, stoppages, and output around the clock — accurately, with no clipboards or manual entry.' },
-  { n: '03', title: 'See it live', copy: 'Your KPIs appear on a clean dashboard — on the floor, in the office, or on your phone — updating in real time.' },
+  { n: '01', title: 'Place the Lightwell sensors', copy: 'Small wireless Lightwell sensors attach to your machines and plug into standard wall power. No rewiring, no shutdown, no disruption to production.' },
+  { n: '02', title: 'Collect on-site', copy: 'They track cycles, run time, stoppages, and output around the clock — every reading landing in the Lightwell database on a small computer in your shop, with no clipboards or manual entry.' },
+  { n: '03', title: 'See it live', copy: 'The Lightwell dashboard tracks, displays, and compares it all — on the floor, in the office, or on your phone, updating in real time.' },
   { n: '04', title: 'Act & improve', copy: "With Frontier's help, turn what you learn into concrete changes — and watch the numbers move." },
 ];
 
 const faqs = [
   { q: 'Will this work with my older machines?', a: 'Yes. The sensors mount to equipment you already own and measure what\'s happening from the outside — no PLC upgrade or special controller needed. Manual, semi-automatic, and CNC all work.' },
-  { q: 'Do I need IT people or a network project?', a: 'No. The sensors are wireless and run on standard wall power, and the dashboard opens in any browser. No rewiring, no server to maintain, no IT project.' },
+  { q: 'Do I need IT people or a network project?', a: 'No. The Lightwell sensors are wireless and run on standard wall power, and the Lightwell dashboard opens in any browser. The Lightwell database runs on a small computer we install and look after — nothing for you to maintain, and no IT project.' },
   { q: 'How disruptive is installation?', a: 'Minimal. We place the sensors during a normal visit — no production downtime and nothing cut into or wired through your machines.' },
   { q: 'What can it actually track?', a: 'The metrics that show how the floor is really running: output and part counts, run vs. idle time, downtime and stoppages, cycle time, and OEE.' },
-  { q: 'Is my production data private?', a: "Yes. Your data is yours — we don't share it, and you control who on your team can see the dashboard." },
-  { q: "What if I'm not technical?", a: "That's exactly who Lightwell is for. The dashboard is plain-language and built to read at a glance — no data team and no training course required." },
+  { q: 'Is my production data private?', a: "Yes — and it stays in your building. The Lightwell database runs on-site, not in the cloud, so your production data never leaves your own network. You control who on your team can see the dashboard." },
+  { q: "What if I'm not technical?", a: "That's exactly who Lightwell is for. The Lightwell dashboard is plain-language and built to read at a glance — no data team and no training course required." },
   { q: 'When does Lightwell launch?', a: "General availability is targeted for the end of the year. Pilot partners are onboarded first — that's happening now." },
 ];
 
 const pilotBenefits = [
-  { n: '01', title: 'Hands-on setup, done for you', copy: 'We install the sensors and stand up your dashboard for you.' },
+  { n: '01', title: 'Hands-on setup, done for you', copy: 'We install the Lightwell sensors, set up the database on-site, and stand up your dashboard for you.' },
   { n: '02', title: 'Shape the product', copy: 'Your feedback directly guides what we build next.' },
   { n: '03', title: 'First in line at launch', copy: 'Pilot partners get priority when Lightwell becomes generally available.' },
 ];
 ---
 <Base
   title="Lightwell — Real-time KPI tracking — Frontier MFG"
-  description="Lightwell: wireless sensors and a live dashboard that track your shop-floor KPIs — OEE, output, downtime, cycle time — without rewiring or an IT project. Coming soon from Frontier MFG."
+  description="Lightwell: wireless Lightwell sensors feed an on-site Lightwell database, and the Lightwell dashboard tracks, displays and compares your shop-floor KPIs — OEE, output, downtime, cycle time. No cloud, no rewiring, no IT project. Coming soon from Frontier MFG."
   themeColor="#131c24"
 >
   <Header page="lightwell" />
@@ -73,7 +74,7 @@ const pilotBenefits = [
             <span class="pulse-dot" style="display:inline-block;width:7px;height:7px;border-radius:100px;background:#b3261e;"></span> Launching end of year — join the pilot
           </div>
           <h1 style="font-size:clamp(40px,5vw,66px);line-height:1.03;letter-spacing:-0.025em;font-weight:600;color:#fff;margin:0 0 22px;text-wrap:balance;">Lightwell: Real-time KPI tracking, made effortless.</h1>
-          <p style="font-size:19px;line-height:1.6;color:#c3ccd3;margin:0 0 34px;max-width:540px;">Unobtrusive wireless sensors that automatically track your key manufacturing metrics and stream them to a live dashboard — so you finally know, in real time, how your plant is actually running.</p>
+          <p style="font-size:19px;line-height:1.6;color:#c3ccd3;margin:0 0 34px;max-width:540px;">Unobtrusive Lightwell sensors automatically track your key manufacturing metrics and stream them into the Lightwell database — right there in your shop — where the Lightwell dashboard turns them into a live picture of how your plant is actually running.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a href="#pilot" class="btn-red">Join the pilot <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
             <a href="#how" class="btn-ghost-dark">How it works</a>
@@ -118,7 +119,7 @@ const pilotBenefits = [
       <div style="max-width:900px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;text-align:center;">
         <div class="eyebrow" style="margin-bottom:18px;">What is Lightwell</div>
         <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 22px;">Most shops fly blind. Lightwell turns the lights on.</h2>
-        <p style="font-size:19px;line-height:1.65;color:#566169;margin:0 auto;max-width:680px;">Ask most manufacturers how many good parts came off a line last Tuesday, or how much time was lost to stoppages, and the honest answer is a shrug or a stale spreadsheet. Lightwell is a set of small wireless sensors we place on your equipment. They quietly measure what's happening and send it to a dashboard you can open on any screen — no rewiring, no IT project, no data team required.</p>
+        <p style="font-size:19px;line-height:1.65;color:#566169;margin:0 auto;max-width:680px;">Ask most manufacturers how many good parts came off a line last Tuesday, or how much time was lost to stoppages, and the honest answer is a shrug or a stale spreadsheet. Lightwell is three parts working together: <strong>Lightwell sensors</strong> we place on your equipment, the <strong>Lightwell database</strong> they stream into on a small computer in your shop, and the <strong>Lightwell dashboard</strong> where it is all tracked, displayed and compared. Nothing goes to the cloud, and you open the dashboard on any screen — no rewiring, no IT project, no data team required.</p>
         <div style="display:flex;flex-direction:column;gap:0;margin-top:48px;text-align:left;border:1px solid #e6e9ec;border-radius:16px;overflow:hidden;">
           {videos.map((v) => (
             <div style="background:#131c24;position:relative;">
