@@ -1,6 +1,6 @@
 ---
 interface Props {
-  page?: 'home' | 'services' | 'baseline';
+  page?: 'home' | 'services' | 'lightwell';
 }
 const { page = 'home' } = Astro.props;
 const p = page === 'home' ? '' : '/';
@@ -14,7 +14,7 @@ const year = new Date().getFullYear();
     </a>
     <nav style="display:flex;flex-wrap:wrap;gap:24px;">
       <a href="/services" style="color:#9aa4ad;font-size:14px;">Services</a>
-      <a href="/baseline" style="color:#9aa4ad;font-size:14px;">Baseline</a>
+      <a href="/lightwell" style="color:#9aa4ad;font-size:14px;">Lightwell</a>
       <a href={`${p}#process`} style="color:#9aa4ad;font-size:14px;">Process</a>
       <a href={`${p}#about`} style="color:#9aa4ad;font-size:14px;">About</a>
       <a href={`${p}#contact`} style="color:#9aa4ad;font-size:14px;">Contact</a>

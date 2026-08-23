@@ -20,6 +20,13 @@ export default {
       return handleContact(request, env);
     }
 
+    // The product page was called "Baseline" before launch; keep shared links
+    // working. Query string and hash are preserved by the browser.
+    if (url.pathname === "/baseline" || url.pathname === "/baseline/") {
+      url.pathname = "/lightwell";
+      return Response.redirect(url.toString(), 301);
+    }
+
     // Everything else: serve the static site (and its own 404 handling).
     return env.ASSETS.fetch(request);
   },

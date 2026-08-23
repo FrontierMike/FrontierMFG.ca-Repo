@@ -1,12 +1,12 @@
 ---
 interface Props {
-  page?: 'home' | 'services' | 'baseline';
+  page?: 'home' | 'services' | 'lightwell';
 }
 const { page = 'home' } = Astro.props;
 
 // Hash links target sections on the home page; prefix with "/" from other pages.
 const p = page === 'home' ? '' : '/';
-const cta = page === 'baseline'
+const cta = page === 'lightwell'
   ? { href: '#pilot', label: 'Join the pilot' }
   : { href: `${p}#contact`, label: 'Book a free consultation' };
 
@@ -23,7 +23,7 @@ const mIdle = 'padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;bor
     </a>
     <nav class="nav-desktop">
       <a href="/services" style={page === 'services' ? active : idle}>Services</a>
-      <a href="/baseline" style={(page === 'baseline' ? active : idle) + 'display:inline-flex;align-items:center;gap:6px;'}>Baseline <span class="pill-soon">SOON</span></a>
+      <a href="/lightwell" style={(page === 'lightwell' ? active : idle) + 'display:inline-flex;align-items:center;gap:6px;'}>Lightwell <span class="pill-soon">SOON</span></a>
       <a href={`${p}#process`} style={idle}>Process</a>
       <a href={`${p}#about`} style={idle}>About</a>
       <a href={cta.href} class="btn-red-sm">{cta.label}</a>
@@ -36,7 +36,7 @@ const mIdle = 'padding:13px 2px;color:#16202a;font-size:16px;font-weight:500;bor
   </div>
   <nav id="mobile-menu" class="nav-mobile">
     <a href="/services" style={page === 'services' ? mActive : mIdle}>Services</a>
-    <a href="/baseline" style={(page === 'baseline' ? mActive : mIdle) + 'display:inline-flex;align-items:center;gap:8px;'}>Baseline <span class="pill-soon">SOON</span></a>
+    <a href="/lightwell" style={(page === 'lightwell' ? mActive : mIdle) + 'display:inline-flex;align-items:center;gap:8px;'}>Lightwell <span class="pill-soon">SOON</span></a>
     <a href={`${p}#process`} style={mIdle}>Process</a>
     <a href={`${p}#about`} style={mIdle}>About</a>
     <a href={cta.href} class="btn-red" style="margin-top:14px;font-size:15px;padding:14px;">{cta.label}</a>
