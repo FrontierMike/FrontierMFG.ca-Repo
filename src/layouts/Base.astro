@@ -1,36 +1,97 @@
 ---
 import '../styles/global.css';
+import { SITE_URL, business, areaShort } from '../data/site';
+import {
+  organizationNode, peopleNodes, websiteNode, webPageNode, breadcrumbNode, ldJson,
+} from '../data/schema';
 
 interface Props {
   title?: string;
   description?: string;
   themeColor?: string;
+  /** Social share image, site-root-relative. */
+  image?: string;
+  /** Keep a page out of the index (none currently need it). */
+  noindex?: boolean;
+  /** Page-specific JSON-LD nodes, merged into the site-wide @graph. */
+  schema?: unknown[];
+  /** Breadcrumb trail as [label, path] pairs. Home is prepended for you. */
+  breadcrumb?: [string, string][];
 }
 
 const {
-  title = "Frontier MFG — Automation & manufacturing consulting",
-  description = "Frontier MFG helps small and mid-size manufacturers modernize — automation, controls, and real-time KPI tracking. Practical upgrades, measurable results, no jargon.",
-  themeColor = "#16202a",
+  title = `Manufacturing Automation Consulting — ${business.locality} & Lower Mainland`,
+  description = `Automation and manufacturing consulting for ${areaShort} — process automation, PLC/SCADA, controls and live KPI tracking. Based in ${business.locality}, BC.`,
+  themeColor = '#16202a',
+  image = '/og-image.png',
+  noindex = false,
+  schema = [],
+  breadcrumb,
 } = Astro.props;
+
+// Canonical URL. Normalized to no trailing slash (except the root) so the same
+// page is never indexed twice under /services and /services/.
+const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const canonical = new URL(pathname, Astro.site ?? SITE_URL).href;
+const ogImage = new URL(image, Astro.site ?? SITE_URL).href;
+
+const graph = [
+  organizationNode(),
+  ...peopleNodes(),
+  websiteNode(),
+  webPageNode(canonical, title, description),
+  ...(breadcrumb ? [breadcrumbNode([['Home', '/'], ...breadcrumb])] : []),
+  ...schema,
+];
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en-CA">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
     <meta name="theme-color" content={themeColor} />
+    <meta
+      name="robots"
+      content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'}
+    />
+
+    <!-- Regional signals. Minor on their own, but they cost nothing and some
+         directories and non-Google crawlers still read them. -->
+    <meta name="geo.region" content={`CA-${business.region}`} />
+    <meta name="geo.placename" content={`${business.locality}, ${business.regionName}`} />
+    <meta name="geo.position" content={`${business.latitude};${business.longitude}`} />
+    <meta name="ICBM" content={`${business.latitude}, ${business.longitude}`} />
+
+    <!-- Open Graph -->
+    <meta property="og:site_name" content={business.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content="https://frontiermfg.ca" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_CA" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${business.name} — automation and manufacturing consulting in ${areaShort}`} />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <script type="application/ld+json" is:inline set:html={ldJson(graph)} />
   </head>
   <body>
     <slot />

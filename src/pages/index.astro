@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { business, serviceAreaGroups, telHref } from '../data/site';
 
 const capabilities = [
   'Process Automation', 'PLC / SCADA Programming', 'Controls Design', 'Real-Time KPI Tracking',
@@ -35,6 +36,15 @@ const steps = [
 
 const bars = [62, 70, 58, 67, 61, 64, 69, 57, 66, 71, 60, 63, 59, 66];
 
+// Name / address / phone shown in the contact block. Sourced from src/data/site.ts
+// so the details here and the details in the structured data can never drift.
+const contactRows = [
+  { label: 'EMAIL', value: business.email, href: `mailto:${business.email}` },
+  ...(business.phone ? [{ label: 'PHONE', value: business.phone, href: telHref }] : []),
+  { label: 'LOCATION', value: `${business.locality}, ${business.regionName}` },
+  { label: 'SERVING', value: 'Vancouver, the Lower Mainland & Fraser Valley' },
+];
+
 const sensors = [
   { id: 'S-01 PRESS', pct: 98, dot: '#64b450' },
   { id: 'S-02 CNC', pct: 76, dot: '#64b450' },
@@ -43,8 +53,8 @@ const sensors = [
 ];
 ---
 <Base
-  title="Frontier MFG — Automation & manufacturing consulting"
-  description="Frontier MFG helps small and mid-size manufacturers modernize — automation, controls, and real-time KPI tracking. Practical upgrades, measurable results, no jargon."
+  title="Manufacturing Automation Consulting — Surrey & Lower Mainland"
+  description="Automation and manufacturing consulting for Lower Mainland shops — process automation, PLC/SCADA, controls and live KPI tracking. Based in Surrey, BC."
 >
   <Header page="home" />
   <main>
@@ -55,10 +65,10 @@ const sensors = [
         <div style="flex:1 1 440px;min-width:300px;">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
             <span style="display:block;width:32px;height:2px;background:#b3261e;"></span>
-            <span class="eyebrow">Automation &amp; Manufacturing Consulting</span>
+            <span class="eyebrow">Automation &amp; Manufacturing Consulting — Lower Mainland, BC</span>
           </div>
           <h1 style="font-size:clamp(40px,5.2vw,68px);line-height:1.03;letter-spacing:-0.025em;font-weight:600;color:#16202a;margin:0 0 22px;text-wrap:balance;">Bring your shop floor into the age of data.</h1>
-          <p style="font-size:18px;line-height:1.6;color:#566169;margin:0 0 32px;max-width:520px;">Frontier MFG helps small and mid-size manufacturers modernize — from automation and controls to real-time KPI tracking. Practical upgrades, measurable results, and no jargon.</p>
+          <p style="font-size:18px;line-height:1.6;color:#566169;margin:0 0 32px;max-width:520px;">Frontier MFG helps small and mid-size manufacturers across Vancouver and the Lower Mainland modernize — from automation and controls to real-time KPI tracking. Practical upgrades, measurable results, and no jargon.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:36px;">
             <a href="#contact" class="btn-red">Book a free consultation <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
             <a href="#modernize" class="btn-outline">See how it works</a>
@@ -278,6 +288,31 @@ const sensors = [
       </div>
     </section>
 
+    <!-- Service area -->
+    <section id="service-area" class="dots-grey" style="border-top:1px solid #e6e9ec;">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
+        <div style="max-width:720px;margin-bottom:48px;">
+          <div class="tick" style="margin-bottom:16px;"></div>
+          <div class="eyebrow" style="margin-bottom:18px;">Service area</div>
+          <h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:#16202a;margin:0 0 18px;">On your floor, anywhere in the Lower Mainland.</h2>
+          <p style="font-size:18px;line-height:1.6;color:#566169;margin:0;">This work doesn't happen over email. We're based in {business.locality}, {business.regionName}, and we drive out to shops across Metro Vancouver and the Fraser Valley — most sites are within an hour, and the first walk-through costs you nothing.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:#e6e9ec;border:1px solid #e6e9ec;border-radius:12px;overflow:hidden;">
+          {serviceAreaGroups.map((g) => (
+            <div style="background:#fff;padding:28px;">
+              <h3 style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#b3261e;font-weight:500;margin:0 0 16px;">{g.label}</h3>
+              <ul style="display:flex;flex-direction:column;gap:9px;">
+                {g.cities.map((c) => (
+                  <li style="font-size:15px;line-height:1.4;color:#566169;">{c}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <p style="font-size:15px;line-height:1.6;color:#8a949c;margin:22px 0 0;max-width:660px;">Further afield — the Interior, Vancouver Island, or Alberta — is workable for larger scopes. Ask and we'll tell you honestly whether the travel makes sense for your project.</p>
+      </div>
+    </section>
+
     <!-- Contact -->
     <section id="contact" style="background:#131c24;color:#fff;">
       <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;display:flex;flex-wrap:wrap;gap:56px;">
@@ -287,11 +322,17 @@ const sensors = [
           <h2 style="font-size:clamp(30px,3.8vw,50px);line-height:1.06;letter-spacing:-0.02em;font-weight:600;color:#fff;margin:0 0 20px;">Let's talk.</h2>
           <p style="font-size:18px;line-height:1.65;color:#c3ccd3;margin:0 0 40px;max-width:460px;">Tell us about your project or your goals for modernizing. The first call is always free — we typically respond within one business day.</p>
           <div style="display:flex;flex-direction:column;gap:20px;">
-            <div style="display:flex;align-items:center;gap:14px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#9aa4ad;width:80px;">WEB</span><span style="font-size:16px;color:#e4e9ec;">frontiermfg.ca</span></div>
-            <div style="height:1px;background:rgba(255,255,255,0.08);"></div>
-            <div style="display:flex;align-items:center;gap:14px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#9aa4ad;width:80px;">LOCATION</span><span style="font-size:16px;color:#e4e9ec;">Lower Mainland, British Columbia</span></div>
-            <div style="height:1px;background:rgba(255,255,255,0.08);"></div>
-            <div style="display:flex;align-items:center;gap:14px;"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#9aa4ad;width:80px;">SERVING</span><span style="font-size:16px;color:#e4e9ec;">Vancouver, the Lower Mainland &amp; Western Canada</span></div>
+            {contactRows.map((row, i) => (
+              <>
+                {i > 0 && <div style="height:1px;background:rgba(255,255,255,0.08);"></div>}
+                <div style="display:flex;align-items:center;gap:14px;">
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:#9aa4ad;width:80px;flex-shrink:0;">{row.label}</span>
+                  {row.href
+                    ? <a href={row.href} style="font-size:16px;color:#e4e9ec;">{row.value}</a>
+                    : <span style="font-size:16px;color:#e4e9ec;">{row.value}</span>}
+                </div>
+              </>
+            ))}
           </div>
           <div style="margin-top:36px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:22px;">
             <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#9aa4ad;margin-bottom:14px;">A first engagement looks like</div>

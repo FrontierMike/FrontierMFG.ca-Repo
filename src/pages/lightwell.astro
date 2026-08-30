@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { SITE_URL, abs, serviceArea } from '../data/site';
+import { ORG_ID, faqNode } from '../data/schema';
 
 const loadBars = [82, 64, 86, 70, 88, 60, 84, 68, 90, 72, 85, 66];
 
@@ -56,11 +58,39 @@ const pilotBenefits = [
   { n: '02', title: 'Shape the product', copy: 'Your feedback directly guides what we build next.' },
   { n: '03', title: 'First in line at launch', copy: 'Pilot partners get priority when Lightwell becomes generally available.' },
 ];
+
+const lightwellSchema = [
+  faqNode(faqs),
+  {
+    '@type': 'Product',
+    '@id': `${SITE_URL}/lightwell#product`,
+    name: 'Lightwell Platform',
+    description:
+      'Wireless sensors, an on-site database, and a live dashboard that track OEE, output, downtime and cycle time on the shop floor — with no cloud, no rewiring and no IT project.',
+    category: 'Industrial IoT / manufacturing KPI monitoring',
+    brand: { '@id': ORG_ID },
+    manufacturer: { '@id': ORG_ID },
+    image: abs('/og-image.png'),
+    audience: {
+      '@type': 'BusinessAudience',
+      name: 'Small and mid-size manufacturers',
+      geographicArea: serviceArea.map((city) => ({ '@type': 'City', name: city })),
+    },
+    offers: {
+      '@type': 'Offer',
+      availability: 'https://schema.org/PreOrder',
+      areaServed: serviceArea.map((city) => ({ '@type': 'City', name: city })),
+      seller: { '@id': ORG_ID },
+    },
+  },
+];
 ---
 <Base
-  title="Lightwell Platform — Real-time KPI tracking — Frontier MFG"
-  description="The Lightwell Platform: wireless Lightwell sensors feed an on-site Lightwell database, and the Lightwell dashboard tracks, displays and compares your shop-floor KPIs — OEE, output, downtime, cycle time. No cloud, no rewiring, no IT project. Coming soon from Frontier MFG."
+  title="Lightwell — Live OEE & KPI Tracking for BC Manufacturers"
+  description="Lightwell tracks OEE, output and downtime live on your shop floor — wireless sensors, on-site data, no cloud. Now piloting with Lower Mainland shops."
   themeColor="#131c24"
+  breadcrumb={[['Lightwell', '/lightwell']]}
+  schema={lightwellSchema}
 >
   <Header page="lightwell" />
   <main>

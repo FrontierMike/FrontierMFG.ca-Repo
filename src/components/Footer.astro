@@ -1,24 +1,43 @@
 ---
+import { business, telHref } from '../data/site';
+
 interface Props {
   page?: 'home' | 'services' | 'lightwell';
 }
 const { page = 'home' } = Astro.props;
 const p = page === 'home' ? '' : '/';
 const year = new Date().getFullYear();
+
+const meta = 'font-family:\'IBM Plex Mono\',monospace;font-size:12px;color:#566169;line-height:1.7;';
 ---
 <footer style="background:#0e161d;color:#9aa4ad;border-top:1px solid rgba(255,255,255,0.06);">
-  <div style="max-width:1200px;margin:0 auto;padding:40px 32px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;">
+  <div style="max-width:1200px;margin:0 auto;padding:40px 32px;display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start;justify-content:space-between;">
     <a href="/" style="display:flex;align-items:center;gap:10px;color:#e4e9ec;font-weight:700;font-size:16px;">
       <span style="display:inline-block;width:9px;height:9px;background:#b3261e;border-radius:2px;transform:rotate(45deg);"></span>
       FRONTIER<span style="color:#b3261e;">&nbsp;MFG</span><span style="color:#566169;font-weight:400;">&nbsp;Services</span>
     </a>
-    <nav style="display:flex;flex-wrap:wrap;gap:24px;">
+    <nav aria-label="Footer" style="display:flex;flex-wrap:wrap;gap:24px;">
       <a href="/services" style="color:#9aa4ad;font-size:14px;">Services</a>
       <a href="/lightwell" style="color:#9aa4ad;font-size:14px;">Lightwell</a>
       <a href={`${p}#process`} style="color:#9aa4ad;font-size:14px;">Process</a>
+      <a href={`${p}#service-area`} style="color:#9aa4ad;font-size:14px;">Service area</a>
       <a href={`${p}#about`} style="color:#9aa4ad;font-size:14px;">About</a>
       <a href={`${p}#contact`} style="color:#9aa4ad;font-size:14px;">Contact</a>
     </nav>
-    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#566169;">© {year} Frontier Manufacturing Services · Vancouver &amp; the Lower Mainland, BC</div>
+
+    <!-- Name / address / phone, repeated on every page. Matches the contact
+         section and the LocalBusiness schema exactly — see src/data/site.ts. -->
+    <address style={meta + 'font-style:normal;'}>
+      <span style="color:#9aa4ad;">{business.legalName}</span><br />
+      {business.locality}, {business.regionName}, Canada<br />
+      <a href={`mailto:${business.email}`} style="color:#566169;">{business.email}</a>
+      {business.phone && <> · <a href={telHref} style="color:#566169;">{business.phone}</a></>}
+    </address>
+  </div>
+  <div style="border-top:1px solid rgba(255,255,255,0.06);">
+    <div style={'max-width:1200px;margin:0 auto;padding:18px 32px;display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;' + meta}>
+      <span>© {year} {business.legalName}</span>
+      <span>Serving Vancouver, the Lower Mainland &amp; the Fraser Valley</span>
+    </div>
   </div>
 </footer>

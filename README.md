@@ -37,36 +37,38 @@ Cloudflare Worker (frontiermfgwebsite)
 /
 ├── public/                      # static assets, copied to dist as-is
 │   ├── favicon.ico / favicon.svg
+│   ├── og-image.png             # social share card (see SEO below)
+│   ├── robots.txt
 │   └── icons/                   # service + UI SVG icons
+├── scripts/
+│   └── og-image.py              # regenerates public/og-image.png (one-off tool)
 ├── src/
+│   ├── data/
+│   │   ├── site.ts              # business NAP, service area, canonical origin
+│   │   └── schema.ts            # JSON-LD structured-data builders
 │   ├── layouts/
-│   │   └── Base.astro           # <html> shell, <head>, global wiring
+│   │   └── Base.astro           # <html> shell, <head>, SEO meta, JSON-LD
 │   ├── styles/
 │   │   └── global.css           # Tailwind entry + global styles
-│   ├── components/              # section components (see below)
-│   │   ├── Nav.astro
-│   │   ├── Hero.astro
-│   │   ├── ConsultBanner.astro
-│   │   ├── Ticker.astro
-│   │   ├── Services.astro
-│   │   ├── Team.astro
-│   │   ├── Process.astro
-│   │   ├── Contact.astro        # contact form + client fetch to /api/contact
-│   │   └── Footer.astro
+│   ├── components/
+│   │   ├── Header.astro         # sticky nav + mobile menu
+│   │   └── Footer.astro         # footer nav + NAP block
 │   └── pages/
-│       └── index.astro          # single page; composes the section components
+│       ├── index.astro          # home
+│       ├── services.astro       # services detail
+│       ├── lightwell.astro      # Lightwell product page
+│       └── sitemap.xml.ts       # generates /sitemap.xml at build time
 ├── worker/
 │   └── index.js                 # Worker: serves assets + handles /api/contact
 ├── wrangler.jsonc               # Worker config (name, main, assets dir/binding)
-├── astro.config.mjs             # Astro config (Tailwind via Vite plugin)
+├── astro.config.mjs             # Astro config (site URL + Tailwind via Vite)
 ├── DESIGN.md                    # visual/design spec for the site
 ├── .nvmrc                       # pins Node 22 for the build
 └── package.json
 ```
 
-The site is a **single page** (`src/pages/index.astro`) assembled from section
-components in the order: Nav → Hero → ConsultBanner → Ticker → Services → Team →
-Process → Contact → Footer, all wrapped by `layouts/Base.astro`.
+Three pages (`index`, `services`, `lightwell`), each composing `Header` and
+`Footer` inside `layouts/Base.astro`.
 
 > Note: this project does **not** use a Cloudflare Pages `functions/` directory. Server logic lives in `worker/index.js` (Workers, not Pages).
 
@@ -149,6 +151,48 @@ Build command: `npm run build` · Output/assets: `./dist`
 | `npm run dev`      | Astro dev server (front end only)           |
 | `npm run build`    | Build static site to `./dist/`              |
 | `npx wrangler dev` | Run Worker + assets locally                 |
+
+---
+
+## SEO
+
+The site targets manufacturers in the Lower Mainland of BC. Rather than a thin
+landing page per city, the regional signal comes from structured data plus one
+visible service-area section — three pages, region-wide coverage.
+
+**`src/data/site.ts` is the single source of truth.** Business name, address,
+phone, and the service-area list live there; the contact section, the footer,
+and the JSON-LD all read from it, so the NAP (name / address / phone) that
+Google sees can never drift between them.
+
+- **To publish a phone number**, set `business.phone` in `src/data/site.ts` to
+  the display format (e.g. `'(604) 555-0142'`). A phone row then appears in the
+  contact section and the footer, and `telephone` is added to the
+  `LocalBusiness` schema. Leaving it `''` cleanly omits it everywhere.
+- **To change the service area**, edit `serviceAreaGroups`. The home page
+  section and the schema's `areaServed` both follow automatically.
+- `priceRange` and `foundingYear` are optional and omitted while empty. Only
+  fill them with real values — a wrong signal in schema is worse than none.
+
+What is in place:
+
+| Item | Where |
+| :--- | :--- |
+| Canonical URLs, per-page OG/Twitter cards | `src/layouts/Base.astro` |
+| `ProfessionalService` schema, 17 municipalities in `areaServed` | `src/data/schema.ts` |
+| `FAQPage` schema (Lightwell FAQ — eligible for FAQ rich results) | `src/pages/lightwell.astro` |
+| `Service` + `BreadcrumbList` schema | `src/pages/services.astro` |
+| Visible service-area section | `src/pages/index.astro` (`#service-area`) |
+| `robots.txt`, `sitemap.xml` | `public/`, `src/pages/sitemap.xml.ts` |
+
+Validate changes to the structured data with the
+[Rich Results Test](https://search.google.com/test/rich-results). The FAQ markup
+is only legitimate while those questions stay rendered on the page — Google
+treats hidden FAQ markup as a violation.
+
+**Not covered by this repo:** a Google Business Profile is the largest remaining
+local-ranking factor and is set up outside the site. Register the same NAP that
+`src/data/site.ts` publishes, or the mismatch works against you.
 
 ---
 
