@@ -21,7 +21,7 @@ export const business = {
   // the contact section, the footer, and the LocalBusiness structured data.
   // Leave it as '' and every one of those places simply omits it.
   // Use the public display format, e.g. '(604) 555-0142'.
-  phone: '',
+  phone: '(778) 839-3358',
 
   // Where the business is based. Local search ranks a service business against a
   // specific city, not a region, so this stays a single municipality; the wider

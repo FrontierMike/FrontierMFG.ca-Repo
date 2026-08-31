@@ -19,12 +19,12 @@ Cloudflare Worker (frontiermfgwebsite)
 ```
 
 - **Static site:** Astro builds to `./dist`. The Worker serves those files via the `ASSETS` binding. A request matching a static file is served directly — the Worker function only runs for unmatched paths (i.e. `/api/contact`).
-- **Contact form:** `src/components/Contact.astro` posts JSON to `/api/contact`. The Worker validates, logs to Notion, and emails the lead. Notion failures are non-fatal (logged, email still sends) so a lead is never lost; a Resend failure returns an error to the visitor.
+- **Contact form:** the contact section in `src/pages/index.astro` (and the pilot form in `src/pages/lightwell.astro`) posts JSON to `/api/contact`. The Worker validates, logs to Notion, and emails the lead. Notion failures are non-fatal (logged, email still sends) so a lead is never lost; a Resend failure returns an error to the visitor.
 - **No Astro adapter:** the site is a pure static build. The only dynamic code is the standalone Worker route.
 
 ## Tech stack
 
-- Astro (static output), Tailwind
+- Astro (static output), Tailwind CSS v4 (dark theme — see `DESIGN.md`)
 - Cloudflare Workers + Static Assets (`wrangler`)
 - Resend (transactional email)
 - Notion API (lead logging)
@@ -154,6 +154,20 @@ Build command: `npm run build` · Output/assets: `./dist`
 
 ---
 
+## Theming
+
+The site is dark throughout. Colours are tokens in the `@theme` block of
+`src/styles/global.css`; pages reference them as `var(--color-…)` and should not
+hard-code hex values. `DESIGN.md` documents the full palette, type scale, and
+component inventory.
+
+One rule that matters more than the rest: the brand red `#b3261e` is a **fill**
+colour. It measures 2.63:1 against the page background, so it is legible as a
+button or a rule but not as text. Accent *text* uses `--color-accent-text`
+(`#e2564a`, 4.65:1). Mixing these up produces text nobody can read.
+
+---
+
 ## SEO
 
 The site targets manufacturers in the Lower Mainland of BC. Rather than a thin
@@ -165,10 +179,10 @@ phone, and the service-area list live there; the contact section, the footer,
 and the JSON-LD all read from it, so the NAP (name / address / phone) that
 Google sees can never drift between them.
 
-- **To publish a phone number**, set `business.phone` in `src/data/site.ts` to
-  the display format (e.g. `'(604) 555-0142'`). A phone row then appears in the
-  contact section and the footer, and `telephone` is added to the
-  `LocalBusiness` schema. Leaving it `''` cleanly omits it everywhere.
+- **The phone number** is `business.phone` in `src/data/site.ts`, in display
+  format. It drives the contact row, the footer, the `tel:` links, and
+  `telephone` in the `LocalBusiness` schema. Setting it to `''` cleanly removes
+  it from all four.
 - **To change the service area**, edit `serviceAreaGroups`. The home page
   section and the schema's `areaServed` both follow automatically.
 - `priceRange` and `foundingYear` are optional and omitted while empty. Only

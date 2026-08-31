@@ -1,31 +1,71 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Dark theme.
+
+   The palette is the one from the Lightwell hero, promoted to the whole site.
+   Every colour below is a token; pages reference them with var(--…) rather than
+   hard-coding hex, so the theme can be retuned from this block alone.
+
+   One rule worth knowing before you edit: the brand red #b3261e is a FILL
+   colour only. On this background it measures 2.63:1 against WCAG's 4.5
+   minimum, so it is legible as a button or a rule but not as text. Accent text
+   uses --accent-text (#e2564a, 4.65:1). Keep that split.
+   --------------------------------------------------------------------------- */
 @theme {
   --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  --color-ink: #16202a;
-  --color-body: #566169;
-  --color-red: #b3261e;
-  --color-red-dark: #8f1d17;
-  --color-dark: #131c24;
-  --color-light: #f5f7f9;
-  --color-line: #e6e9ec;
+
+  /* Surfaces, lightest to deepest */
+  --color-bg:        #131c24;  /* page base */
+  --color-bg-alt:    #0f1820;  /* alternating band */
+  --color-bg-deep:   #0a1016;  /* footer, deepest chrome */
+  --color-surface:   #1a2430;  /* solid card */
+  --color-panel:     #0e141b;  /* dashboard mockup inner panel */
+  --color-panel-deep:#0a0e13;  /* dashboard mockup shell */
+
+  /* Type — all four pass WCAG AA on --color-bg */
+  --color-text:      #f2f5f7;  /* headings            15.7:1 */
+  --color-body:      #c3ccd3;  /* body copy           10.6:1 */
+  --color-muted:     #9aa4ad;  /* meta, labels         6.8:1 */
+  --color-faint:     #6b7079;  /* chart axes only      3.5:1, large text */
+
+  /* Brand */
+  --color-accent:      #b3261e;  /* fills: buttons, ticks, rules */
+  --color-accent-text: #e2564a;  /* the same red, lightened to pass as text */
+  --color-accent-hover:#c92d24;
+
+  /* Status (dashboard mockups) */
+  --color-ok:    #73bf69;
+  --color-warn:  #d9a520;
+  --color-bad:   #f2495c;
+}
+
+:root {
+  --border:      rgba(255, 255, 255, 0.10);
+  --border-soft: rgba(255, 255, 255, 0.06);
+  --border-hard: rgba(255, 255, 255, 0.20);
+  --glass:       rgba(255, 255, 255, 0.04);
+  --accent-tint: rgba(179, 38, 30, 0.12);
+  --accent-edge: rgba(179, 38, 30, 0.35);
 }
 
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  background: #ffffff;
-  color: #16202a;
+  background: var(--color-bg);
+  color: var(--color-text);
   font-family: var(--font-sans);
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
-a { color: #b3261e; text-decoration: none; }
-a:hover { color: #8f1d17; }
+a { color: var(--color-accent-text); text-decoration: none; }
+a:hover { color: #f07a6f; }
 section[id] { scroll-margin-top: 84px; }
 input, select, textarea { font-family: inherit; }
+::placeholder { color: var(--color-faint); }
+::selection { background: var(--color-accent); color: #fff; }
 
 /* --- Animations --- */
 @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -34,44 +74,47 @@ input, select, textarea { font-family: inherit; }
 .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
 .pulse-dot { animation: pulse-dot 1.6s ease-in-out infinite; }
 
-/* --- Section textures --- */
-.dots-hero { background: radial-gradient(circle, rgba(22,32,42,0.16) 1px, transparent 1.7px) 0 0/22px 22px, linear-gradient(180deg, #ffffff 0%, #f5f7f9 100%); }
-.dots-white { background-color: #ffffff; background-image: radial-gradient(circle, rgba(22,32,42,0.15) 1px, transparent 1.7px); background-size: 22px 22px; }
-.dots-grey { background-color: #f5f7f9; background-image: radial-gradient(circle, rgba(22,32,42,0.17) 1px, transparent 1.7px); background-size: 22px 22px; }
-.lines-white { background-color: #ffffff; background-image: linear-gradient(rgba(22,32,42,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(22,32,42,0.05) 1px, transparent 1px); background-size: 26px 26px; }
-.lines-grey { background-color: #f5f7f9; background-image: linear-gradient(rgba(22,32,42,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(22,32,42,0.06) 1px, transparent 1px); background-size: 26px 26px; }
+/* --- Section textures ---
+   Same dot/line motifs as before, inverted: light marks on a dark ground. */
+.dots-hero { background: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1.7px) 0 0/22px 22px, linear-gradient(180deg, var(--color-bg) 0%, var(--color-bg-alt) 100%); }
+.dots-white { background-color: var(--color-bg); background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1.7px); background-size: 22px 22px; }
+.dots-grey { background-color: var(--color-bg-alt); background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1.7px); background-size: 22px 22px; }
+.lines-white { background-color: var(--color-bg); background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 26px 26px; }
+.lines-grey { background-color: var(--color-bg-alt); background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 26px 26px; }
 .grid-dark-overlay { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 56px 56px; }
 
 /* --- Recurring type/decoration --- */
-.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #b3261e; font-weight: 500; }
-.tick { width: 72px; height: 9px; background: repeating-linear-gradient(90deg, #b3261e, #b3261e 1.5px, transparent 1.5px, transparent 9px); }
-.pill-soon { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em; background: #fbe9e8; color: #b3261e; padding: 2px 6px; border-radius: 100px; }
+.eyebrow { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-accent-text); font-weight: 500; }
+.tick { width: 72px; height: 9px; background: repeating-linear-gradient(90deg, var(--color-accent), var(--color-accent) 1.5px, transparent 1.5px, transparent 9px); }
+.pill-soon { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em; background: var(--accent-tint); color: var(--color-accent-text); padding: 2px 6px; border-radius: 100px; }
 
 /* --- Buttons --- */
-.btn-red { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #b3261e; color: #fff; font-size: 16px; font-weight: 500; padding: 15px 26px; border-radius: 8px; border: none; cursor: pointer; }
-.btn-red:hover { background: #8f1d17; color: #fff; }
-.btn-red-sm { display: inline-flex; align-items: center; gap: 8px; background: #b3261e; color: #fff; font-size: 14px; font-weight: 500; padding: 10px 18px; border-radius: 8px; }
-.btn-red-sm:hover { background: #8f1d17; color: #fff; }
-.btn-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: #16202a; font-size: 16px; font-weight: 500; padding: 15px 26px; border-radius: 8px; border: 1px solid #cbd2d8; }
-.btn-outline:hover { border-color: #16202a; color: #16202a; }
-.btn-ghost-dark { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: #fff; font-size: 16px; font-weight: 500; padding: 15px 26px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.25); }
-.btn-ghost-dark:hover { border-color: #fff; color: #fff; }
+.btn-red { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--color-accent); color: #fff; font-size: 16px; font-weight: 500; padding: 15px 26px; border-radius: 8px; border: none; cursor: pointer; }
+.btn-red:hover { background: var(--color-accent-hover); color: #fff; }
+.btn-red-sm { display: inline-flex; align-items: center; gap: 8px; background: var(--color-accent); color: #fff; font-size: 14px; font-weight: 500; padding: 10px 18px; border-radius: 8px; }
+.btn-red-sm:hover { background: var(--color-accent-hover); color: #fff; }
+.btn-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--color-text); font-size: 16px; font-weight: 500; padding: 15px 26px; border-radius: 8px; border: 1px solid var(--border-hard); }
+.btn-outline:hover { border-color: var(--color-text); color: var(--color-text); }
+.btn-ghost-dark { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--color-text); font-size: 16px; font-weight: 500; padding: 15px 26px; border-radius: 8px; border: 1px solid var(--border-hard); }
+.btn-ghost-dark:hover { border-color: var(--color-text); color: var(--color-text); }
 
-/* --- Forms --- */
-.form-label { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #9aa4ad; margin-bottom: 8px; }
-.form-label-light { color: #8a949d; }
-.input-dark { width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.14); border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 15px; }
-.input-light { width: 100%; background: #fff; border: 1px solid #cbd2d8; border-radius: 8px; padding: 12px 14px; color: #16202a; font-size: 15px; }
-.input-dark:focus, .input-light:focus { border-color: #b3261e; outline: none; }
+/* --- Forms ---
+   Both variants are now dark; .input-light is kept as an alias so the pilot
+   form on /lightwell keeps working without a markup change. */
+.form-label { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 8px; }
+.form-label-light { color: var(--color-muted); }
+.input-dark, .input-light { width: 100%; background: var(--glass); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; color: var(--color-text); font-size: 15px; }
+.input-dark:focus, .input-light:focus { border-color: var(--color-accent-text); outline: none; }
+.input-dark option, .input-light option { background: var(--color-surface); color: var(--color-text); }
 
 /* --- Cards --- */
-.card-hover:hover { background: #fafbfc !important; }
-.card-dark-hover:hover { background: #0e161d !important; }
+.card-hover:hover { background: var(--color-surface) !important; }
+.card-dark-hover:hover { background: var(--color-bg-deep) !important; }
 
 /* --- Header nav breakpoint (860px per design) --- */
 .nav-desktop { display: flex; align-items: center; gap: 28px; }
-.menu-btn { display: none; flex-direction: column; justify-content: center; gap: 4px; width: 44px; height: 44px; background: transparent; border: 1px solid #cbd2d8; border-radius: 8px; cursor: pointer; padding: 0 11px; }
-.nav-mobile { display: none; flex-direction: column; padding: 6px 32px 18px; border-top: 1px solid #e6e9ec; background: rgba(255,255,255,0.98); }
+.menu-btn { display: none; flex-direction: column; justify-content: center; gap: 4px; width: 44px; height: 44px; background: transparent; border: 1px solid var(--border-hard); border-radius: 8px; cursor: pointer; padding: 0 11px; }
+.nav-mobile { display: none; flex-direction: column; padding: 6px 32px 18px; border-top: 1px solid var(--border); background: color-mix(in srgb, var(--color-bg) 97%, transparent); }
 .nav-mobile.open { display: flex; }
 @media (max-width: 859.98px) {
   .nav-desktop { display: none; }

@@ -17,7 +17,8 @@ PAD = 80
 
 INK        = "#131c24"           # brand dark, matches the site's dark sections
 WHITE      = "#ffffff"
-RED        = "#b3261e"
+RED        = "#b3261e"           # fills only (see DESIGN.md accent split)
+ACCENT_TXT = "#e2564a"           # the accent as type: 4.65:1 on the dark ground
 GREY       = "#9aa4ad"
 FAINT      = (255, 255, 255, 10)  # the site's .grid-dark-overlay
 
@@ -52,7 +53,7 @@ def diamond(cx, cy, r, fill):
 # --- Logo lockup -----------------------------------------------------------
 diamond(PAD * S + 7 * S, 84 * S, 7 * S, RED)
 x = tracked((PAD * S + 24 * S, 70 * S), "FRONTIER", sans(26), WHITE, 0.01)
-tracked((x + 9 * S, 70 * S), "MFG", sans(26), RED, 0.01)
+tracked((x + 9 * S, 70 * S), "MFG", sans(26), ACCENT_TXT, 0.01)
 
 # --- The site's .tick rule -------------------------------------------------
 for i in range(8):
@@ -60,7 +61,7 @@ for i in range(8):
     d.rectangle([x0, 210 * S, x0 + 1.5 * S, 219 * S], fill=RED)
 
 # --- Eyebrow, headline -----------------------------------------------------
-tracked((PAD * S, 238 * S), "AUTOMATION & MANUFACTURING CONSULTING", mono(15), RED, 0.16)
+tracked((PAD * S, 238 * S), "AUTOMATION & MANUFACTURING CONSULTING", mono(15), ACCENT_TXT, 0.16)
 
 for i, line in enumerate(["Bring your shop floor", "into the age of data."]):
     d.text((PAD * S, (282 + i * 70) * S), line, font=sans(60), fill=WHITE)

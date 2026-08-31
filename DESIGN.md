@@ -1,318 +1,165 @@
-# Frontier Manufacturing Services — Design Spec
+# Frontier MFG — Design System
 
-**Domain:** frontiermfg.ca **Stack:** Astro \+ Tailwind CSS **Structure:** Single-page with anchor scrolling (nav links jump to sections)
+**Domain:** frontiermfg.ca · **Stack:** Astro + Tailwind CSS v4 · **Theme:** dark
 
----
-
-## Build Instructions
-
-Build a single-page marketing site in `src/pages/index.astro`. Use Astro components in `src/components/` for each major section. Keep styling in Tailwind utility classes. Add Google Fonts (Barlow \+ Barlow Condensed) in the base layout.
-
-### File structure to create
-
-src/
-
-├── components/
-
-│   ├── Nav.astro
-
-│   ├── Hero.astro
-
-│   ├── ConsultBanner.astro
-
-│   ├── Ticker.astro
-
-│   ├── Services.astro
-
-│   ├── Team.astro
-
-│   ├── Process.astro
-
-│   ├── Contact.astro
-
-│   └── Footer.astro
-
-├── layouts/
-
-│   └── Base.astro
-
-└── pages/
-
-    └── index.astro
-
-public/
-
-└── icons/         \# SVG icons live here (already provided)
+Reference for the site as it stands. Not a build brief — the site is built, and
+this describes what is there. All colour tokens live in
+`src/styles/global.css`; that file is the source of truth and this document
+explains the intent behind it.
 
 ---
 
-## Design System
+## Theme
 
-### Colour palette
+The site is dark throughout. The palette originated as the Lightwell hero
+treatment and was promoted to every page, so there is no light mode and no
+toggle — a section is dark, deeper, or deepest, never light.
 
-| Variable | Hex | Usage |
+### Colour tokens
+
+Defined in the `@theme` block of `src/styles/global.css` and referenced as
+`var(--color-…)`. Pages should not hard-code hex values.
+
+| Token | Hex | Usage |
 | :---- | :---- | :---- |
-| `bg-dark` | `#0e0f0d` | Page background |
-| `bg-card` | `#111210` | Nav, alt section backgrounds |
-| `bg-surface` | `#161714` | Cards, form inputs |
-| `accent` | `#e8a020` | Buttons, banners, highlights |
-| `accent-dark` | `#c47d0a` | Button hover |
-| `text` | `#f0ece2` | Headings, body |
-| `text-muted` | `#888880` | Body secondary |
-| `text-dim` | `#444441` | Labels, captions |
-| `border` | `rgba(255,255,255,0.07)` | Dividers, card borders |
-| `border-accent` | `rgba(232,160,32,0.3)` | Accent borders |
+| `--color-bg` | `#131c24` | Page base |
+| `--color-bg-alt` | `#0f1820` | Alternating section band |
+| `--color-bg-deep` | `#0a1016` | Footer, deepest chrome |
+| `--color-surface` | `#1a2430` | Solid cards |
+| `--color-panel` | `#0e141b` | Dashboard mockup inner panels |
+| `--color-panel-deep` | `#0a0e13` | Dashboard mockup shell |
+| `--color-text` | `#f2f5f7` | Headings, emphasis |
+| `--color-body` | `#c3ccd3` | Body copy |
+| `--color-muted` | `#9aa4ad` | Meta, labels, mono eyebrows |
+| `--color-faint` | `#6b7079` | Chart axis labels only |
+| `--color-accent` | `#b3261e` | **Fills only** — buttons, ticks, rules |
+| `--color-accent-text` | `#e2564a` | **Text only** — the accent, lightened |
+| `--color-accent-hover` | `#c92d24` | Button hover |
+| `--color-ok` | `#73bf69` | Status: running, healthy, success |
+| `--color-warn` | `#d9a520` | Status: caution, chart bars |
+| `--color-bad` | `#f2495c` | Status: downtime, error |
 
-Configure these in `tailwind.config.mjs` (or Tailwind v4 via `@theme` in CSS) as custom colours so you can use them as utility classes like `bg-bg-dark`, `text-accent`, etc.
+Non-`@theme` helpers on `:root`: `--border` (10% white), `--border-soft` (6%),
+`--border-hard` (20%), `--glass` (4% white card fill), `--accent-tint` and
+`--accent-edge` (12% / 35% red, for pills).
 
-### Typography
+### The accent split — read before editing
 
-- **Display / Headings:** Barlow Condensed (weights: 700, 800\)  
-- **Body:** Barlow (weights: 300, 400, 600\)
+The brand red `#b3261e` measures **2.63:1** against `--color-bg`. WCAG AA wants
+4.5:1 for body text, so the brand red is unreadable as type on this background
+even though it is fine as a button fill with white text on it (6.54:1).
 
-Load via Google Fonts in the base layout `<head>`:
+So the accent is two tokens:
 
-\<link rel="preconnect" href="https://fonts.googleapis.com"\>
+- `--color-accent` (`#b3261e`) — **fills**: button backgrounds, the `.tick`
+  rule, the 2px card edge markers. Never `color:`.
+- `--color-accent-text` (`#e2564a`) — **type and icons**: eyebrows, links,
+  inline arrows, step numbers. **4.65:1**, passes AA.
 
-\<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin\>
+Every text colour token passes AA on `--color-bg`: text 15.7:1, body 10.6:1,
+muted 6.8:1. `--color-faint` is 3.5:1 and is reserved for large or decorative
+chart labels, never prose.
 
-\<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800\&family=Barlow:wght@300;400;600\&display=swap" rel="stylesheet"\>
+---
+
+## Typography
+
+Both faces are loaded from Google Fonts in `src/layouts/Base.astro`.
+
+- **IBM Plex Sans** — weights 300/400/500/600/700. Headings and body.
+- **IBM Plex Mono** — weights 400/500. Eyebrows, labels, data, numerals, arrows.
+
+Mono signals "instrument readout": section eyebrows, form labels, the footer
+NAP block, dashboard values, and the `→` in buttons.
 
 ### Type scale
 
-| Role | Size | Weight | Font |
-| :---- | :---- | :---- | :---- |
-| Hero title | `clamp(52px, 6vw, 84px)` | 800 | Barlow Condensed |
-| Section title | `clamp(36px, 4vw, 56px)` | 800 | Barlow Condensed |
-| Card title | 20–24px | 700 | Barlow Condensed |
-| Body | 15–16px | 300 | Barlow |
-| Eyebrow / label | 11–12px | 600 | Barlow Condensed |
-| Nav links | 13–14px | 600 | Barlow Condensed |
+Headings are fluid via `clamp(min, vw, max)`:
 
-All headings, eyebrows, and labels should be **uppercase** with letter-spacing 0.05em–0.22em depending on size (more spacing for smaller text).
+| Role | Value |
+| :---- | :---- |
+| Hero `h1` (home) | `clamp(40px, 5.2vw, 68px)` |
+| Hero `h1` (Lightwell) | `clamp(40px, 5vw, 66px)` |
+| Hero `h1` (Services) | `clamp(38px, 4.8vw, 60px)` |
+| Section `h2` | `clamp(30px, 3.6vw, 46px)` |
+| Section `h2`, dark CTA | `clamp(30px, 3.8vw, 50px)` |
+| Closing CTA `h2` | `clamp(28px, 3.4vw, 44px)` |
+| Card `h3` | 19–22px |
+| Lead paragraph | 18–19px |
+| Body | 15px |
+| Card body | 14.5px |
+| Mono label | 11–12px |
+
+Headings use `letter-spacing:-0.02em` and `font-weight:600`; mono eyebrows use
+`letter-spacing:0.16em` and `text-transform:uppercase`.
 
 ---
 
-## Sections (top to bottom)
+## Layout
 
-### 1\. Nav (sticky)
+- Content column: `max-width:1200px`, `padding:0 32px`. Narrower for centred
+  copy (900–1000px).
+- Section rhythm: `clamp(72px, 9vw, 120px)` for major sections,
+  `clamp(64px, 8vw, 104px)` and `clamp(56px, 7vw, 88px)` for tighter ones.
+- Card grids: `repeat(auto-fit, minmax(230–370px, 1fr))`.
+- Bordered grids use a 1px gap filled with `var(--border)` over a
+  `var(--border)` background — the gap *is* the rule.
+- Nav breakpoint: **860px**. Above, `.nav-desktop`; below, `.menu-btn` and
+  `.nav-mobile`.
 
-- Fixed top, 64px tall, `bg-card` with bottom border  
-- Left: logo "FRONTIER **MFG**" — "MFG" in accent colour  
-- Centre: anchor links (Services, About, Process, Contact)  
-- Right: amber CTA button "Free Consultation"  
-- On mobile: hamburger menu
+### Section textures
 
-### 2\. Hero
+Light marks on the dark ground, alternating to separate bands:
 
-- Full viewport height  
-- 2-column grid (left content, right decorative grid pattern)  
-- Left side stacked vertically:  
-  - Eyebrow: "AUTOMATION & MANUFACTURING CONSULTING" (with small amber horizontal line to the left)  
-  - Headline: "BUILT FOR THE **SHOP** FLOOR" — "SHOP" in accent  
-  - Body paragraph  
-  - Primary button (amber): "Book a Free Consultation"  
-  - Secondary text link: "View Services →"  
-- Right side:  
-  - Subtle grid pattern background (CSS repeating-linear-gradient, accent at \~5% opacity, 60px squares)  
-  - Floating stats bottom-right: "40+ / YEARS COMBINED EXPERIENCE" and "BC / BASED IN CANADA"
-
-### 3\. Free Consultation Banner (full-width strip)
-
-- Amber background, dark text  
-- Layout: badge ("NO COST") \+ tagline \+ button ("Book Now →")  
-- Tagline: "Free 30-minute consultation — no commitment, no sales pitch. Just a conversation about your problem."
-
-### 4\. Ticker
-
-- Dark surface background, muted text  
-- Animated marquee scrolling right-to-left  
-- Content: "Process Automation · PLC / SCADA Programming · Hardware & Software Integration · Controls Design · Feasibility Studies · Design for Manufacturing · Machining Consultation · Manufacturing Process Improvement"  
-- Uppercase, small (11–12px), letter-spaced  
-- Duplicate the content in the HTML twice so the animation loops seamlessly
-
-### 5\. Services
-
-- `bg-card` section, vertical padding 6rem  
-- Header row: section label "WHAT WE DO" \+ title "SERVICES" \+ subheading  
-- 3-column grid (responsive: 1 col mobile, 2 col tablet, 3 col desktop)  
-- 8 service cards \+ 1 CTA card \= 9 total tiles  
-- Card structure:  
-  - 1px gap between cards revealing border colour beneath  
-  - Card background: `bg-card`  
-  - Number "01"–"08" in top-left, small, dim  
-  - Icon (SVG from `/public/icons/`), 32px, accent colour  
-  - Title (uppercase, bold)  
-  - Description (muted body text)  
-  - Left edge: 2px accent border at top 40% of card height (use a pseudo-element or absolute-positioned div)  
-- 9th tile is the CTA card:  
-  - "Not sure where to start? Let's talk through your problem — free, no commitment."  
-  - Amber button: "Book Free Call →"
-
-#### Service card content
-
-| \# | Title | Description | Icon file |
-| :---- | :---- | :---- | :---- |
-| 01 | Process Automation | Identify automation opportunities and implement solutions that reduce manual labour and increase throughput. | `01-process-automation.svg` |
-| 02 | PLC / SCADA Programming | Custom logic, HMI design, and commissioning support for Allen-Bradley, Siemens, and more. | `02-plc-scada-programming.svg` |
-| 03 | Hardware & Software Integration | Bridging the gap between industrial hardware and software systems — sensors, controllers, networks, and custom software. | `03-hardware-software-integration.svg` |
-| 04 | Process Improvement | Lean-informed analysis of production workflows to eliminate bottlenecks and reduce waste. | `04-process-improvement.svg` |
-| 05 | Feasibility Studies | Technical and economic assessments to validate automation or production change investments before you commit. | `05-feasibility-studies.svg` |
-| 06 | Design for Manufacturing | DFM reviews that bridge design intent with production reality — reducing rework and material waste. | `06-design-for-manufacturing.svg` |
-| 07 | Machining Consultation | Process parameters, toolpath strategy, and fixturing advice for CNC machining operations. | `07-machining-consultation.svg` |
-| 08 | Controls Design | Panel layouts, I/O schematics, and control architecture — designed for reliability and ease of maintenance. | `08-controls-design.svg` |
-| 09 | (CTA card) | "Not sure where to start? Let's talk through your problem — free, no commitment." Button: "Book Free Call →" | `09-get-in-touch.svg` |
-
-### 6\. Team
-
-- `bg-dark` section  
-- Section label "WHO WE ARE" \+ title "THE TEAM"  
-- Subheading: "A two-person firm combining deep manufacturing and process knowledge with 40 years of senior hardware and software experience."  
-- 2-column grid (stack on mobile)  
-- Each card:  
-  - Avatar placeholder (40×40px box, accent border, "FM" initials inside)  
-  - Name (uppercase, bold)  
-  - Role (small, accent colour, uppercase, letter-spaced)  
-  - Bio paragraph
-
-**Card 1 — `[YOUR NAME]`** Role: `Automation & Manufacturing Consultant` Bio: Hands-on expertise in automation, manufacturing process improvement, PLC/SCADA programming, and design for manufacturing. Focused on practical solutions for production floor challenges.
-
-**Card 2 — `[PARTNER NAME]`** Role: `Software & Hardware Engineer · 40 Years Experience` Bio: Senior software and hardware engineer with four decades of experience in industrial systems, embedded development, and technology leadership. Has held senior roles across multiple industries — bringing deep technical credibility to every engagement.
-
-### 7\. Process
-
-- `bg-card` section  
-- Section label "HOW IT WORKS" \+ title "OUR PROCESS"  
-- 4-column grid (responsive: stack on mobile)  
-- Each step:  
-  - Number in 56×56px square with accent border (no fill)  
-  - Title (uppercase bold)  
-  - Description (muted body)  
-- Optional: a thin horizontal connector line between the number boxes (1px accent border, behind the boxes)
-
-| \# | Title | Description |
+| Class | Ground | Mark |
 | :---- | :---- | :---- |
-| 01 | Free Discovery Call | A free 30-minute call to understand your operation, constraints, and goals. No commitment required. |
-| 02 | Site Assessment | Where needed, we visit your facility to observe processes, audit equipment, and gather technical data. |
-| 03 | Proposal & Scope | A clear written proposal with defined deliverables, timeline, and fixed or hourly pricing. |
-| 04 | Delivery | We execute the work, keep you informed throughout, and provide handover documentation at completion. |
+| `.dots-hero` | `bg` → `bg-alt` gradient | 7% dots, 22px |
+| `.dots-white` | `bg` | 6% dots, 22px |
+| `.dots-grey` | `bg-alt` | 7% dots, 22px |
+| `.lines-white` | `bg` | 4% grid, 26px |
+| `.lines-grey` | `bg-alt` | 5% grid, 26px |
+| `.grid-dark-overlay` | transparent | 3% grid, 56px |
 
-### 8\. Contact
-
-- `bg-dark` section  
-- 2-column grid  
-- Left column:  
-  - Section label "GET IN TOUCH" \+ title "LET'S TALK"  
-  - Body: "Tell us about your project. First call is always free — we respond within one business day."  
-  - Contact details list:  
-    - Web: frontiermfg.ca  
-    - Location: British Columbia, Canada  
-    - Serving: Western Canada  
-- Right column: contact form  
-  - First name \+ Last name (2-col row)  
-  - Email \+ Company (2-col row)  
-  - Service of interest (dropdown):  
-    - Process Automation  
-    - PLC / SCADA Programming  
-    - Hardware & Software Integration  
-    - Controls Design  
-    - Manufacturing Process Improvement  
-    - Feasibility Study  
-    - Design for Manufacturing  
-    - Machining Consultation  
-    - Not sure yet  
-  - Message (textarea)  
-  - Submit button (full-width amber): "Send Message"
-
-**Form submission:** TBD — confirm with user. Options:
-
-- Formspree (`<form action="https://formspree.io/f/YOUR_ID" method="POST">`)  
-- Web3Forms  
-- Netlify Forms (`netlify` attribute on form, only works if deploying to Netlify)  
-- Cloudflare Pages with a function  
-- Mailto fallback
-
-### 9\. Footer
-
-- `#080908` background, thin top border  
-- Flex row: logo (left) · nav links (centre) · copyright (right)  
-- Logo: "FRONTIER **MFG** Services"  
-- Links: Services · About · Process · Contact  
-- Copyright: "© 2025 Frontier Manufacturing Services"
+Home and Services use the dot textures; Lightwell uses the line grid.
 
 ---
 
-## Important Constraints
+## Components
 
-- **Avoid the phrase "engineering services"** anywhere on the site — the firm offers consulting and technical services, not licensed engineering
-- Safe alternative terms: consulting, technical services, automation services, process consulting, hardware & software integration  
-- Set proper `<title>`, meta description, OG tags in the base layout for SEO
+Shared components are `src/components/Header.astro` and `Footer.astro`. Every
+other section is inline in its page — the site is small enough that extracting
+them would cost more than it saves.
 
-## Meta tags
+- **Header** — sticky, `rgba(19,28,36,0.88)` with a 10px backdrop blur.
+- **Footer** — `--color-bg-deep`, nav row plus the NAP block in mono.
+- **`.btn-red` / `.btn-red-sm`** — accent fill, white text.
+- **`.btn-outline` / `.btn-ghost-dark`** — transparent, `--border-hard` edge.
+  Now identical; both are kept because pages reference each.
+- **`.eyebrow`** — mono, uppercase, `--color-accent-text`.
+- **`.tick`** — 72×9px repeating accent rule above section headings.
+- **`.pill-soon`** — the "SOON" chip beside Lightwell in the nav.
+- **Forms** — `.input-dark` and `.input-light` are the same dark treatment;
+  `.input-light` is an alias kept so the Lightwell pilot form works unchanged.
+  Focus ring is `--color-accent-text`.
 
-\<title\>Frontier Manufacturing Services | Automation & Manufacturing Consulting\</title\>
+### Motion
 
-\<meta name="description" content="Practical automation, controls, and process improvement consulting for manufacturers across Western Canada. Free 30-minute consultation."\>
-
-\<meta property="og:title" content="Frontier Manufacturing Services"\>
-
-\<meta property="og:description" content="Automation & manufacturing consulting for Western Canada."\>
-
-\<meta property="og:url" content="https://frontiermfg.ca"\>
-
-\<meta property="og:type" content="website"\>
-
----
-
-## Animation / Interaction
-
-- Buttons: hover state with slight transform and colour shift to `accent-dark`  
-- Service cards: subtle background lighten on hover (`bg-surface` → slightly lighter)  
-- Service cards: left border accent line could extend on hover (0% → 100% height)  
-- Nav links: colour transition muted → accent on hover  
-- Ticker: CSS animation, infinite loop, \~30s per full cycle, pause on hover  
-- Smooth scroll for anchor links (CSS `scroll-behavior: smooth` on html)
-
-Keep animations subtle. No page transitions, no scroll-triggered reveals.
+- `.marquee-track` — 38s linear capability ticker, pauses on hover.
+- `.pulse-dot` — 1.6s live-status pulse.
+- `html { scroll-behavior: smooth }` with `scroll-margin-top:84px` on anchored
+  sections to clear the sticky header.
 
 ---
 
-## Build Notes
+## Editing rules
 
-- Use semantic HTML: `<nav>`, `<main>`, `<section>` with `id` attrs for anchor scrolling, `<footer>`  
-- All sections should have an `id` matching the nav link anchors (`#services`, `#about`, `#process`, `#contact`)  
-- Mobile responsive: stack columns, hamburger nav, adjust type scale via `clamp()`  
-- Test at 320px (mobile), 768px (tablet), 1280px+ (desktop)  
-- Lighthouse target: 95+ across the board (Astro makes this easy — static HTML, no JS framework overhead)
-
----
-
-## Assets to provide
-
-User needs to drop these into `public/icons/`:
-
-- `01-process-automation.svg`  
-- `02-plc-scada-programming.svg`  
-- `03-hardware-software-integration.svg`  
-- `04-process-improvement.svg`  
-- `05-feasibility-studies.svg`  
-- `06-design-for-manufacturing.svg`  
-- `07-machining-consultation.svg`  
-- `08-controls-design.svg`  
-- `09-get-in-touch.svg`
-
-All SVGs use stroke `#e8a020`, stroke-width 1.5, viewBox 0 0 24 24\.
-
----
-
-## Open questions for the user before starting build
-
-1. Tailwind version (v3 or v4)?  
-2. Deployment target (GitHub Pages, Netlify, Vercel, Cloudflare Pages)?  
-3. Form handler choice (Formspree, Web3Forms, Netlify Forms, mailto, skip)?  
-4. Names to fill in for the two team cards?  
-5. Should the "Book a Free Consultation" button link to:  
-   - A scroll to the contact form (`#contact`), or  
-   - An external scheduler like Calendly?
-
-Confirm these before writing code.  
+1. **Use tokens.** No new hex values in page markup. If a colour is missing,
+   add a token rather than a literal.
+2. **Respect the accent split.** `--color-accent` fills, `--color-accent-text`
+   types. Getting this wrong produces text nobody can read.
+3. **Check contrast** for any new colour against `--color-bg`: 4.5:1 for body
+   text, 3:1 for large text.
+4. **Status colours are semantic**, not thematic. Green/amber/red keep their
+   meaning in the dashboard mockups regardless of theme.
+5. `og-image.png` is generated by `scripts/og-image.py` and uses the same
+   palette — regenerate it if the brand colours change.
