@@ -17,7 +17,7 @@ PAD = 80
 
 INK        = "#131c24"           # brand dark, matches the site's dark sections
 WHITE      = "#ffffff"
-RED        = "#b3261e"           # fills only (see DESIGN.md accent split)
+RED        = "#b3261e"           # fills only — see the accent note in global.css
 ACCENT_TXT = "#e2564a"           # the accent as type: 4.65:1 on the dark ground
 GREY       = "#9aa4ad"
 FAINT      = (255, 255, 255, 10)  # the site's .grid-dark-overlay

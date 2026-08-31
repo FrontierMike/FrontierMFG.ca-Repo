@@ -24,7 +24,7 @@ Cloudflare Worker (frontiermfgwebsite)
 
 ## Tech stack
 
-- Astro (static output), Tailwind CSS v4 (dark theme — see `DESIGN.md`)
+- Astro (static output), Tailwind CSS v4 (dark theme — see Theming below)
 - Cloudflare Workers + Static Assets (`wrangler`)
 - Resend (transactional email)
 - Notion API (lead logging)
@@ -62,7 +62,6 @@ Cloudflare Worker (frontiermfgwebsite)
 │   └── index.js                 # Worker: serves assets + handles /api/contact
 ├── wrangler.jsonc               # Worker config (name, main, assets dir/binding)
 ├── astro.config.mjs             # Astro config (site URL + Tailwind via Vite)
-├── DESIGN.md                    # visual/design spec for the site
 ├── .nvmrc                       # pins Node 22 for the build
 └── package.json
 ```
@@ -158,8 +157,8 @@ Build command: `npm run build` · Output/assets: `./dist`
 
 The site is dark throughout. Colours are tokens in the `@theme` block of
 `src/styles/global.css`; pages reference them as `var(--color-…)` and should not
-hard-code hex values. `DESIGN.md` documents the full palette, type scale, and
-component inventory.
+hard-code hex values. That `@theme` block is the full palette and carries a
+comment on each token explaining what it is for.
 
 One rule that matters more than the rest: the brand red `#b3261e` is a **fill**
 colour. It measures 2.63:1 against the page background, so it is legible as a
