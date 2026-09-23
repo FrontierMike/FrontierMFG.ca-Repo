@@ -34,7 +34,16 @@ const steps = [
   { n: '04', title: 'Delivery', copy: 'We execute the work, keep you informed throughout, and provide handover documentation at completion.' },
 ];
 
-const bars = [62, 70, 58, 67, 61, 64, 69, 57, 66, 71, 60, 63, 59, 66];
+// Build cost mockup: illustrative products and numbers only.
+const products = [
+  { name: 'Control panel', pct: 96 },
+  { name: 'Frame weldment', pct: 104 },
+  { name: 'Pump skid', pct: 141 },
+  { name: 'Wire harness', pct: 112 },
+  { name: 'Small enclosure', pct: 124 },
+];
+const weekly = [121, 118, 124, 116, 119, 113, 115, 110, 112, 108, 109, 106];
+const tone = (pct: number) => pct <= 100 ? 'var(--color-ok)' : pct <= 115 ? 'var(--color-warn)' : 'var(--color-bad)';
 
 // Name / address / phone shown in the contact block. Sourced from src/data/site.ts
 // so the details here and the details in the structured data can never drift.
@@ -89,40 +98,53 @@ const sensors = [
             <div style="display:flex;align-items:center;justify-content:space-between;padding:0 2px 2px;">
               <div style="display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:var(--color-body);">
                 <span class="pulse-dot" style="display:inline-block;width:7px;height:7px;border-radius:100px;background:var(--color-ok);"></span>
-                LIGHTWELL · CNC-01
+                LIGHTWELL · BUILD COST
               </div>
-              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--color-faint);">LIVE · 14 D</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--color-faint);">LAST 30 D</span>
             </div>
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
               <div style="background:var(--color-panel);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
-                <div style="font-size:10px;color:var(--color-muted);margin-bottom:8px;">OEE (14 d)</div>
-                <div style="font-size:27px;font-weight:400;color:var(--color-ok);letter-spacing:-0.01em;line-height:1;">82<span style="font-size:14px;color:var(--color-muted);"> %</span></div>
+                <div style="font-size:10px;color:var(--color-muted);margin-bottom:8px;">Builds logged</div>
+                <div style="font-size:27px;font-weight:400;color:var(--color-text);letter-spacing:-0.01em;line-height:1;">318</div>
               </div>
               <div style="background:var(--color-panel);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
-                <div style="font-size:10px;color:var(--color-muted);margin-bottom:8px;">MTBF (14 d)</div>
-                <div style="font-size:27px;font-weight:400;color:var(--color-warn);letter-spacing:-0.01em;line-height:1;">20.5<span style="font-size:14px;color:var(--color-muted);"> h</span></div>
+                <div style="font-size:10px;color:var(--color-muted);margin-bottom:8px;">Labour vs std</div>
+                <div style="font-size:27px;font-weight:400;color:var(--color-warn);letter-spacing:-0.01em;line-height:1;white-space:nowrap;">+11<span style="font-size:14px;color:var(--color-muted);"> %</span></div>
               </div>
               <div style="background:var(--color-panel);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
-                <div style="font-size:10px;color:var(--color-muted);margin-bottom:8px;">Downtime</div>
-                <div style="font-size:27px;font-weight:400;color:var(--color-bad);letter-spacing:-0.01em;line-height:1;">7.9<span style="font-size:14px;color:var(--color-muted);"> h</span></div>
+                <div style="font-size:10px;color:var(--color-muted);margin-bottom:8px;">Unquoted labour</div>
+                <div style="font-size:27px;font-weight:400;color:var(--color-bad);letter-spacing:-0.01em;line-height:1;white-space:nowrap;">$4.2<span style="font-size:14px;color:var(--color-muted);">k</span></div>
               </div>
             </div>
             <div style="background:var(--color-panel);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
-              <div style="font-size:10px;color:var(--color-muted);margin-bottom:12px;">▾ OUTPUT &amp; TREND — OEE DAILY %</div>
-              <div style="display:flex;gap:7px;">
-                <div style="display:flex;flex-direction:column;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--color-faint);height:82px;padding-bottom:14px;"><span>60</span><span>40</span><span>20</span><span>0</span></div>
-                <div style="flex:1;">
-                  <div style="display:flex;align-items:flex-end;gap:3px;height:82px;border-left:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.09);padding-left:6px;">
-                    {bars.map((h) => <div style={`flex:1;height:${h}%;background:var(--color-warn);border-top:2px solid var(--color-warn);`}></div>)}
+              <div style="font-size:10px;color:var(--color-muted);margin-bottom:12px;">▾ ACTUAL VS STANDARD — BY PRODUCT</div>
+              <div style="display:flex;flex-direction:column;gap:8px;">
+                {products.map((p) => (
+                  <div style="display:grid;grid-template-columns:92px 1fr 38px;align-items:center;gap:8px;">
+                    <span style="font-size:10.5px;color:var(--color-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{p.name}</span>
+                    <div style="position:relative;height:10px;background:rgba(255,255,255,0.04);border-radius:2px;">
+                      <div style={`position:absolute;left:0;top:0;bottom:0;width:${p.pct / 150 * 100}%;background:${tone(p.pct)};border-radius:2px;`}></div>
+                      <div style="position:absolute;left:66.67%;top:-3px;bottom:-3px;width:1px;background:var(--color-text);opacity:0.7;"></div>
+                    </div>
+                    <span style={`font-family:'IBM Plex Mono',monospace;font-size:10px;text-align:right;color:${tone(p.pct)};`}>{p.pct}%</span>
                   </div>
-                  <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--color-faint);margin-top:5px;padding-left:6px;"><span>06/24</span><span>06/30</span><span>07/07</span></div>
+                ))}
+              </div>
+              <div style="display:grid;grid-template-columns:92px 1fr 38px;gap:8px;margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--color-faint);">
+                <span></span><span style="position:relative;height:10px;"><span style="position:absolute;left:66.67%;transform:translateX(-50%);">STANDARD</span></span><span></span>
+              </div>
+            </div>
+            <div style="background:var(--color-panel);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
+              <div style="font-size:10px;color:var(--color-muted);margin-bottom:12px;">▾ AVERAGE ACTUAL ÷ STANDARD — WEEKLY %</div>
+              <div style="display:flex;gap:7px;">
+                                <div style="flex:1;">
+                  <div style="position:relative;display:flex;align-items:flex-end;gap:3px;height:70px;border-left:1px solid rgba(255,255,255,0.07);border-bottom:1px solid rgba(255,255,255,0.09);padding-left:6px;">
+                    <div style="position:absolute;left:0;right:0;bottom:50%;border-top:1px dashed rgba(255,255,255,0.45);z-index:1;"><span style="position:absolute;left:4px;bottom:2px;font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--color-text);background:var(--color-panel);padding:0 3px;">STANDARD</span></div>
+                    {weekly.map((w) => <div style={`flex:1;height:${(w - 75) / 50 * 100}%;background:${tone(w)};opacity:0.85;`}></div>)}
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--color-faint);margin-top:5px;padding-left:6px;"><span>12 WK AGO</span><span>THIS WEEK</span></div>
                 </div>
               </div>
-            </div>
-            <div style="background:var(--color-panel);border:1px solid rgba(255,255,255,0.06);border-radius:8px;padding:12px;">
-              <div style="font-size:10px;color:var(--color-muted);margin-bottom:10px;">MACHINE STATE — LAST 24 H</div>
-              <div style="height:28px;border-radius:3px;background-image:repeating-linear-gradient(90deg,transparent 0,transparent 74px,var(--color-bad) 74px,var(--color-bad) 80px,transparent 80px,transparent 166px),repeating-linear-gradient(90deg,var(--color-ok) 0,var(--color-ok) 5px,var(--color-panel) 5px,var(--color-panel) 7px);"></div>
-              <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:8px;color:var(--color-faint);margin-top:6px;"><span>23:00</span><span>05:00</span><span>11:00</span><span>17:00</span><span>22:00</span></div>
             </div>
           </div>
           <div style="text-align:center;margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:var(--color-muted);">LIGHTWELL DASHBOARD — PRODUCT PREVIEW</div>
