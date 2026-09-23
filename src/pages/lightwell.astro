@@ -50,7 +50,7 @@ const modules = [
     n: 'Module 03',
     title: 'Build cost',
     lead: 'Find out what each product really costs to build.',
-    copy: "Your standard times were probably set once, on one day. Lightwell measures every build since — a quick start and finish log at the job, no stopwatch and no clipboard — and shows the real spread against your standard, product by product.",
+    copy: "Labour is often the biggest cost a shop has never actually measured. Your standard times were probably set once, on one day. Lightwell measures every build since — a quick start and finish log at the job, no stopwatch and no clipboard — and shows the real spread against your standard, product by product.",
     points: ['Standard vs. actual, per product', 'Spot the products that cost more than you think', 'Quote from real numbers, not old estimates'],
   },
 ];
@@ -197,7 +197,8 @@ const lightwellSchema = [
         <div style="max-width:680px;margin-bottom:48px;">
           <div class="eyebrow" style="margin-bottom:18px;">What Lightwell tracks</div>
           <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 16px;">Three modules, one platform.</h2>
-          <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0;">Start with the one that hurts most. Each module runs on the same on-site database and shows up on the same dashboard, so adding the next one is a conversation, not a new system.</p>
+          <p style="font-size:22px;line-height:1.4;font-weight:600;color:var(--color-accent-text);margin:0 0 16px;">If you can't measure it, you can't manage it.</p>
+          <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0;">Machine time, material and labour are what a shop spends. Lightwell measures all three. Start with the one that hurts most. Each module runs on the same on-site database and shows up on the same dashboard, so adding the next one is a conversation, not a new system.</p>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
           {modules.map((m) => (
