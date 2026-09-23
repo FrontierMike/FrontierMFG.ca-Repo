@@ -59,7 +59,7 @@ const benefits = [
 ];
 
 const how = [
-  { n: '01', title: 'Set up on your floor', copy: 'Small wireless Lightwell sensors attach to your machines and plug into standard wall power, and we set up part and build tracking around the way your team already works. No rewiring, no shutdown, no disruption to production.' },
+  { n: '01', title: 'Build it to suit', copy: 'We walk your floor, learn your systems, and set Lightwell up around them: wireless sensors on your machines, and part and build tracking fitted to the way your team already works. No rewiring and no shutdown.' },
   { n: '02', title: 'Collect on-site', copy: 'Machine cycles, stoppages and output, where parts are and where they came from, and how long each build takes — all landing in the Lightwell database on a small computer in your shop, with no clipboards.' },
   { n: '03', title: 'See it live', copy: 'The Lightwell dashboard tracks, displays, and compares it all — on the floor, in the office, or on your phone, updating in real time.' },
   { n: '04', title: 'Act & improve', copy: "With Frontier's help, turn what you learn into concrete changes — and watch the numbers move." },
@@ -67,15 +67,15 @@ const how = [
 
 const faqs = [
   { q: 'Will this work with my older machines?', a: 'Yes. The sensors mount to equipment you already own and measure what\'s happening from the outside — no PLC upgrade or special controller needed. Manual, semi-automatic, and CNC all work.' },
-  { q: 'Do I need IT people or a network project?', a: 'No. The Lightwell sensors are wireless and run on standard wall power, and the Lightwell dashboard opens in any browser. The Lightwell database runs on a small computer we install and look after — nothing for you to maintain, and no IT project.' },
-  { q: 'How disruptive is installation?', a: 'Minimal. We place the sensors during a normal visit — no production downtime and nothing cut into or wired through your machines.' },
+  { q: 'Do I need an IT team?', a: 'No. Because every install is built to suit, we do the setup: we connect Lightwell to your network and your existing systems, working with whoever looks after your IT, and then we look after the Lightwell computer for you. The dashboard opens in any browser.' },
+  { q: 'How disruptive is installation?', a: 'Low. Sensors go on during a normal visit, with no production downtime and nothing cut into or wired through your machines. Part and build tracking are set up alongside your team\'s current routine, and we schedule the switch-on around production.' },
   { q: 'What can it actually track?', a: 'Three things, as separate modules. Machine monitoring: output and part counts, run vs. idle time, downtime and stoppages, cycle time, and OEE. Part tracking: where each part is, which revision it is, and which delivery it came from. Build cost: how long each build really takes, against your standard.' },
   { q: 'Is Lightwell off-the-shelf software?', a: 'No. Lightwell is a build-to-suit system. We configure it around your products, your floor and the systems you already use, so it fits your shop instead of your shop bending to fit it.' },
   { q: 'Does this replace my ERP or inventory system?', a: 'No. Lightwell works alongside it. Your ERP stays the system of record for quantities and orders; Lightwell adds what it can\'t tell you — revisions, where parts are, which delivery they came from, and what each build really costs.' },
   { q: 'Will part tracking change how my team builds?', a: 'No. Part tracking changes nothing about how anyone builds. It adds a quick step when material arrives and when it goes on the shelf — that\'s all.' },
   { q: 'How do you measure real build time?', a: 'A quick start and finish log at the job — no stopwatch, no clipboard, and nobody standing over the bench. Every build is recorded, so you see the real spread for each product, not one number from one day.' },
   { q: 'Is my production data private?', a: "Yes — and it stays in your building. The Lightwell database runs on-site, not in the cloud, so your production data never leaves your own network. You control who on your team can see the dashboard." },
-  { q: "What if I'm not technical?", a: "That's exactly who Lightwell is for. The Lightwell dashboard is plain-language and built to read at a glance — no data team and no training course required." },
+  { q: "What if I'm not technical?", a: "That's exactly who Lightwell is for. The Lightwell dashboard is plain-language and built to read at a glance — no data team needed, and a short walkthrough is all the training your team needs." },
   { q: 'When does Lightwell launch?', a: "General availability is targeted for the end of the year. Pilot partners are onboarded first — that's happening now." },
 ];
 
@@ -92,7 +92,7 @@ const lightwellSchema = [
     '@id': `${SITE_URL}/lightwell#product`,
     name: 'Lightwell Platform',
     description:
-      'Wireless sensors, an on-site database, and a live dashboard that track machine OEE, output and downtime, part location, revision and lot traceability, and actual versus standard build cost — built to suit each shop and configured to work with its existing systems, with no cloud, no rewiring and no IT project.',
+      'Wireless sensors, an on-site database, and a live dashboard that track machine OEE, output and downtime, part location, revision and lot traceability, and actual versus standard build cost — built to suit each shop and configured to work with its existing systems, with no cloud and no rewiring.',
     category: 'Industrial IoT / manufacturing KPI monitoring, part traceability and build-cost tracking',
     brand: { '@id': ORG_ID },
     manufacturer: { '@id': ORG_ID },
@@ -147,7 +147,7 @@ const lightwellSchema = [
       <div style="max-width:900px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;text-align:center;">
         <div class="eyebrow" style="margin-bottom:18px;">What is the Lightwell Platform</div>
         <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 22px;">Most shops fly blind. Lightwell turns the lights on.</h2>
-        <p style="font-size:19px;line-height:1.65;color:var(--color-body);margin:0 auto;max-width:680px;">Ask most manufacturers how many good parts came off a line last Tuesday, or how much time was lost to stoppages, and the honest answer is a shrug or a stale spreadsheet. The Lightwell Platform is three parts working together: <strong>Lightwell sensors</strong> we place on your equipment, the <strong>Lightwell database</strong> they stream into on a small computer in your shop, and the <strong>Lightwell dashboard</strong> where it is all tracked, displayed and compared. Nothing goes to the cloud, and you open the dashboard on any screen — no rewiring, no IT project, no data team required.</p>
+        <p style="font-size:19px;line-height:1.65;color:var(--color-body);margin:0 auto;max-width:680px;">Ask most manufacturers how many good parts came off a line last Tuesday, what a product really cost to build, or which revision is on the shelf, and the honest answer is a shrug or a stale spreadsheet. The Lightwell Platform brings it together: <strong>Lightwell sensors</strong> on your equipment, quick logs on the floor for parts and jobs, the <strong>Lightwell database</strong> on a small computer in your shop, and the <strong>Lightwell dashboard</strong> where it is all tracked, displayed and compared. Nothing goes to the cloud, and you open the dashboard on any screen.</p>
         <div style="display:flex;flex-direction:column;gap:0;margin-top:48px;text-align:left;border:1px solid var(--border);border-radius:16px;overflow:hidden;">
           {videos.map((v) => (
             <div style="background:var(--color-bg);position:relative;">
@@ -253,7 +253,7 @@ const lightwellSchema = [
       <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
         <div style="max-width:680px;margin-bottom:52px;">
           <div class="eyebrow" style="margin-bottom:18px;">How the Lightwell Platform works</div>
-          <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0;">Up and running, without the IT project.</h2>
+          <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0;">From first walk-through to live dashboard.</h2>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:32px;">
           {how.map((h) => (
