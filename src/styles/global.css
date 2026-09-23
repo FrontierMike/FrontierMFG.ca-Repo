@@ -111,6 +111,11 @@ input, select, textarea { font-family: inherit; }
 .card-hover:hover { background: var(--color-surface) !important; }
 .card-dark-hover:hover { background: var(--color-bg-deep) !important; }
 
+/* Tiled grids of 4 or 8 cells: 1, 2 or 4 columns only, so no row is left with an empty cell. */
+.grid-even { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 600px) { .grid-even { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .grid-even { grid-template-columns: repeat(4, 1fr); } }
+
 /* --- Header nav breakpoint (860px per design) --- */
 .nav-desktop { display: flex; align-items: center; gap: 28px; }
 .menu-btn { display: none; flex-direction: column; justify-content: center; gap: 4px; width: 44px; height: 44px; background: transparent; border: 1px solid var(--border-hard); border-radius: 8px; cursor: pointer; padding: 0 11px; }
