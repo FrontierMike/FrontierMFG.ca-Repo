@@ -27,18 +27,46 @@ const terms = [
   { n: 'Term 03', title: "What's Industrial IoT?", copy: 'The "Industrial Internet of Things" just means factory equipment that\'s connected and can report on itself — sensors and machines sending data automatically instead of someone writing it on a clipboard.', why: 'automatic data is accurate data. No more guessing or manual logs that take up valuable time.' },
   { n: 'Term 04', title: "What's a live dashboard?", copy: 'Screens — on the floor, in the office, or on your phone — that show your KPIs updating in real time, instead of a report you get days later.', why: 'you can act on a problem while the shift is still running, not after it\'s over.' },
   { n: 'Term 05', title: 'Where does my data live?', copy: 'In the Lightwell database, running on a small computer we install in your shop — not in the cloud. The sensors write to it around the clock and the dashboard reads from it, all over your own network.', why: 'your production data never leaves the building, and there is nothing for you to administer.' },
+  { n: 'Term 06', title: "What's standard vs. actual?", copy: 'The "standard" is the build time your costing and quotes assume — often set by one time study, years ago. The "actual" is how long the build really takes, measured every time it runs.', why: 'the gap between the two is where jobs quietly lose money, or get priced out.' },
+  { n: 'Term 07', title: "What's lot traceability?", copy: 'Knowing which delivery a part came from, and which builds could contain it — so a bad batch points to a short list, not to everything you ever shipped.', why: 'recalls shrink, and supplier disputes get settled with dates instead of memories.' },
+];
+
+const modules = [
+  {
+    n: 'Module 01',
+    title: 'Machine monitoring',
+    lead: 'See how every machine is really running.',
+    copy: 'Lightwell sensors track cycles, run time, stoppages and output automatically, around the clock — and the dashboard turns them into OEE, downtime and parts-per-hour you can act on during the shift.',
+    points: ['Live OEE, output and downtime', 'Every stoppage logged automatically', 'Works on older and manual machines'],
+  },
+  {
+    n: 'Module 02',
+    title: 'Part tracking',
+    lead: 'Know where every part is, which revision it is, and where it came from.',
+    copy: "Find any part in seconds, see which revision is on the shelf and when the old one runs out, and trace a bad batch back to the delivery it arrived on. It works alongside your ERP — your ERP keeps the counts — and it changes nothing about how anyone builds.",
+    points: ['Clean revision changeovers', 'Recalls narrowed to a short list', 'Supplier disputes settled with dates'],
+  },
+  {
+    n: 'Module 03',
+    title: 'Build cost',
+    lead: 'Find out what each product really costs to build.',
+    copy: "Your standard times were probably set once, on one day. Lightwell measures every build since — a quick start and finish log at the job, no stopwatch and no clipboard — and shows the real spread against your standard, product by product.",
+    points: ['Standard vs. actual, per product', 'Spot the products that cost more than you think', 'Quote from real numbers, not old estimates'],
+  },
 ];
 
 const benefits = [
   { title: 'Find lost hours', copy: 'Downtime is the silent profit killer. When every stoppage is logged automatically, the real cost of small, "normal" interruptions finally becomes visible — and fixable.' },
-  { title: 'End the guesswork', copy: "Quoting, scheduling, and hiring decisions get far easier when they're based on what your plant really produces — not on a hopeful estimate." },
+  { title: 'Quote with confidence', copy: "When you know what each product really takes to build, quoting, scheduling, and hiring decisions stop resting on a hopeful estimate — and the jobs that quietly lose money show themselves." },
+  { title: 'Change revisions cleanly', copy: 'Know which revision is on the shelf and when the old one runs out, so the changeover happens on purpose instead of by surprise.' },
+  { title: 'Trace any delivery', copy: 'When a batch goes bad, see which builds it could have reached. A recall becomes a short list, and a supplier dispute becomes a date.' },
   { title: 'Prove improvements', copy: 'Change a process and see the impact on the same dashboard the next shift. No more debating whether something "felt" better.' },
   { title: 'Win more work', copy: 'Increasingly, larger customers want suppliers who can show real production data. Being able to is becoming a competitive edge.' },
 ];
 
 const how = [
-  { n: '01', title: 'Place the Lightwell sensors', copy: 'Small wireless Lightwell sensors attach to your machines and plug into standard wall power. No rewiring, no shutdown, no disruption to production.' },
-  { n: '02', title: 'Collect on-site', copy: 'They track cycles, run time, stoppages, and output around the clock — every reading landing in the Lightwell database on a small computer in your shop, with no clipboards or manual entry.' },
+  { n: '01', title: 'Set up on your floor', copy: 'Small wireless Lightwell sensors attach to your machines and plug into standard wall power, and we set up part and build tracking around the way your team already works. No rewiring, no shutdown, no disruption to production.' },
+  { n: '02', title: 'Collect on-site', copy: 'Machine cycles, stoppages and output, where parts are and where they came from, and how long each build takes — all landing in the Lightwell database on a small computer in your shop, with no clipboards.' },
   { n: '03', title: 'See it live', copy: 'The Lightwell dashboard tracks, displays, and compares it all — on the floor, in the office, or on your phone, updating in real time.' },
   { n: '04', title: 'Act & improve', copy: "With Frontier's help, turn what you learn into concrete changes — and watch the numbers move." },
 ];
@@ -47,14 +75,17 @@ const faqs = [
   { q: 'Will this work with my older machines?', a: 'Yes. The sensors mount to equipment you already own and measure what\'s happening from the outside — no PLC upgrade or special controller needed. Manual, semi-automatic, and CNC all work.' },
   { q: 'Do I need IT people or a network project?', a: 'No. The Lightwell sensors are wireless and run on standard wall power, and the Lightwell dashboard opens in any browser. The Lightwell database runs on a small computer we install and look after — nothing for you to maintain, and no IT project.' },
   { q: 'How disruptive is installation?', a: 'Minimal. We place the sensors during a normal visit — no production downtime and nothing cut into or wired through your machines.' },
-  { q: 'What can it actually track?', a: 'The metrics that show how the floor is really running: output and part counts, run vs. idle time, downtime and stoppages, cycle time, and OEE.' },
+  { q: 'What can it actually track?', a: 'Three things, as separate modules. Machine monitoring: output and part counts, run vs. idle time, downtime and stoppages, cycle time, and OEE. Part tracking: where each part is, which revision it is, and which delivery it came from. Build cost: how long each build really takes, against your standard.' },
+  { q: 'Does this replace my ERP or inventory system?', a: 'No. Lightwell works alongside it. Your ERP stays the system of record for quantities and orders; Lightwell adds what it can\'t tell you — revisions, where parts are, which delivery they came from, and what each build really costs.' },
+  { q: 'Will part tracking change how my team builds?', a: 'No. Part tracking changes nothing about how anyone builds. It adds a quick step when material arrives and when it goes on the shelf — that\'s all.' },
+  { q: 'How do you measure real build time?', a: 'A quick start and finish log at the job — no stopwatch, no clipboard, and nobody standing over the bench. Every build is recorded, so you see the real spread for each product, not one number from one day.' },
   { q: 'Is my production data private?', a: "Yes — and it stays in your building. The Lightwell database runs on-site, not in the cloud, so your production data never leaves your own network. You control who on your team can see the dashboard." },
   { q: "What if I'm not technical?", a: "That's exactly who Lightwell is for. The Lightwell dashboard is plain-language and built to read at a glance — no data team and no training course required." },
   { q: 'When does Lightwell launch?', a: "General availability is targeted for the end of the year. Pilot partners are onboarded first — that's happening now." },
 ];
 
 const pilotBenefits = [
-  { n: '01', title: 'Hands-on setup, done for you', copy: 'We install the Lightwell sensors, set up the database on-site, and stand up your dashboard for you.' },
+  { n: '01', title: 'Hands-on setup, done for you', copy: 'Start with any module. We install the Lightwell sensors, set up the database on-site, and stand up your dashboard for you.' },
   { n: '02', title: 'Shape the product', copy: 'Your feedback directly guides what we build next.' },
   { n: '03', title: 'First in line at launch', copy: 'Pilot partners get priority when Lightwell becomes generally available.' },
 ];
@@ -66,8 +97,8 @@ const lightwellSchema = [
     '@id': `${SITE_URL}/lightwell#product`,
     name: 'Lightwell Platform',
     description:
-      'Wireless sensors, an on-site database, and a live dashboard that track OEE, output, downtime and cycle time on the shop floor — with no cloud, no rewiring and no IT project.',
-    category: 'Industrial IoT / manufacturing KPI monitoring',
+      'Wireless sensors, an on-site database, and a live dashboard that track machine OEE, output and downtime, part location, revision and lot traceability, and actual versus standard build cost — with no cloud, no rewiring and no IT project.',
+    category: 'Industrial IoT / manufacturing KPI monitoring, part traceability and build-cost tracking',
     brand: { '@id': ORG_ID },
     manufacturer: { '@id': ORG_ID },
     image: abs('/og-image.png'),
@@ -86,8 +117,8 @@ const lightwellSchema = [
 ];
 ---
 <Base
-  title="Lightwell — Live OEE & KPI Tracking for BC Manufacturers"
-  description="Lightwell tracks OEE, output and downtime live on your shop floor — wireless sensors, on-site data, no cloud. Now piloting with Lower Mainland shops."
+  title="Lightwell — Machine, Part & Build-Cost Tracking for BC Manufacturers"
+  description="Lightwell tracks machine OEE and downtime, part revisions and deliveries, and what each build really costs — on-site data, no cloud. Now piloting with Lower Mainland shops."
   breadcrumb={[['Lightwell', '/lightwell']]}
   schema={lightwellSchema}
 >
@@ -102,8 +133,8 @@ const lightwellSchema = [
           <div style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-text);font-weight:500;margin-bottom:24px;background:rgba(179,38,30,0.12);border:1px solid rgba(179,38,30,0.35);padding:8px 15px;border-radius:100px;">
             <span class="pulse-dot" style="display:inline-block;width:7px;height:7px;border-radius:100px;background:var(--color-accent);"></span> Launching end of year — join the pilot
           </div>
-          <h1 style="font-size:clamp(40px,5vw,66px);line-height:1.03;letter-spacing:-0.025em;font-weight:600;color:var(--color-text);margin:0 0 22px;text-wrap:balance;">The Lightwell Platform: Real-time KPI tracking, made effortless.</h1>
-          <p style="font-size:19px;line-height:1.6;color:var(--color-body);margin:0 0 34px;max-width:540px;">Unobtrusive Lightwell sensors automatically track your key manufacturing metrics and stream them into the Lightwell database — right there in your shop — where the Lightwell dashboard turns them into a live picture of how your plant is actually running.</p>
+          <h1 style="font-size:clamp(40px,5vw,66px);line-height:1.03;letter-spacing:-0.025em;font-weight:600;color:var(--color-text);margin:0 0 22px;text-wrap:balance;">The Lightwell Platform: Your machines, your parts, your real costs — made visible.</h1>
+          <p style="font-size:19px;line-height:1.6;color:var(--color-body);margin:0 0 34px;max-width:540px;">Lightwell tracks how every machine is running, where every part is and where it came from, and what each build really costs — all in the Lightwell database, right there in your shop, where the Lightwell dashboard turns it into a live picture of your plant.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a href="#pilot" class="btn-red">Join the pilot <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
             <a href="#how" class="btn-ghost-dark">How it works</a>
@@ -154,6 +185,35 @@ const lightwellSchema = [
             <div style="background:var(--color-bg);position:relative;">
               <video src={`/${v.src}.mp4`} loop muted playsinline preload="none" data-lazyvid style="width:100%;height:auto;display:block;background:var(--color-panel-deep);"></video>
               <div style="position:absolute;left:14px;bottom:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:var(--color-text);background:rgba(14,22,29,0.72);padding:5px 10px;border-radius:6px;">{v.caption}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Modules -->
+    <section id="modules" class="lines-grey" style="border-top:1px solid var(--border);">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
+        <div style="max-width:680px;margin-bottom:48px;">
+          <div class="eyebrow" style="margin-bottom:18px;">What Lightwell tracks</div>
+          <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 16px;">Three modules, one platform.</h2>
+          <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0;">Start with the one that hurts most. Each module runs on the same on-site database and shows up on the same dashboard, so adding the next one is a conversation, not a new system.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
+          {modules.map((m) => (
+            <div style="background:var(--color-surface);border:1px solid var(--border);border-radius:14px;padding:30px;display:flex;flex-direction:column;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);">{m.n}</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-muted);">In development · pilot</span>
+              </div>
+              <h3 style="font-size:23px;font-weight:600;color:var(--color-text);margin:0 0 8px;letter-spacing:-0.01em;">{m.title}</h3>
+              <p style="font-size:16px;line-height:1.5;color:var(--color-text);margin:0 0 12px;">{m.lead}</p>
+              <p style="font-size:15px;line-height:1.65;color:var(--color-body);margin:0 0 18px;">{m.copy}</p>
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:auto;">
+                {m.points.map((p) => (
+                  <div style="display:flex;gap:10px;font-size:14.5px;color:var(--color-body);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">→</span>{p}</div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
