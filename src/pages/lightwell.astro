@@ -38,7 +38,7 @@ const modules = [
     n: 'Module 03',
     title: 'Build cost',
     lead: 'Find out what each product really costs to build.',
-    copy: "Labour is often the biggest cost a shop has never actually measured. Your standard times were probably set once, on one day. Lightwell measures every build since — a quick start and finish log at the job, no stopwatch and no clipboard — and shows the real spread against your standard, product by product.",
+    copy: "Labour is often the biggest cost a shop has never actually measured. Your standard times were probably set once, on one day. Lightwell measures every build since — a quick QR scan at the start and finish of each job, no stopwatch and no clipboard — and shows the real spread against your standard, product by product.",
     points: ['Standard vs. actual, per product', 'Spot the products that cost more than you think', 'Quote from real numbers, not old estimates'],
   },
 ];
@@ -47,6 +47,13 @@ const fit = [
   { n: '01', title: 'Fits the systems you already run', copy: "Lightwell works alongside your ERP, your spreadsheets and your existing part numbers. We connect to what's there instead of asking you to replace it, and your ERP stays the system of record." },
   { n: '02', title: 'Fits the way your floor works', copy: 'Your products, your stations, your standards and your terms. We set Lightwell up around how your team already builds, not around a generic template.' },
   { n: '03', title: 'Grows at your pace', copy: 'Start with the module that solves your biggest problem. Add the next when you are ready, on the same database and the same dashboard.' },
+];
+
+const timing = [
+  { n: '01', title: 'The job sheet carries a QR code', copy: "Every job is printed with its own code when it's released to the floor." },
+  { n: '02', title: 'Scan to start', copy: 'The operator scans the sheet at their station. The clock starts against that job.' },
+  { n: '03', title: 'Scan to pause, scan to resume', copy: 'Breaks, waiting on parts and interruptions come off the clock, so the time is working time.' },
+  { n: '04', title: 'Scan to finish', copy: 'The actual time lands on the dashboard next to your standard, and the job moves to finished.' },
 ];
 
 const benefits = [
@@ -73,7 +80,7 @@ const faqs = [
   { q: 'Is Lightwell off-the-shelf software?', a: 'No. Lightwell is a build-to-suit system. We configure it around your products, your floor and the systems you already use, so it fits your shop instead of your shop bending to fit it.' },
   { q: 'Does this replace my ERP or inventory system?', a: 'No. Lightwell works alongside it. Your ERP stays the system of record for quantities and orders; Lightwell adds what it can\'t tell you — revisions, where parts are, which delivery they came from, and what each build really costs.' },
   { q: 'Will part tracking change how my team builds?', a: 'No. Part tracking changes nothing about how anyone builds. It adds a quick step when material arrives and when it goes on the shelf — that\'s all.' },
-  { q: 'How do you measure real build time?', a: 'A quick start and finish log at the job — no stopwatch, no clipboard, and nobody standing over the bench. Every build is recorded, so you see the real spread for each product, not one number from one day.' },
+  { q: 'How do you measure real build time?', a: 'Each job sheet carries a QR code. The operator scans it to start, to pause and resume, and to finish — no stopwatch, no clipboard, and nobody standing over the bench. Every build is recorded, so you see the real spread for each product, not one number from one day.' },
   { q: 'Is my production data private?', a: "Yes — and it stays in your building. The Lightwell database runs on-site, not in the cloud, so your production data never leaves your own network. You control who on your team can see the dashboard." },
   { q: "What if I'm not technical?", a: "That's exactly who Lightwell is for. The Lightwell dashboard is plain-language and built to read at a glance — no data team needed, and a short walkthrough is all the training your team needs." },
   { q: 'When does Lightwell launch?', a: "General availability is targeted for the end of the year. Pilot partners are onboarded first — that's happening now." },
@@ -186,6 +193,26 @@ const lightwellSchema = [
             </div>
           ))}
         </div>
+      </div>
+    </section>
+
+    <!-- How build timing works -->
+    <section style="background:var(--color-bg);color:var(--color-text);border-top:1px solid var(--border);">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
+        <div style="max-width:720px;margin-bottom:48px;">
+          <div class="eyebrow" style="margin-bottom:18px;">How build timing works</div>
+          <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0;">Four scans. No stopwatch, no clipboard.</h2>
+        </div>
+        <div class="grid-even" style="gap:32px;">
+          {timing.map((t) => (
+            <div>
+              <div style="width:56px;height:56px;border:1.5px solid var(--color-accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--color-accent-text);margin-bottom:20px;">{t.n}</div>
+              <h3 style="font-size:19px;font-weight:600;color:var(--color-text);margin:0 0 10px;">{t.title}</h3>
+              <p style="font-size:15px;line-height:1.6;color:var(--color-body);margin:0;">{t.copy}</p>
+            </div>
+          ))}
+        </div>
+        <p style="font-size:17px;line-height:1.6;color:var(--color-body);margin:40px 0 0;max-width:720px;">It takes seconds per job, and every build adds to the picture: the real spread for each product, not one number from one day.</p>
       </div>
     </section>
 
