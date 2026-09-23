@@ -55,6 +55,12 @@ const modules = [
   },
 ];
 
+const fit = [
+  { n: '01', title: 'Fits the systems you already run', copy: "Lightwell works alongside your ERP, your spreadsheets and your existing part numbers. We connect to what's there instead of asking you to replace it, and your ERP stays the system of record." },
+  { n: '02', title: 'Fits the way your floor works', copy: 'Your products, your stations, your standards and your terms. We set Lightwell up around how your team already builds, not around a generic template.' },
+  { n: '03', title: 'Grows at your pace', copy: 'Start with the module that solves your biggest problem. Add the next when you are ready, on the same database and the same dashboard.' },
+];
+
 const benefits = [
   { title: 'Find lost hours', copy: 'Downtime is the silent profit killer. When every stoppage is logged automatically, the real cost of small, "normal" interruptions finally becomes visible — and fixable.' },
   { title: 'Quote with confidence', copy: "When you know what each product really takes to build, quoting, scheduling, and hiring decisions stop resting on a hopeful estimate — and the jobs that quietly lose money show themselves." },
@@ -76,6 +82,7 @@ const faqs = [
   { q: 'Do I need IT people or a network project?', a: 'No. The Lightwell sensors are wireless and run on standard wall power, and the Lightwell dashboard opens in any browser. The Lightwell database runs on a small computer we install and look after — nothing for you to maintain, and no IT project.' },
   { q: 'How disruptive is installation?', a: 'Minimal. We place the sensors during a normal visit — no production downtime and nothing cut into or wired through your machines.' },
   { q: 'What can it actually track?', a: 'Three things, as separate modules. Machine monitoring: output and part counts, run vs. idle time, downtime and stoppages, cycle time, and OEE. Part tracking: where each part is, which revision it is, and which delivery it came from. Build cost: how long each build really takes, against your standard.' },
+  { q: 'Is Lightwell off-the-shelf software?', a: 'No. Lightwell is a build-to-suit system. We configure it around your products, your floor and the systems you already use, so it fits your shop instead of your shop bending to fit it.' },
   { q: 'Does this replace my ERP or inventory system?', a: 'No. Lightwell works alongside it. Your ERP stays the system of record for quantities and orders; Lightwell adds what it can\'t tell you — revisions, where parts are, which delivery they came from, and what each build really costs.' },
   { q: 'Will part tracking change how my team builds?', a: 'No. Part tracking changes nothing about how anyone builds. It adds a quick step when material arrives and when it goes on the shelf — that\'s all.' },
   { q: 'How do you measure real build time?', a: 'A quick start and finish log at the job — no stopwatch, no clipboard, and nobody standing over the bench. Every build is recorded, so you see the real spread for each product, not one number from one day.' },
@@ -97,7 +104,7 @@ const lightwellSchema = [
     '@id': `${SITE_URL}/lightwell#product`,
     name: 'Lightwell Platform',
     description:
-      'Wireless sensors, an on-site database, and a live dashboard that track machine OEE, output and downtime, part location, revision and lot traceability, and actual versus standard build cost — with no cloud, no rewiring and no IT project.',
+      'Wireless sensors, an on-site database, and a live dashboard that track machine OEE, output and downtime, part location, revision and lot traceability, and actual versus standard build cost — built to suit each shop and configured to work with its existing systems, with no cloud, no rewiring and no IT project.',
     category: 'Industrial IoT / manufacturing KPI monitoring, part traceability and build-cost tracking',
     brand: { '@id': ORG_ID },
     manufacturer: { '@id': ORG_ID },
@@ -134,7 +141,7 @@ const lightwellSchema = [
             <span class="pulse-dot" style="display:inline-block;width:7px;height:7px;border-radius:100px;background:var(--color-accent);"></span> Launching end of year — join the pilot
           </div>
           <h1 style="font-size:clamp(40px,5vw,66px);line-height:1.03;letter-spacing:-0.025em;font-weight:600;color:var(--color-text);margin:0 0 22px;text-wrap:balance;">The Lightwell Platform: Your machines, your parts, your real costs — made visible.</h1>
-          <p style="font-size:19px;line-height:1.6;color:var(--color-body);margin:0 0 34px;max-width:540px;">Lightwell tracks how every machine is running, where every part is and where it came from, and what each build really costs — all in the Lightwell database, right there in your shop, where the Lightwell dashboard turns it into a live picture of your plant.</p>
+          <p style="font-size:19px;line-height:1.6;color:var(--color-body);margin:0 0 34px;max-width:540px;">Lightwell tracks how every machine is running, where every part is and where it came from, and what each build really costs — all in the Lightwell database, right there in your shop, where the Lightwell dashboard turns it into a live picture of your plant. Every install is built to suit: configured around your products, your floor and the systems you already run.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
             <a href="#pilot" class="btn-red">Join the pilot <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
             <a href="#how" class="btn-ghost-dark">How it works</a>
@@ -215,6 +222,26 @@ const lightwellSchema = [
                   <div style="display:flex;gap:10px;font-size:14.5px;color:var(--color-body);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">→</span>{p}</div>
                 ))}
               </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Built to suit -->
+    <section class="lines-white" style="border-top:1px solid var(--border);">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
+        <div style="max-width:720px;margin-bottom:48px;">
+          <div class="eyebrow" style="margin-bottom:18px;">Built to suit</div>
+          <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 16px;">Not off the shelf. Built around your shop.</h2>
+          <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0;">Every shop runs differently, so Lightwell isn't a one-size-fits-all product. Each install is customized to work with your current systems and the way your team already works.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:32px;">
+          {fit.map((f) => (
+            <div>
+              <div style="width:56px;height:56px;border:1.5px solid var(--color-accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--color-accent-text);margin-bottom:20px;">{f.n}</div>
+              <h3 style="font-size:19px;font-weight:600;color:var(--color-text);margin:0 0 10px;">{f.title}</h3>
+              <p style="font-size:15px;line-height:1.6;color:var(--color-body);margin:0;">{f.copy}</p>
             </div>
           ))}
         </div>
