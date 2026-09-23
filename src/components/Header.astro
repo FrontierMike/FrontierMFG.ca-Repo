@@ -7,7 +7,7 @@ const { page = 'home' } = Astro.props;
 // Hash links target sections on the home page; prefix with "/" from other pages.
 const p = page === 'home' ? '' : '/';
 const cta = page === 'lightwell'
-  ? { href: '#pilot', label: 'Join the pilot' }
+  ? { href: '#founding', label: 'Become a founding customer' }
   : { href: `${p}#contact`, label: 'Book a free consultation' };
 
 const active = 'color:var(--color-text);font-size:14px;font-weight:600;';

@@ -19,7 +19,7 @@ Cloudflare Worker (frontiermfgwebsite)
 ```
 
 - **Static site:** Astro builds to `./dist`. The Worker serves those files via the `ASSETS` binding. A request matching a static file is served directly — the Worker function only runs for unmatched paths (i.e. `/api/contact`).
-- **Contact form:** the contact section in `src/pages/index.astro` (and the pilot form in `src/pages/lightwell.astro`) posts JSON to `/api/contact`. The Worker validates, logs to Notion, and emails the lead. Notion failures are non-fatal (logged, email still sends) so a lead is never lost; a Resend failure returns an error to the visitor.
+- **Contact form:** the contact section in `src/pages/index.astro` (and the founding-customer form in `src/pages/lightwell.astro`) posts JSON to `/api/contact`. The Worker validates, logs to Notion, and emails the lead. Notion failures are non-fatal (logged, email still sends) so a lead is never lost; a Resend failure returns an error to the visitor.
 - **No Astro adapter:** the site is a pure static build. The only dynamic code is the standalone Worker route.
 
 ## Tech stack

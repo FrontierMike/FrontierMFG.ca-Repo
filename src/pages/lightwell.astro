@@ -83,13 +83,14 @@ const faqs = [
   { q: 'How do you measure real build time?', a: 'Each job sheet carries a QR code. The operator scans it to start, to pause and resume, and to finish — no stopwatch, no clipboard, and nobody standing over the bench. Every build is recorded, so you see the real spread for each product, not one number from one day.' },
   { q: 'Is my production data private?', a: "Yes — and it stays in your building. The Lightwell database runs on-site, not in the cloud, so your production data never leaves your own network. You control who on your team can see the dashboard." },
   { q: "What if I'm not technical?", a: "That's exactly who Lightwell is for. The Lightwell dashboard is plain-language and built to read at a glance — no data team needed, and a short walkthrough is all the training your team needs." },
-  { q: 'When does Lightwell launch?', a: "General availability is targeted for the end of the year. Pilot partners are onboarded first — that's happening now." },
+  { q: 'Is Lightwell available now?', a: "Yes. Lightwell is running on a Lower Mainland shop floor today, and we're taking on a small group of founding customers to install next." },
+  { q: 'What about AI?', a: "AI needs clean, consistent production data, and most shops don't have any. Once Lightwell is capturing it, predictive maintenance and output forecasting become realistic next steps rather than buzzwords." },
 ];
 
-const pilotBenefits = [
+const foundingBenefits = [
   { n: '01', title: 'Hands-on setup, done for you', copy: 'Start with any module. We install the Lightwell sensors, set up the database on-site, and stand up your dashboard for you.' },
-  { n: '02', title: 'Shape the product', copy: 'Your feedback directly guides what we build next.' },
-  { n: '03', title: 'First in line at launch', copy: 'Pilot partners get priority when Lightwell becomes generally available.' },
+  { n: '02', title: 'Founding-customer pricing', copy: 'Better terms than the customers who come after you.' },
+  { n: '03', title: 'A direct say in the roadmap', copy: 'Your shop decides what we build next.' },
 ];
 
 const lightwellSchema = [
@@ -120,7 +121,7 @@ const lightwellSchema = [
 ---
 <Base
   title="Lightwell — Machine, Part & Build-Cost Tracking for BC Manufacturers"
-  description="Lightwell tracks machine OEE and downtime, part revisions and deliveries, and what each build really costs — on-site data, no cloud. Now piloting with Lower Mainland shops."
+  description="Lightwell tracks machine OEE and downtime, part revisions and deliveries, and what each build really costs — on-site data, no cloud. Now taking founding customers in the Lower Mainland."
   breadcrumb={[['Lightwell', '/lightwell']]}
   schema={lightwellSchema}
 >
@@ -133,12 +134,12 @@ const lightwellSchema = [
       <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,96px) 32px;position:relative;display:flex;flex-wrap:wrap;gap:56px;align-items:center;">
         <div style="flex:1 1 440px;min-width:300px;">
           <div style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-text);font-weight:500;margin-bottom:24px;background:rgba(179,38,30,0.12);border:1px solid rgba(179,38,30,0.35);padding:8px 15px;border-radius:100px;">
-            <span class="pulse-dot" style="display:inline-block;width:7px;height:7px;border-radius:100px;background:var(--color-accent);"></span> Launching end of year — join the pilot
+            <span class="pulse-dot" style="display:inline-block;width:7px;height:7px;border-radius:100px;background:var(--color-accent);"></span> Now taking founding customers
           </div>
           <h1 style="font-size:clamp(40px,5vw,66px);line-height:1.03;letter-spacing:-0.025em;font-weight:600;color:var(--color-text);margin:0 0 22px;text-wrap:balance;">The Lightwell Platform: Your machines, your parts, your real costs — made visible.</h1>
           <p style="font-size:19px;line-height:1.6;color:var(--color-body);margin:0 0 34px;max-width:540px;">Lightwell tracks how every machine is running, where every part is and where it came from, and what each build really costs — all in the Lightwell database, right there in your shop, where the Lightwell dashboard turns it into a live picture of your plant. Every install is built to suit: configured around your products, your floor and the systems you already run.</p>
           <div style="display:flex;flex-wrap:wrap;gap:14px;">
-            <a href="#pilot" class="btn-red">Join the pilot <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+            <a href="#founding" class="btn-red">Become a founding customer <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
             <a href="#how" class="btn-ghost-dark">How it works</a>
           </div>
         </div>
@@ -178,10 +179,7 @@ const lightwellSchema = [
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
           {modules.map((m) => (
             <div style="background:var(--color-surface);border:1px solid var(--border);border-radius:14px;padding:30px;display:flex;flex-direction:column;">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;">
-                <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);">{m.n}</span>
-                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--color-muted);">In development · pilot</span>
-              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);margin-bottom:14px;">{m.n}</div>
               <h3 style="font-size:23px;font-weight:600;color:var(--color-text);margin:0 0 8px;letter-spacing:-0.01em;">{m.title}</h3>
               <p style="font-size:16px;line-height:1.5;color:var(--color-text);margin:0 0 12px;">{m.lead}</p>
               <p style="font-size:15px;line-height:1.65;color:var(--color-body);margin:0 0 18px;">{m.copy}</p>
@@ -216,6 +214,44 @@ const lightwellSchema = [
       </div>
     </section>
 
+    <!-- What the gap costs: dollar framing for build cost -->
+    <section id="cost-gap" class="lines-grey" style="border-top:1px solid var(--border);">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;display:flex;flex-wrap:wrap;gap:56px;align-items:center;">
+        <div style="flex:1 1 400px;min-width:300px;">
+          <div class="eyebrow" style="margin-bottom:18px;">What the gap costs</div>
+          <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 16px;">Low standards are money you're not quoting for.</h2>
+          <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0 0 16px;">If your builds really take longer than your standards say, every quote built on those standards leaves labour unpaid. Put in your own numbers.</p>
+          <p style="font-size:14px;line-height:1.6;color:var(--color-muted);margin:0;">An estimate, not a promise. Your real gap could be bigger, smaller, or on different products than you expect. Measuring it is the point.</p>
+        </div>
+        <div style="flex:1 1 420px;min-width:300px;">
+          <form id="gap-calc" style="background:var(--color-bg-alt);border:1px solid var(--border);border-radius:16px;padding:30px;" onsubmit="return false;">
+            <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:24px;">
+              <div style="flex:1 1 130px;display:flex;flex-direction:column;justify-content:flex-end;">
+                <label for="gc-hours" class="form-label">Labour hrs / month</label>
+                <input id="gc-hours" type="number" min="0" step="50" value="2000" inputmode="numeric" class="input-dark" />
+              </div>
+              <div style="flex:1 1 130px;display:flex;flex-direction:column;justify-content:flex-end;">
+                <label for="gc-rate" class="form-label">Loaded $ / hr</label>
+                <input id="gc-rate" type="number" min="0" step="1" value="45" inputmode="decimal" class="input-dark" />
+              </div>
+              <div style="flex:1 1 130px;display:flex;flex-direction:column;justify-content:flex-end;">
+                <label for="gc-gap" class="form-label">Over standard %</label>
+                <input id="gc-gap" type="number" min="0" max="200" step="1" value="15" inputmode="numeric" class="input-dark" />
+              </div>
+            </div>
+            <div style="border-top:1px solid var(--border);padding-top:22px;" aria-live="polite">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-muted);margin-bottom:8px;">Labour your standards don't cover</div>
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px;">
+                <span id="gc-month" style="font-size:clamp(36px,4.4vw,52px);font-weight:600;letter-spacing:-0.02em;color:var(--color-accent-text);">$11,739</span>
+                <span style="font-size:16px;color:var(--color-body);">a month</span>
+              </div>
+              <p style="font-size:15px;line-height:1.6;color:var(--color-body);margin:10px 0 0;"><span id="gc-year" style="color:var(--color-text);font-weight:600;">$140,870</span> a year, or <span id="gc-hrs" style="color:var(--color-text);font-weight:600;">261</span> hours a month that no quote is paying for.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
     <!-- Built to suit -->
     <section class="lines-white" style="border-top:1px solid var(--border);">
       <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
@@ -236,26 +272,6 @@ const lightwellSchema = [
       </div>
     </section>
 
-    <!-- New to this? Start here -->
-    <section id="learn" class="lines-grey" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
-        <div style="max-width:680px;margin-bottom:48px;">
-          <div class="eyebrow" style="margin-bottom:18px;">New to this? Start here</div>
-          <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 16px;">The jargon, in plain English.</h2>
-          <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0;">You don't need to be technical to benefit from any of this. Here's what the terms actually mean — and why each one matters for your bottom line.</p>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
-          {terms.map((t) => (
-            <div style="background:var(--color-surface);border:1px solid var(--border);border-radius:14px;padding:30px;">
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);margin-bottom:14px;">{t.n}</div>
-              <h3 style="font-size:21px;font-weight:600;color:var(--color-text);margin:0 0 12px;letter-spacing:-0.01em;">{t.title}</h3>
-              <p style="font-size:15px;line-height:1.65;color:var(--color-body);margin:0 0 14px;">{t.copy}</p>
-              <p style="font-size:14px;line-height:1.6;color:var(--color-muted);margin:0;"><span style="color:var(--color-text);font-weight:600;">Why it matters:</span> {t.why}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
 
     <!-- Benefits -->
     <section class="lines-white">
@@ -294,14 +310,6 @@ const lightwellSchema = [
       </div>
     </section>
 
-    <!-- And then... AI -->
-    <section style="background:var(--color-bg);color:var(--color-text);">
-      <div style="max-width:900px;margin:0 auto;padding:clamp(56px,7vw,88px) 32px;text-align:center;">
-        <div class="eyebrow" style="margin-bottom:18px;">And then... AI</div>
-        <h2 style="font-size:clamp(26px,3.2vw,40px);line-height:1.12;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 20px;">The Lightwell Platform is your on-ramp to AI.</h2>
-        <p style="font-size:18px;line-height:1.65;color:var(--color-body);margin:0 auto;max-width:640px;">The reason AI feels out of reach for most shops is simple: AI needs data, and most shops don't have any. Once Lightwell is capturing clean, consistent production data, the door opens to genuinely useful AI — predicting maintenance before a breakdown, forecasting output, and spotting patterns no person would catch. Get the data right first, and AI stops being a buzzword and starts being an advantage.</p>
-      </div>
-    </section>
 
     <!-- FAQ -->
     <section id="faq" class="lines-grey" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
@@ -322,15 +330,41 @@ const lightwellSchema = [
       </div>
     </section>
 
-    <!-- Pilot -->
-    <section id="pilot" style="background:var(--color-surface);">
+    <!-- New to this? Jargon, collapsed so it doesn't slow down buyers who already know it -->
+    <section id="learn" class="lines-white" style="border-bottom:1px solid var(--border);">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(40px,5vw,64px) 32px;">
+        <details class="glossary">
+          <summary style="cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+            <span>
+              <span class="eyebrow" style="display:block;margin-bottom:10px;">New to this? Start here</span>
+              <span style="display:block;font-size:clamp(22px,2.6vw,30px);line-height:1.15;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);">The jargon, in plain English.</span>
+            </span>
+            <span class="glossary-toggle" aria-hidden="true" style="font-family:'IBM Plex Mono',monospace;font-size:24px;color:var(--color-accent-text);flex-shrink:0;">+</span>
+          </summary>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:36px;">
+            {terms.map((t) => (
+              <div style="background:var(--color-surface);border:1px solid var(--border);border-radius:14px;padding:30px;">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);margin-bottom:14px;">{t.n}</div>
+                <h3 style="font-size:21px;font-weight:600;color:var(--color-text);margin:0 0 12px;letter-spacing:-0.01em;">{t.title}</h3>
+                <p style="font-size:15px;line-height:1.65;color:var(--color-body);margin:0 0 14px;">{t.copy}</p>
+                <p style="font-size:14px;line-height:1.6;color:var(--color-muted);margin:0;"><span style="color:var(--color-text);font-weight:600;">Why it matters:</span> {t.why}</p>
+              </div>
+            ))}
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Founding customers -->
+    <section id="founding" style="background:var(--color-surface);">
+      <span id="pilot" aria-hidden="true"></span><!-- keeps old /lightwell#pilot links landing here -->
       <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;display:flex;flex-wrap:wrap;gap:56px;">
         <div style="flex:1 1 380px;min-width:300px;">
-          <div style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-text);font-weight:500;margin-bottom:22px;background:var(--accent-tint);border:1px solid rgba(179,38,30,0.25);padding:7px 14px;border-radius:100px;">Limited pilot — a handful of BC shops</div>
+          <div style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-text);font-weight:500;margin-bottom:22px;background:var(--accent-tint);border:1px solid rgba(179,38,30,0.25);padding:7px 14px;border-radius:100px;">Founding customers — a handful of BC shops</div>
           <h2 style="font-size:clamp(30px,3.6vw,48px);line-height:1.06;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 20px;">Be one of the first to run on Lightwell.</h2>
-          <p style="font-size:18px;line-height:1.65;color:var(--color-body);margin:0 0 32px;max-width:480px;">We're partnering with a small group of Lower Mainland manufacturers to prove Lightwell on real shop floors. Pilot partners get early access, hands-on setup, and a direct say in where the product goes.</p>
+          <p style="font-size:18px;line-height:1.65;color:var(--color-body);margin:0 0 32px;max-width:480px;">We're installing Lightwell with a small group of Lower Mainland manufacturers first. Founding customers get hands-on setup, better pricing than anyone after them, and a direct say in where the product goes.</p>
           <div style="display:flex;flex-direction:column;gap:16px;">
-            {pilotBenefits.map((p) => (
+            {foundingBenefits.map((p) => (
               <div style="display:flex;gap:14px;align-items:flex-start;"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;margin-top:2px;">{p.n}</span><div><div style="font-size:16px;font-weight:600;color:var(--color-text);margin-bottom:3px;">{p.title}</div><div style="font-size:14.5px;line-height:1.6;color:var(--color-body);">{p.copy}</div></div></div>
             ))}
           </div>
@@ -349,8 +383,8 @@ const lightwellSchema = [
           </div>
         </div>
         <div style="flex:1 1 420px;min-width:300px;">
-          <form id="pilot-form" style="background:var(--color-bg-alt);border:1px solid var(--border);border-radius:16px;padding:30px;">
-            <h3 style="font-size:20px;font-weight:600;color:var(--color-text);margin:0 0 6px;">Apply to join the pilot</h3>
+          <form id="founding-form" style="background:var(--color-bg-alt);border:1px solid var(--border);border-radius:16px;padding:30px;">
+            <h3 style="font-size:20px;font-weight:600;color:var(--color-text);margin:0 0 6px;">Claim a founding spot</h3>
             <p style="font-size:14px;color:var(--color-body);margin:0 0 22px;">Takes two minutes. We'll follow up within one business day.</p>
             <input type="text" name="company-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;" />
             <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
@@ -386,9 +420,9 @@ const lightwellSchema = [
               <label for="pf-track" class="form-label form-label-light">What would you most want to track? (optional)</label>
               <textarea id="pf-track" name="track" rows="3" class="input-light" style="resize:vertical;"></textarea>
             </div>
-            <button type="submit" class="btn-red" style="width:100%;">Apply to join the pilot</button>
-            <p style="margin:12px 0 0;font-size:12.5px;color:var(--color-muted);text-align:center;">No newsletter, no spam — we'll only contact you about the pilot.</p>
-            <p id="pilot-status" style="margin:16px 0 0;font-size:14px;text-align:center;display:none;"></p>
+            <button type="submit" class="btn-red" style="width:100%;">Claim a founding spot</button>
+            <p style="margin:12px 0 0;font-size:12.5px;color:var(--color-muted);text-align:center;">No newsletter, no spam — we'll only contact you about Lightwell.</p>
+            <p id="founding-status" style="margin:16px 0 0;font-size:14px;text-align:center;display:none;"></p>
           </form>
         </div>
       </div>
@@ -416,12 +450,29 @@ const lightwellSchema = [
   );
   document.querySelectorAll<HTMLVideoElement>('video[data-lazyvid]').forEach((v) => obs.observe(v));
 
-  // Pilot form submit → /api/contact (maps pilot fields to the worker's shape).
-  const form = document.getElementById('pilot-form') as HTMLFormElement | null;
+  // Cost-gap calculator. Hours worked = standard × (1 + gap), so the hours the
+  // standards miss are hours − hours / (1 + gap).
+  const gc = (id: string) => document.getElementById(id) as HTMLInputElement;
+  const out = (id: string) => document.getElementById(id)!;
+  const money = (n: number) => '$' + Math.round(n).toLocaleString('en-CA');
+  const updateGap = () => {
+    const hours = Math.max(0, Number(gc('gc-hours').value) || 0);
+    const rate = Math.max(0, Number(gc('gc-rate').value) || 0);
+    const gap = Math.max(0, Number(gc('gc-gap').value) || 0) / 100;
+    const missed = hours - hours / (1 + gap);
+    out('gc-month').textContent = money(missed * rate);
+    out('gc-year').textContent = money(missed * rate * 12);
+    out('gc-hrs').textContent = Math.round(missed).toLocaleString('en-CA');
+  };
+  document.getElementById('gap-calc')?.addEventListener('input', updateGap);
+  updateGap();
+
+  // Founding-customer form submit → /api/contact (maps its fields to the worker's shape).
+  const form = document.getElementById('founding-form') as HTMLFormElement | null;
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
-    const status = document.getElementById('pilot-status')!;
+    const status = document.getElementById('founding-status')!;
     const show = (msg: string, ok: boolean) => {
       status.textContent = msg;
       status.style.color = ok ? 'var(--color-ok)' : 'var(--color-bad)';
@@ -435,9 +486,9 @@ const lightwellSchema = [
       'last-name': rest.join(' ') || '—',
       email: f.email,
       company: f.company,
-      service: 'Lightwell pilot application',
+      service: 'Lightwell founding customer',
       message:
-        `Lightwell pilot application.\n` +
+        `Lightwell founding-customer enquiry.\n` +
         `Machines: ${f.machines}\n` +
         `Makes: ${f.make}\n` +
         `Wants to track: ${f.track || '(not specified)'}`,
