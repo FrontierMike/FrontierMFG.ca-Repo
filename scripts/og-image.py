@@ -61,9 +61,9 @@ for i in range(8):
     d.rectangle([x0, 210 * S, x0 + 1.5 * S, 219 * S], fill=RED)
 
 # --- Eyebrow, headline -----------------------------------------------------
-tracked((PAD * S, 238 * S), "AUTOMATION & MANUFACTURING CONSULTING", mono(15), ACCENT_TXT, 0.16)
+tracked((PAD * S, 238 * S), "AUTOMATION & SYSTEMS INTEGRATION", mono(15), ACCENT_TXT, 0.16)
 
-for i, line in enumerate(["Bring your shop floor", "into the age of data."]):
+for i, line in enumerate(["Practical automation", "for BC manufacturers."]):
     d.text((PAD * S, (282 + i * 70) * S), line, font=sans(60), fill=WHITE)
 
 # --- Footer rule and location line ----------------------------------------

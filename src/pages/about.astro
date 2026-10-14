@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BookCta from '../components/BookCta.astro';
+
+const background = [
+  'Hands-on in the trades since 2011: welding, fabrication, and millwrighting.',
+  'Mechanical education at BCIT (British Columbia Institute of Technology).',
+  'Experience designing, building, and commissioning custom automation machines.',
+];
+---
+<Base
+  title="About Mike Wait — Frontier MFG"
+  description="I help BC manufacturers modernize the equipment they already have. I measure where time and output are going, then automate the parts that pay back fastest."
+  breadcrumb={[['About', '/about']]}
+>
+  <Header />
+  <main>
+
+    <section class="dots-hero" style="border-bottom:1px solid var(--border);">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,88px) 32px;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;">
+          <span style="display:block;width:32px;height:2px;background:var(--color-accent);"></span>
+          <span class="eyebrow">About</span>
+        </div>
+        <h1 style="font-size:clamp(32px,4.4vw,54px);line-height:1.08;letter-spacing:-0.025em;font-weight:600;color:var(--color-text);margin:0 0 22px;max-width:900px;text-wrap:balance;">I help BC manufacturers modernize the equipment they already have.</h1>
+        <p style="font-size:20px;line-height:1.55;color:var(--color-body);margin:0;max-width:680px;">I measure where time and output are going, then automate the parts that pay back fastest.</p>
+      </div>
+    </section>
+
+    <section class="dots-white">
+      <div style="max-width:1000px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
+        <div style="border:1px solid var(--border);border-radius:14px;padding:clamp(26px,4vw,40px);background:var(--color-surface);">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;">
+            <div style="width:64px;height:64px;border-radius:14px;flex-shrink:0;background:var(--color-bg-alt);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;letter-spacing:0.04em;color:var(--color-text);position:relative;">MW<span style="position:absolute;top:9px;right:9px;width:7px;height:7px;background:var(--color-accent);border-radius:1px;transform:rotate(45deg);"></span></div>
+            <div>
+              <div style="font-size:21px;font-weight:600;color:var(--color-text);">Mike Wait</div>
+              {/* Credentials line. TODO: Mike to write. Any title must show
+                  "EIT" with equal prominence. */}
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-accent-text);margin-top:4px;">Founder · B.Eng, EIT</div>
+            </div>
+          </div>
+          <h2 style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-muted);font-weight:500;margin:0 0 14px;">Background</h2>
+          <ul style="display:flex;flex-direction:column;gap:12px;list-style:none;margin:0;padding:0;">
+            {background.map((b) => (
+              <li style="display:flex;gap:12px;font-size:17px;line-height:1.55;color:var(--color-body);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">—</span>{b}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <BookCta title="Let's look at your numbers." copy="Book a Productivity Assessment and I'll walk your floor, talk to your operators, and show you where the time and output are going." />
+
+  </main>
+  <Footer />
+</Base>

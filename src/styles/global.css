@@ -116,6 +116,29 @@ input, select, textarea { font-family: inherit; }
 @media (min-width: 600px) { .grid-even { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1000px) { .grid-even { grid-template-columns: repeat(4, 1fr); } }
 
+/* --- Payback calculator: results stay in view beside the inputs on wide screens --- */
+@media (min-width: 900px) { .calc-results { position: sticky; top: 92px; } }
+
+/* --- Long-form Markdown (Learn articles, case studies) --- */
+.prose-article { font-size: 17px; line-height: 1.7; color: var(--color-body); }
+.prose-article > :first-child { margin-top: 0; }
+.prose-article h2 { font-size: clamp(24px, 2.6vw, 30px); line-height: 1.2; letter-spacing: -0.01em; font-weight: 600; color: var(--color-text); margin: 48px 0 14px; }
+.prose-article h3 { font-size: 20px; line-height: 1.3; font-weight: 600; color: var(--color-text); margin: 32px 0 10px; }
+.prose-article p { margin: 0 0 18px; }
+.prose-article ul, .prose-article ol { margin: 0 0 18px; padding-left: 22px; }
+.prose-article ul { list-style: disc; }
+.prose-article ol { list-style: decimal; }
+.prose-article li { margin: 0 0 8px; }
+.prose-article li::marker { color: var(--color-accent-text); }
+.prose-article strong { color: var(--color-text); font-weight: 600; }
+.prose-article a { text-decoration: underline; text-underline-offset: 3px; }
+.prose-article blockquote { margin: 0 0 18px; padding: 4px 0 4px 18px; border-left: 2px solid var(--color-accent); color: var(--color-text); }
+.prose-article code { font-family: var(--font-mono); font-size: 0.9em; background: var(--glass); padding: 2px 6px; border-radius: 4px; }
+.prose-article table { width: 100%; border-collapse: collapse; margin: 0 0 18px; font-size: 15px; }
+.prose-article th, .prose-article td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+.prose-article th { color: var(--color-text); font-weight: 600; }
+.prose-article img { max-width: 100%; height: auto; border-radius: 10px; }
+
 /* --- Header nav breakpoint (860px per design) --- */
 .nav-desktop { display: flex; align-items: center; gap: 28px; }
 .menu-btn { display: none; flex-direction: column; justify-content: center; gap: 4px; width: 44px; height: 44px; background: transparent; border: 1px solid var(--border-hard); border-radius: 8px; cursor: pointer; padding: 0 11px; }

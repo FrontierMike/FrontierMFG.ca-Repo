@@ -20,10 +20,12 @@ export default {
       return handleContact(request, env);
     }
 
-    // The product page was called "Baseline" before launch; keep shared links
-    // working. Query string and hash are preserved by the browser.
-    if (url.pathname === "/baseline" || url.pathname === "/baseline/") {
-      url.pathname = "/lightwell";
+    // Lightwell no longer has its own page (it was "Baseline" before that).
+    // Keep shared links working by sending them to the Measure step, where
+    // Lightwell is described.
+    if (["/lightwell", "/lightwell/", "/baseline", "/baseline/"].includes(url.pathname)) {
+      url.pathname = "/how-it-works";
+      url.hash = "measure";
       return Response.redirect(url.toString(), 301);
     }
 

@@ -2,79 +2,48 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { business, serviceAreaGroups, telHref } from '../data/site';
+import SectionHead from '../components/SectionHead.astro';
+import BookCta from '../components/BookCta.astro';
+import { services } from '../data/site';
+import { getCaseStudies } from '../data/content';
 
-const capabilities = [
-  'Process Automation', 'PLC / SCADA Programming', 'Controls Design', 'Real-Time KPI Tracking',
-  'Industrial IoT', 'Feasibility Studies', 'Design for Manufacturing', 'Process Improvement',
+const method = [
+  { n: '01', title: 'See it', copy: 'We walk your floor, talk to your operators, and pull the records you already keep.' },
+  { n: '02', title: 'Measure it', copy: 'We turn what we find into a baseline of where your hours and output go, in dollars.' },
+  { n: '03', title: 'Automate it', copy: 'We fix what pays back fastest, then measure again against the same baseline.' },
 ];
 
-const why = [
-  { n: '01', title: "See what's really happening", copy: 'Real-time visibility into output, downtime, and bottlenecks — instead of guesswork and month-end spreadsheets that are already out of date.' },
-  { n: '02', title: 'Catch problems early', copy: "Live KPIs flag issues the moment they happen, so a small hiccup on the line doesn't quietly turn into an expensive shutdown." },
-  { n: '03', title: 'Decide with data', copy: 'Replace gut-feel and hallway anecdotes with hard numbers your whole team can see and trust — from the floor to the front office.' },
-  { n: '04', title: 'Get ready for AI', copy: "Clean, consistent data is the foundation. Once it's flowing, forecasting and AI-driven optimization stop being hype and start being useful." },
-];
+const assessmentIn = ['Floor walk', 'Operator interviews', 'Your records: production counts, downtime, scrap, overtime'];
+const assessmentOut = ['A baseline in hours and dollars', 'Fixes ranked by payback', 'A savings and payback estimate'];
 
-const services = [
-  { n: '01', icon: '01-process-automation', title: 'Process Automation', copy: 'Identify automation opportunities and implement solutions that reduce manual labour and increase throughput.' },
-  { n: '02', icon: '02-plc-scada-programming', title: 'PLC / SCADA Programming', copy: 'Custom logic, HMI design, and commissioning support for Allen-Bradley, Siemens, and more.' },
-  { n: '03', icon: '03-hardware-software-integration', title: 'Hardware & Software Integration', copy: 'Bridging industrial hardware and software — sensors, controllers, networks, and custom software.' },
-  { n: '04', icon: '04-process-improvement', title: 'Process Improvement', copy: 'Lean-informed analysis of production workflows to eliminate bottlenecks and reduce waste.' },
-  { n: '05', icon: '05-feasibility-studies', title: 'Feasibility Studies', copy: 'Technical and economic assessments to validate automation investments before you commit.' },
-  { n: '06', icon: '06-design-for-manufacturing', title: 'Design for Manufacturing', copy: 'DFM reviews that bridge design intent with production reality — reducing rework and material waste.' },
-  { n: '07', icon: '07-machining-consultation', title: 'Machining Consultation', copy: 'Process parameters, toolpath strategy, and fixturing advice for CNC machining operations.' },
-  { n: '08', icon: '08-Controls-pulse-waveform', title: 'Controls Design', copy: 'Panel layouts, I/O schematics, and control architecture — designed for reliability and easy maintenance.' },
-];
-
-const steps = [
-  { n: '01', title: 'Free discovery call', copy: 'A free 30-minute call to understand your operation, constraints, and goals. No commitment required.' },
-  { n: '02', title: 'Site assessment', copy: 'Where needed, we visit your facility to observe processes, audit equipment, and gather technical data.' },
-  { n: '03', title: 'Proposal & scope', copy: 'A clear written proposal with defined deliverables, timeline, and fixed or hourly pricing — no surprises.' },
-  { n: '04', title: 'Delivery', copy: 'We execute the work, keep you informed throughout, and provide handover documentation at completion.' },
-];
-
-
-// Name / address / phone shown in the contact block. Sourced from src/data/site.ts
-// so the details here and the details in the structured data can never drift.
-const contactRows = [
-  { label: 'EMAIL', value: business.email, href: `mailto:${business.email}` },
-  ...(business.phone ? [{ label: 'PHONE', value: business.phone, href: telHref }] : []),
-  { label: 'LOCATION', value: `${business.locality}, ${business.regionName}` },
-  { label: 'SERVING', value: 'Vancouver, the Lower Mainland & Fraser Valley' },
-];
-
-const sensors = [
-  { id: 'S-01 PRESS', pct: 98, dot: 'var(--color-ok)' },
-  { id: 'S-02 CNC', pct: 76, dot: 'var(--color-ok)' },
-  { id: 'S-03 WELD', pct: 61, dot: 'var(--color-warn)' },
-  { id: 'S-04 PACK', pct: 89, dot: 'var(--color-ok)' },
-];
+// Proof section. Stays hidden until the first case study is published in
+// src/content/case-studies; it then appears with no code change.
+const caseStudies = (await getCaseStudies()).slice(0, 3);
 ---
 <Base
-  title="Manufacturing Automation Consulting — Surrey & Lower Mainland"
-  description="Automation and manufacturing consulting for Lower Mainland shops — process automation, PLC/SCADA, controls and live KPI tracking. Based in Surrey, BC."
+  title="Practical Automation for BC Manufacturers — Frontier MFG"
+  description="Practical automation and robotics for BC manufacturers. We measure where time and output go, then automate what pays back fastest."
 >
-  <Header page="home" />
+  <Header />
   <main>
 
     <!-- Hero -->
     <section class="dots-hero" style="border-bottom:1px solid var(--border);">
       <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,96px) 32px;display:flex;flex-wrap:wrap;gap:56px;align-items:center;">
-        <div style="flex:1 1 440px;min-width:300px;">
+        <div style="flex:1 1 440px;min-width:min(100%,300px);">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
             <span style="display:block;width:32px;height:2px;background:var(--color-accent);"></span>
-            <span class="eyebrow">Automation &amp; Manufacturing Consulting</span>
+            <span class="eyebrow">Automation &amp; systems integration</span>
           </div>
-          <h1 style="font-size:clamp(40px,5.2vw,68px);line-height:1.03;letter-spacing:-0.025em;font-weight:600;color:var(--color-text);margin:0 0 22px;text-wrap:balance;">Bring your shop floor into the age of data.</h1>
-          <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0 0 32px;max-width:520px;">Frontier MFG helps small and mid-size manufacturers across Vancouver and the Lower Mainland modernize — from automation and controls to real-time KPI tracking. Practical upgrades, measurable results, and no jargon.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:36px;">
-            <a href="#contact" class="btn-red">Book a free consultation <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
-            <a href="#modernize" class="btn-outline">See how it works</a>
+          <h1 style="font-size:clamp(36px,5.2vw,68px);line-height:1.04;letter-spacing:-0.025em;font-weight:600;color:var(--color-text);margin:0 0 22px;text-wrap:balance;">Practical automation for BC manufacturers.</h1>
+          <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0 0 32px;max-width:520px;">Modernize your shop and increase productivity, starting with measured data, not guesses.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
+            <a href="/contact" class="btn-red">Book a Productivity Assessment <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+            <a href="/how-it-works" class="btn-outline">See how it works</a>
           </div>
-          <div style="font-size:13.5px;color:var(--color-muted);margin:-22px 0 36px;">Free 30 minutes · no commitment — and if you don't need us, we'll say so.</div>
+          <div style="font-size:13.5px;color:var(--color-muted);margin:0 0 36px;">A short on-site audit that ends with a savings and payback estimate.</div>
           <div style="display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.03em;color:var(--color-body);">
-            <span>20+ yrs in manufacturing</span>
+            <span>In the trades since 2011</span>
             <span style="color:var(--color-muted);">/</span>
             <span>B.Eng, EIT</span>
             <span style="color:var(--color-muted);">/</span>
@@ -82,109 +51,23 @@ const sensors = [
           </div>
         </div>
 
-        <!-- Dashboard mockup -->
-        <div style="flex:1 1 420px;min-width:300px;">
-          <video src="/home-build.mp4" poster="/home-build-poster.jpg" width="1080" height="1080" autoplay loop muted playsinline aria-label="Lightwell build cost dashboard: live job timers, and weekly labour against standard falling from 27% over to 6% under across 16 weeks" style="display:block;width:100%;height:auto;border:1px solid rgba(255,255,255,0.08);border-radius:14px;box-shadow:0 30px 60px -24px rgba(0,0,0,0.55);background:#111217;"></video>
-          <div style="text-align:center;margin-top:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:var(--color-muted);">LIGHTWELL DASHBOARD — PRODUCT PREVIEW</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Capabilities marquee -->
-    <div class="marquee-wrap" style="background:var(--color-bg);overflow:hidden;border-bottom:1px solid rgba(255,255,255,0.06);">
-      <div class="marquee-track">
-        {[false, true].map((dup) => (
-          <div aria-hidden={dup || undefined} style="display:flex;align-items:center;gap:0;padding:16px 0;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-muted);">
-            {capabilities.map((c) => <><span style="padding:0 26px;">{c}</span><span style="color:var(--color-accent-text);">◆</span></>)}
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <!-- Why modernize -->
-    <section id="modernize" class="dots-white">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
-        <div style="max-width:720px;margin-bottom:56px;">
-          <div class="tick" style="margin-bottom:16px;"></div>
-          <div class="eyebrow" style="margin-bottom:18px;">Why modernize</div>
-          <h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 18px;">You can't improve what you can't measure.</h2>
-          <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0;">"Industry 4.0" just means connecting your equipment and processes so they produce data — then using that data to run a smarter operation. You don't need to understand the buzzwords. Here's what it actually gets you.</p>
-        </div>
-        <div class="grid-even" style="gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-          {why.map((w) => (
-            <div style="background:var(--color-surface);padding:32px;">
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-muted);margin-bottom:20px;">{w.n}</div>
-              <h3 style="font-size:20px;font-weight:600;color:var(--color-text);margin:0 0 12px;letter-spacing:-0.01em;">{w.title}</h3>
-              <p style="font-size:15px;line-height:1.6;color:var(--color-body);margin:0;">{w.copy}</p>
+        <!-- What an assessment takes in, and what it gives back -->
+        <div style="flex:1 1 380px;min-width:min(100%,300px);">
+          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:28px;">
+            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 12px;margin-bottom:22px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-muted);letter-spacing:0.06em;">
+              <span>PRODUCTIVITY ASSESSMENT</span><span style="color:var(--color-ok);white-space:nowrap;">● ON-SITE</span>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- Services preview -->
-    <section id="services" class="dots-grey" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
-        <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-end;margin-bottom:48px;">
-          <div style="max-width:640px;">
-            <div class="tick" style="margin-bottom:16px;"></div>
-            <div class="eyebrow" style="margin-bottom:18px;">What we do</div>
-            <h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 16px;">Services</h2>
-            <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0;">Hands-on consulting across automation, controls, and process improvement — plus the data foundation to keep getting better.</p>
-          </div>
-          <a href="/services" style="display:inline-flex;align-items:center;gap:8px;color:var(--color-accent-text);font-size:15px;font-weight:500;white-space:nowrap;">All services in detail <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
-        </div>
-        <div class="grid-even" style="gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-          {services.map((s) => (
-            <div class="card-hover" style="background:var(--color-surface);padding:30px;position:relative;">
-              <div style="position:absolute;left:0;top:24px;width:2px;height:38px;background:var(--color-accent);"></div>
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src={`/icons/${s.icon}.svg`} width="30" height="30" alt="" /><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-muted);">{s.n}</span></div>
-              <h3 style="font-size:19px;font-weight:600;color:var(--color-text);margin:0 0 10px;letter-spacing:-0.01em;">{s.title}</h3>
-              <p style="font-size:14.5px;line-height:1.6;color:var(--color-body);margin:0;">{s.copy}</p>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);margin-bottom:12px;">What we look at</div>
+            <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:22px;">
+              {assessmentIn.map((t) => (
+                <div style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 14px;font-size:15px;line-height:1.45;color:var(--color-body);">{t}</div>
+              ))}
             </div>
-          ))}
-          <a href="/services" class="card-dark-hover" style="grid-column:1/-1;background:var(--color-bg);padding:30px;display:flex;flex-direction:column;gap:18px;color:var(--color-text);">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-muted);">Not sure where to start?</div>
-            <div>
-              <div style="font-size:19px;font-weight:600;color:var(--color-text);margin-bottom:14px;line-height:1.3;">Let's talk through your problem — free, no commitment.</div>
-              <span style="display:inline-flex;align-items:center;gap:8px;color:var(--color-text);font-size:15px;font-weight:500;">See all services <span style="font-family:'IBM Plex Mono',monospace;color:var(--color-accent-text);">→</span></span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Lightwell Platform promo -->
-    <section style="background:var(--color-bg);color:var(--color-text);position:relative;overflow:hidden;">
-      <div class="grid-dark-overlay"></div>
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;position:relative;display:flex;flex-wrap:wrap;gap:56px;align-items:center;">
-        <div style="flex:1 1 420px;min-width:300px;">
-          <div style="display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-text);font-weight:500;margin-bottom:22px;background:rgba(179,38,30,0.12);border:1px solid rgba(179,38,30,0.35);padding:7px 14px;border-radius:100px;">
-            <span style="display:inline-block;width:7px;height:7px;border-radius:100px;background:var(--color-accent);"></span> Coming soon — the Lightwell Platform
-          </div>
-          <h2 style="font-size:clamp(30px,3.8vw,50px);line-height:1.06;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 20px;">Real build costs and machine time — built around your shop.</h2>
-          <p style="font-size:22px;line-height:1.4;font-weight:600;color:var(--color-accent-text);margin:0 0 16px;">If you can't measure it, you can't manage it.</p>
-          <p style="font-size:18px;line-height:1.65;color:var(--color-body);margin:0 0 28px;max-width:520px;">Lightwell tracks what each build really costs and how your machines run — all in the Lightwell database on-site, where the Lightwell dashboard turns it into precise visibility. Built to suit your shop, with no rewiring and nothing sent to the cloud.</p>
-          <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:32px;">
-            <div style="display:flex;align-items:center;gap:12px;color:var(--color-body);font-size:15.5px;"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">→</span> Build cost — what each product really takes to build, against your standard</div>
-            <div style="display:flex;align-items:center;gap:12px;color:var(--color-body);font-size:15.5px;"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">→</span> Machine monitoring — live OEE, output and downtime from wireless sensors, no rewiring</div>
-          </div>
-          <div style="display:flex;flex-wrap:wrap;gap:14px;">
-            <a href="/lightwell#pilot" class="btn-red">Join the pilot <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
-            <a href="/lightwell" class="btn-ghost-dark">Learn about the Lightwell Platform</a>
-          </div>
-        </div>
-        <div style="flex:1 1 360px;min-width:280px;">
-          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:28px;backdrop-filter:blur(4px);">
-            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-muted);letter-spacing:0.06em;">
-              <span>SENSOR NETWORK</span><span style="color:var(--color-ok);">● 4 ONLINE</span>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;">
-              {sensors.map((s) => (
-                <div style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:16px;">
-                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;"><span style={`width:8px;height:8px;border-radius:100px;background:${s.dot};display:inline-block;`}></span><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-muted);">{s.id}</span></div>
-                  <div style="font-size:22px;font-weight:600;color:var(--color-text);">{s.pct}<span style="font-size:13px;color:var(--color-muted);">%</span></div>
-                </div>
+            <div aria-hidden="true" style="text-align:center;font-family:'IBM Plex Mono',monospace;color:var(--color-accent-text);margin:-8px 0 10px;">↓</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);margin-bottom:12px;">What you get</div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              {assessmentOut.map((t) => (
+                <div style="display:flex;gap:10px;align-items:baseline;background:var(--color-surface);border-radius:10px;padding:12px 14px;font-size:15px;line-height:1.45;color:var(--color-text);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">→</span>{t}</div>
               ))}
             </div>
           </div>
@@ -192,199 +75,83 @@ const sensors = [
       </div>
     </section>
 
-    <!-- Process -->
-    <section id="process" class="dots-grey" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <!-- Method -->
+    <section id="method" class="dots-white">
       <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
-        <div style="max-width:640px;margin-bottom:56px;">
-          <div class="tick" style="margin-bottom:16px;"></div>
-          <div class="eyebrow" style="margin-bottom:18px;">How it works</div>
-          <h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0;">A clear path, start to finish.</h2>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:32px;">
-          {steps.map((s) => (
+        <SectionHead eyebrow="Our method" title="See it, measure it, automate it." lead="Most automation pitches start with a machine. Ours starts with your numbers, so you know what a project is worth before you spend on it." />
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:32px;">
+          {method.map((s) => (
             <div>
               <div style="width:56px;height:56px;border:1.5px solid var(--color-accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--color-accent-text);margin-bottom:22px;">{s.n}</div>
-              <h3 style="font-size:19px;font-weight:600;color:var(--color-text);margin:0 0 10px;">{s.title}</h3>
-              <p style="font-size:15px;line-height:1.6;color:var(--color-body);margin:0;">{s.copy}</p>
+              <h3 style="font-size:20px;font-weight:600;color:var(--color-text);margin:0 0 10px;">{s.title}</h3>
+              <p style="font-size:15.5px;line-height:1.6;color:var(--color-body);margin:0;">{s.copy}</p>
             </div>
           ))}
         </div>
+        <a href="/how-it-works" style="display:inline-flex;align-items:center;gap:8px;margin-top:44px;color:var(--color-accent-text);font-size:15px;font-weight:500;">How it works, step by step <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
       </div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="dots-white">
+    <!-- What we automate -->
+    <section id="services" class="dots-grey" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
       <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
-        <div style="max-width:680px;margin-bottom:56px;">
-          <div class="tick" style="margin-bottom:16px;"></div>
-          <div class="eyebrow" style="margin-bottom:18px;">Who we are</div>
-          <h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 18px;">A small firm with deep manufacturing roots.</h2>
-          <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0;">Frontier MFG pairs hands-on manufacturing and process expertise with four decades of senior hardware and software experience. You work directly with the people doing the work — no account managers, no handoffs.</p>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;">
-          <div style="border:1px solid var(--border);border-radius:14px;padding:32px;background:var(--color-surface);">
-            <div style="display:flex;align-items:center;gap:16px;margin-bottom:22px;">
-              <div style="width:64px;height:64px;border-radius:14px;flex-shrink:0;background:var(--color-surface);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;letter-spacing:0.04em;color:var(--color-text);position:relative;">MW<span style="position:absolute;top:9px;right:9px;width:7px;height:7px;background:var(--color-accent);border-radius:1px;transform:rotate(45deg);"></span></div>
-              <div>
-                <div style="font-size:19px;font-weight:600;color:var(--color-text);">Mike Wait</div>
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-accent-text);margin-top:3px;">Founder &amp; Principal Consultant</div>
-              </div>
-            </div>
-            <p style="font-size:15px;line-height:1.65;color:var(--color-body);margin:0 0 16px;">Mechanical engineer (EIT) with a B.Eng from BCIT and 20 years of hands-on manufacturing experience — automated machinery design, robotics, production commissioning, CNC machining, tooling and fixture development, and steel and aluminum fabrication and welding.</p>
-            <p style="font-size:15px;line-height:1.65;color:var(--color-body);margin:0;">Focused on practical solutions for real production-floor challenges: process optimization, equipment integration, and ramp-up troubleshooting.</p>
-          </div>
-          <div style="border:1px solid var(--border);border-radius:14px;padding:32px;background:var(--color-surface);">
-            <div style="display:flex;align-items:center;gap:16px;margin-bottom:22px;">
-              <div style="width:64px;height:64px;border-radius:14px;flex-shrink:0;background:var(--color-surface);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;letter-spacing:0.04em;color:var(--color-text);position:relative;">GW<span style="position:absolute;top:9px;right:9px;width:7px;height:7px;background:var(--color-accent);border-radius:1px;transform:rotate(45deg);"></span></div>
-              <div>
-                <div style="font-size:19px;font-weight:600;color:var(--color-text);">Gord Wait</div>
-                <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-accent-text);margin-top:3px;">Advisor &amp; Product Design Expert</div>
-              </div>
-            </div>
-            <p style="font-size:15px;line-height:1.65;color:var(--color-body);margin:0 0 16px;">Senior software and hardware engineer with four decades of experience in industrial systems, embedded development, and technology leadership across multiple industries.</p>
-            <p style="font-size:15px;line-height:1.65;color:var(--color-body);margin:0;">Brings deep technical credibility to every engagement, and lends senior product-design expertise to the Lightwell Platform, our wireless KPI-tracking product.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Service area -->
-    <section id="service-area" class="dots-grey" style="border-top:1px solid var(--border);">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
-        <div style="max-width:720px;margin-bottom:48px;">
-          <div class="tick" style="margin-bottom:16px;"></div>
-          <div class="eyebrow" style="margin-bottom:18px;">Service area</div>
-          <h2 style="font-size:clamp(30px,3.6vw,46px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 18px;">On your floor, anywhere in the Lower Mainland.</h2>
-          <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0;">This work doesn't happen over email. We're based in {business.locality}, {business.regionName}, and we drive out to shops across Metro Vancouver and the Fraser Valley — most sites are within an hour, and the first walk-through costs you nothing.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-end;margin-bottom:48px;">
+          <SectionHead eyebrow="Services" title="What we automate." lead="Every project starts with an assessment, so the fix fits the problem." maxWidth={640} gap={0} />
+          <a href="/services" style="display:inline-flex;align-items:center;gap:8px;color:var(--color-accent-text);font-size:15px;font-weight:500;white-space:nowrap;">All services in detail <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
         </div>
         <div class="grid-even" style="gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-          {serviceAreaGroups.map((g) => (
-            <div style="background:var(--color-surface);padding:28px;">
-              <h3 style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);font-weight:500;margin:0 0 16px;">{g.label}</h3>
-              <ul style="display:flex;flex-direction:column;gap:9px;">
-                {g.cities.map((c) => (
-                  <li style="font-size:15px;line-height:1.4;color:var(--color-body);">{c}</li>
-                ))}
-              </ul>
-            </div>
+          {services.map((s) => (
+            <a href={`/services#${s.id}`} class="card-hover" style="background:var(--color-surface);padding:30px;position:relative;display:flex;flex-direction:column;color:var(--color-text);">
+              <div style="position:absolute;left:0;top:24px;width:2px;height:38px;background:var(--color-accent);"></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;"><img src={`/icons/${s.icon}.svg`} width="30" height="30" alt="" />{'inDevelopment' in s && <span class="pill-soon">IN DEVELOPMENT</span>}</div>
+              <h3 style="font-size:19px;font-weight:600;color:var(--color-text);margin:0 0 10px;letter-spacing:-0.01em;">{s.title}</h3>
+              <p style="font-size:14.5px;line-height:1.6;color:var(--color-body);margin:0 0 18px;">{s.summary}</p>
+              <span style="margin-top:auto;font-family:'IBM Plex Mono',monospace;color:var(--color-accent-text);">→</span>
+            </a>
           ))}
         </div>
-        <p style="font-size:15px;line-height:1.6;color:var(--color-muted);margin:22px 0 0;max-width:660px;">Further afield — the Interior, Vancouver Island, or Alberta — is workable for larger scopes. Ask and we'll tell you honestly whether the travel makes sense for your project.</p>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" style="background:var(--color-bg);color:var(--color-text);">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;display:flex;flex-wrap:wrap;gap:56px;">
-        <div style="flex:1 1 380px;min-width:300px;">
-          <div class="tick" style="margin-bottom:16px;"></div>
-          <div class="eyebrow" style="margin-bottom:18px;">Get in touch</div>
-          <h2 style="font-size:clamp(30px,3.8vw,50px);line-height:1.06;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 20px;">Let's talk.</h2>
-          <p style="font-size:18px;line-height:1.65;color:var(--color-body);margin:0 0 40px;max-width:460px;">Tell us about your project or your goals for modernizing. The first call is always free — we typically respond within one business day.</p>
-          <div style="display:flex;flex-direction:column;gap:20px;">
-            {contactRows.map((row, i) => (
-              <>
-                {i > 0 && <div style="height:1px;background:rgba(255,255,255,0.08);"></div>}
-                <div style="display:flex;align-items:center;gap:14px;">
-                  <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--color-muted);width:80px;flex-shrink:0;">{row.label}</span>
-                  {row.href
-                    ? <a href={row.href} style="font-size:16px;color:var(--color-body);">{row.value}</a>
-                    : <span style="font-size:16px;color:var(--color-body);">{row.value}</span>}
-                </div>
-              </>
+    {caseStudies.length > 0 && (
+      <!-- Proof: case studies -->
+      <section id="proof" class="dots-white" style="border-bottom:1px solid var(--border);">
+        <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
+          <SectionHead eyebrow="Case studies" title="Automation backed by your own numbers." lead="Each project is measured before and after against the same baseline." />
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px;">
+            {caseStudies.map((c) => (
+              <a href={`/case-studies/${c.id}`} class="card-hover" style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:14px;padding:30px;background:var(--color-bg-alt);color:var(--color-text);">
+                {c.data.industry && <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);margin-bottom:14px;">{c.data.industry}</div>}
+                <h3 style="font-size:20px;font-weight:600;margin:0 0 10px;">{c.data.title}</h3>
+                <p style="font-size:15px;line-height:1.6;color:var(--color-body);margin:0 0 18px;">{c.data.description}</p>
+                <span style="margin-top:auto;color:var(--color-accent-text);font-size:15px;font-weight:500;">Read the case study →</span>
+              </a>
             ))}
           </div>
-          <div style="margin-top:36px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:22px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-muted);margin-bottom:14px;">A first engagement looks like</div>
-            <div style="display:flex;flex-direction:column;gap:11px;">
-              <div style="display:flex;gap:12px;font-size:15px;line-height:1.5;color:var(--color-body);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">01</span> A free 30-minute call about your operation</div>
-              <div style="display:flex;gap:12px;font-size:15px;line-height:1.5;color:var(--color-body);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">02</span> A walk-through of your floor, where it helps</div>
-              <div style="display:flex;gap:12px;font-size:15px;line-height:1.5;color:var(--color-body);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">03</span> A written assessment with prioritized upgrades — and a clear go / no-go</div>
-            </div>
-          </div>
         </div>
-        <div style="flex:1 1 420px;min-width:300px;">
-          <form id="contact-form" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:28px;">
-            <div style="display:flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--color-body);margin-bottom:20px;"><span style="display:inline-block;width:7px;height:7px;border-radius:100px;background:var(--color-ok);"></span> WE REPLY WITHIN ONE BUSINESS DAY</div>
-            <input type="text" name="company-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;" />
-            <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
-              <div style="flex:1 1 140px;">
-                <label for="cf-first" class="form-label">First name</label>
-                <input id="cf-first" name="first-name" type="text" required class="input-dark" />
-              </div>
-              <div style="flex:1 1 140px;">
-                <label for="cf-last" class="form-label">Last name</label>
-                <input id="cf-last" name="last-name" type="text" required class="input-dark" />
-              </div>
-            </div>
-            <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
-              <div style="flex:1 1 140px;">
-                <label for="cf-email" class="form-label">Email</label>
-                <input id="cf-email" name="email" type="email" required class="input-dark" />
-              </div>
-              <div style="flex:1 1 140px;">
-                <label for="cf-company" class="form-label">Company</label>
-                <input id="cf-company" name="company" type="text" class="input-dark" />
-              </div>
-            </div>
-            <div style="margin-bottom:14px;">
-              <label for="cf-service" class="form-label">Service of interest</label>
-              <select id="cf-service" name="service" class="input-dark">
-                <option style="color:var(--color-text);">Process Automation</option>
-                <option style="color:var(--color-text);">PLC / SCADA Programming</option>
-                <option style="color:var(--color-text);">Hardware &amp; Software Integration</option>
-                <option style="color:var(--color-text);">Controls Design</option>
-                <option style="color:var(--color-text);">Manufacturing Process Improvement</option>
-                <option style="color:var(--color-text);">Feasibility Study</option>
-                <option style="color:var(--color-text);">Design for Manufacturing</option>
-                <option style="color:var(--color-text);">Machining Consultation</option>
-                <option style="color:var(--color-text);">Lightwell Platform</option>
-                <option style="color:var(--color-text);">Not sure yet</option>
-              </select>
-            </div>
-            <div style="margin-bottom:20px;">
-              <label for="cf-message" class="form-label">Message</label>
-              <textarea id="cf-message" name="message" rows="4" required class="input-dark" style="resize:vertical;"></textarea>
-            </div>
-            <button type="submit" class="btn-red" style="width:100%;">Send message</button>
-            <p id="contact-status" style="margin:16px 0 0;font-size:14px;text-align:center;display:none;"></p>
-          </form>
+      </section>
+    )}
+
+    <!-- Payback calculator teaser -->
+    <section class="dots-white">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;display:flex;flex-wrap:wrap;gap:48px;align-items:center;">
+        <div style="flex:1 1 420px;min-width:min(100%,300px);">
+          <SectionHead eyebrow="Payback calculator" title="Run the payback math yourself." lead="Enter the labour hours, scrap, and downtime a project would save, and what it would cost. You'll get a rough payback period in a minute. Nothing you type leaves your browser." gap={32} />
+          <a href="/payback-calculator" class="btn-outline">Open the payback calculator <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+        </div>
+        <div style="flex:1 1 340px;min-width:min(100%,280px);">
+          <div style="background:var(--color-surface);border:1px solid var(--border);border-radius:16px;padding:28px;">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-muted);margin-bottom:16px;">The basic formula</div>
+            <div style="font-size:clamp(18px,2.2vw,22px);line-height:1.45;font-weight:600;color:var(--color-text);">Payback (months) = project cost ÷ monthly savings</div>
+            <p style="font-size:14.5px;line-height:1.6;color:var(--color-body);margin:16px 0 0;">Savings come from labour, scrap, and downtime. Downtime only counts on the machine that limits your output.</p>
+          </div>
         </div>
       </div>
     </section>
 
-  </main>
-  <Footer page="home" />
-</Base>
+    <!-- id="contact" keeps old /#contact links landing on a booking prompt. -->
+    <BookCta id="contact" />
 
-<script>
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
-    const status = document.getElementById('contact-status')!;
-    const show = (msg: string, ok: boolean) => {
-      status.textContent = msg;
-      status.style.color = ok ? 'var(--color-ok)' : 'var(--color-bad)';
-      status.style.display = 'block';
-    };
-    btn.disabled = true;
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
-      });
-      const out = await res.json();
-      if (out.ok) {
-        show("Thanks — we'll be in touch within one business day.", true);
-        form.reset();
-      } else {
-        show(out.error || 'Could not send your message. Please email info@frontiermfg.ca directly.', false);
-      }
-    } catch {
-      show('Could not send your message. Please email info@frontiermfg.ca directly.', false);
-    }
-    btn.disabled = false;
-  });
-</script>
+  </main>
+  <Footer />
+</Base>

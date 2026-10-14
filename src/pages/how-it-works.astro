@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import BookCta from '../components/BookCta.astro';
+
+// `id` doubles as the anchor; /lightwell and /baseline redirect to #measure.
+const steps = [
+  {
+    id: 'see', n: '01', title: 'See',
+    copy: 'We walk your floor, talk to your operators, and pull the records you already keep: production counts, downtime, scrap, and overtime.',
+  },
+  {
+    id: 'measure', n: '02', title: 'Measure',
+    copy: "We turn that into a baseline in hours and dollars, so you can see where time and output are going. Today that's time studies and your own records.",
+    note: 'Lightwell, our machine monitoring system, is in development and will automate this step.',
+  },
+  {
+    id: 'automate', n: '03', title: 'Automate',
+    copy: "We recommend the fixes that pay back fastest. Sometimes that's a fixture or a process change; sometimes it's a cobot (collaborative robot) cell or a controls retrofit. Payback is calculated from your numbers.",
+    link: { href: '/payback-calculator', label: 'Try the payback math yourself' },
+  },
+  {
+    id: 'prove', n: '04', title: 'Prove',
+    copy: 'After the project, we measure again against the same baseline, so the result is your numbers, not our claims.',
+  },
+];
+---
+<Base
+  title="How It Works: See, Measure, Automate, Prove — Frontier MFG"
+  description="How we approach automation for BC manufacturers: see your floor, measure a baseline, automate what pays back fastest, then measure again to prove it."
+  breadcrumb={[['How It Works', '/how-it-works']]}
+>
+  <Header />
+  <main>
+
+    <PageHero
+      eyebrow="How it works"
+      title="Measure first. Automate what pays. Prove it."
+      lead="Four steps, in the same order every time. You see the numbers before you spend, and again after the work is done."
+    >
+      <a href="/contact" class="btn-red">Book a Productivity Assessment <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+    </PageHero>
+
+    <section class="dots-white">
+      <div style="max-width:1000px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
+        <ol style="display:flex;flex-direction:column;gap:0;list-style:none;margin:0;padding:0;border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+          {steps.map((s, i) => (
+            <li id={s.id} style={`display:flex;flex-wrap:wrap;gap:20px 32px;padding:clamp(26px,4vw,40px);background:var(--color-surface);scroll-margin-top:84px;${i > 0 ? 'border-top:1px solid var(--border);' : ''}`}>
+              <div style="width:56px;height:56px;flex-shrink:0;border:1.5px solid var(--color-accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--color-accent-text);">{s.n}</div>
+              <div style="flex:1 1 280px;">
+                <h2 style="font-size:clamp(24px,2.6vw,30px);font-weight:600;letter-spacing:-0.01em;color:var(--color-text);margin:0 0 12px;">{s.title}</h2>
+                <p style="font-size:17px;line-height:1.65;color:var(--color-body);margin:0;">{s.copy}</p>
+                {s.note && <p style="font-size:15.5px;line-height:1.6;color:var(--color-muted);margin:14px 0 0;padding-left:14px;border-left:2px solid var(--accent-edge);">{s.note}</p>}
+                {s.link && <a href={s.link.href} style="display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:15px;font-weight:500;color:var(--color-accent-text);">{s.link.label} <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>}
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <BookCta title="Step one is a walk of your floor." />
+
+  </main>
+  <Footer />
+</Base>

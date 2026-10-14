@@ -69,32 +69,70 @@ export const serviceArea = serviceAreaGroups.flatMap((g) => g.cities);
 export const areaShort = 'Vancouver & the Lower Mainland';
 
 /**
- * Canonical service names, used to build the `hasOfferCatalog` in the schema.
- * The page-level arrays carry the marketing copy; these are the labels Google
- * reads, so keep them plain and literal rather than clever.
+ * The four services, in the order they appear on the home page tiles and the
+ * Services page. `id` is the anchor on /services (e.g. /services#assessment).
+ * The Services page carries the long-form copy; `summary` is the one-liner
+ * used on the home page tiles. `title` also feeds the schema's offer catalog.
  */
-export const serviceNames = [
-  'Process Automation',
-  'PLC / SCADA Programming',
-  'Hardware & Software Integration',
-  'Manufacturing Process Improvement',
-  'Feasibility Studies',
-  'Design for Manufacturing',
-  'Machining Consultation',
-  'Controls Design',
-  'Real-Time KPI Tracking',
+export const services = [
+  {
+    id: 'assessment',
+    icon: '04-process-improvement',
+    title: 'Productivity Assessment',
+    summary: 'A short on-site audit that ends with a savings and payback estimate.',
+  },
+  {
+    id: 'robot-cells',
+    icon: '01-process-automation',
+    title: 'Cobot and robot cells',
+    summary: 'Machine tending, pick-and-place, and repetitive manual stations.',
+  },
+  {
+    id: 'controls-retrofits',
+    icon: '08-Controls-pulse-waveform',
+    title: 'Controls retrofits',
+    summary: 'New controls for older machines that are still mechanically sound.',
+  },
+  {
+    id: 'machine-monitoring',
+    icon: '02-plc-scada-programming',
+    title: 'Machine monitoring',
+    summary: 'Running numbers on when each machine runs, stops, and makes parts.',
+    inDevelopment: true,
+  },
+] as const;
+
+/** Canonical service names for the schema's `hasOfferCatalog`. */
+export const serviceNames = services.map((s) => s.title);
+
+/**
+ * Options in the contact form's "Service of interest" dropdown. The first one
+ * is selected by default.
+ *
+ * Each option's text is sent as the `service` field: it becomes the email
+ * subject and the Notion `Service` multi-select value. A new value creates a
+ * new Notion option automatically, so editing this list is safe.
+ */
+export const serviceOptions = [
+  'Productivity Assessment',
+  'Cobot or robot cell',
+  'Controls retrofit',
+  'Machine monitoring',
+  'Not sure yet',
 ] as const;
 
 /** Topics the business is credible on — feeds `knowsAbout` in the schema. */
 export const knowsAbout = [
   'Industrial automation',
+  'Collaborative robots (cobots)',
+  'Robot cell integration',
+  'Machine tending',
+  'Controls retrofits',
   'PLC programming',
-  'SCADA systems',
-  'Manufacturing process improvement',
   'Overall Equipment Effectiveness (OEE)',
-  'Industrial IoT',
-  'Design for manufacturing',
-  'CNC machining',
-  'Controls engineering',
-  'Industry 4.0',
+  'Time studies',
+  'Manufacturing productivity',
+  'Machine monitoring',
+  'Welding and fabrication',
+  'Millwrighting',
 ] as const;

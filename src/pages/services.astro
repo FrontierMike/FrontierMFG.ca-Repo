@@ -2,145 +2,134 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { serviceArea } from '../data/site';
+import PageHero from '../components/PageHero.astro';
+import BookCta from '../components/BookCta.astro';
+import { serviceArea, services } from '../data/site';
 import { ORG_ID } from '../data/schema';
 
-const services = [
-  {
-    n: '01', icon: '01-process-automation', title: 'Process Automation',
-    copy: 'We find where manual, repetitive work is costing you time and consistency, then design and implement automation sized to your volume and budget.',
-    bullets: ['Opportunity assessment & ROI', 'Material handling & machine tending', 'Robotic & pneumatic cell integration', 'Commissioning & operator training'],
+// Long-form copy per service, keyed by the ids in src/data/site.ts.
+const detail: Record<(typeof services)[number]['id'], { what: string; who: string[]; get: string[]; cta: string; link?: { href: string; label: string } }> = {
+  assessment: {
+    what: 'A short on-site audit of your shop. We walk the floor, talk to your operators, and go through the records you already keep. You get an estimate of what you could save, and how fast a project would pay for itself.',
+    who: [
+      "Owners who know they're losing time or output, but can't say exactly where",
+      'Shops weighing an automation project that want the numbers first',
+      "Anyone who has been quoted a robot and isn't sure it pays",
+    ],
+    get: [
+      'A baseline of where your hours, scrap, and downtime go',
+      'A short list of fixes, ranked by payback',
+      'A savings and payback estimate built from your own numbers',
+    ],
+    cta: 'Book a Productivity Assessment',
   },
-  {
-    n: '02', icon: '02-plc-scada-programming', title: 'PLC / SCADA Programming',
-    copy: 'Custom control logic, operator interfaces, and commissioning support for Allen-Bradley, Siemens, and other major platforms.',
-    bullets: ['Ladder & structured-text programming', 'HMI & SCADA screen design', 'Alarm & data-logging setup', 'On-site commissioning support'],
+  'robot-cells': {
+    what: 'A cobot (collaborative robot) or industrial robot cell takes over a repetitive job: loading and unloading a machine, moving parts from one place to another, or a manual station that ties up a person all shift.',
+    who: [
+      'Shops running the same parts again and again',
+      'Operators stuck tending a machine instead of running the shop',
+      'Stations that are hard to staff',
+    ],
+    get: [
+      'A cell sized to the job and your volume',
+      'Payback worked out from your measured numbers before you commit',
+      'Integration, start-up, and operator training',
+    ],
+    cta: 'Start with an assessment',
   },
-  {
-    n: '03', icon: '03-hardware-software-integration', title: 'Hardware & Software Integration',
-    copy: 'Connect industrial hardware to software systems so data flows end to end — from a sensor on the floor to a dashboard in the office.',
-    bullets: ['Sensor & controller selection', 'Industrial networking (Ethernet/IP, Modbus)', 'Data acquisition to dashboards', 'Custom software & scripting'],
-    related: true,
+  'controls-retrofits': {
+    what: "Plenty of older machines are still mechanically sound but run on outdated controls: obsolete PLCs (programmable logic controllers), relay logic, or parts you can't buy anymore. A retrofit replaces the controls and keeps the machine.",
+    who: [
+      'Machines that are solid but getting hard to keep running',
+      'Equipment with controllers or parts that are no longer supported',
+      'Shops where one person is the only one who knows how the old logic works',
+    ],
+    get: [
+      'Up-to-date controls on the machine you already own',
+      'Documentation your team can work from',
+      'A straight comparison against replacing the machine',
+    ],
+    cta: 'Start with an assessment',
   },
-  {
-    n: '04', icon: '04-process-improvement', title: 'Process Improvement',
-    copy: 'Lean-informed analysis of your production workflows to eliminate bottlenecks, cut waste, and set measurable targets you can hold the line to.',
-    bullets: ['Value-stream & workflow mapping', 'Bottleneck & downtime analysis', 'Standard work & layout', 'Measurable KPI targets'],
-    related: true,
+  'machine-monitoring': {
+    what: "Machine monitoring records when each machine runs, stops, and makes parts, so your baseline keeps itself current instead of being a one-time snapshot. We're developing our own system for this, Lightwell; it isn't available to install yet.",
+    who: ['Shops that want running numbers on their machines, not a one-time study'],
+    get: ['Today, the same measurements by time study and from your own records, as part of a Productivity Assessment'],
+    cta: 'Start with an assessment',
+    link: { href: '/how-it-works#measure', label: 'How we measure today' },
   },
-  {
-    n: '05', icon: '05-feasibility-studies', title: 'Feasibility Studies',
-    copy: 'Technical and economic assessments that validate an automation or production-change investment before you commit real money to it.',
-    bullets: ['Technical feasibility review', 'Cost/benefit & ROI modelling', 'Risk assessment', 'Clear go / no-go recommendation'],
-  },
-  {
-    n: '06', icon: '06-design-for-manufacturing', title: 'Design for Manufacturing',
-    copy: 'DFM reviews that bridge design intent with production reality — reducing rework, material waste, and the cost of parts that are hard to make.',
-    bullets: ['Part & assembly reviews', 'Material & process selection', 'Tolerance & cost reduction', 'Prototype-to-production planning'],
-  },
-  {
-    n: '07', icon: '07-machining-consultation', title: 'Machining Consultation',
-    copy: 'Process parameters, toolpath strategy, and fixturing advice to get more out of your CNC machining operations — faster cycles, better finish.',
-    bullets: ['Speeds/feeds & toolpath strategy', 'Fixturing & workholding', 'Cycle-time reduction', 'Quality & finish troubleshooting'],
-  },
-  {
-    n: '08', icon: '08-Controls-pulse-waveform', title: 'Controls Design',
-    copy: 'Control architecture and integration — designed for reliability, safety, and easy maintenance down the road.',
-    bullets: ['Pneumatic & hydraulic design', 'Control architecture', 'Reliability & maintainability review'],
-  },
-];
+};
 
 const serviceSchema = services.map((s) => ({
   '@type': 'Service',
   name: s.title,
-  description: s.copy,
+  description: detail[s.id].what,
   serviceType: s.title,
   provider: { '@id': ORG_ID },
   areaServed: serviceArea.map((city) => ({ '@type': 'City', name: city })),
 }));
+
+const listLabel = "font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-muted);margin:0 0 12px;";
 ---
 <Base
-  title="Automation, PLC & Controls Services — Lower Mainland, BC"
-  description="Process automation, PLC/SCADA programming, controls design, DFM and machining help for manufacturers across Metro Vancouver and the Fraser Valley."
+  title="Automation Services: Assessments, Robot Cells, Controls Retrofits — Frontier MFG"
+  description="Productivity assessments, cobot and robot cells, and controls retrofits for older equipment, for small and mid-size BC manufacturers."
   breadcrumb={[['Services', '/services']]}
   schema={serviceSchema}
 >
-  <Header page="services" />
+  <Header />
   <main>
 
-    <!-- Hero -->
-    <section class="dots-hero" style="border-bottom:1px solid var(--border);">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,88px) 32px;">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;">
-          <span style="display:block;width:32px;height:2px;background:var(--color-accent);"></span>
-          <span class="eyebrow">Services</span>
-        </div>
-        <h1 style="font-size:clamp(38px,4.8vw,60px);line-height:1.04;letter-spacing:-0.025em;font-weight:600;color:var(--color-text);margin:0 0 22px;max-width:820px;text-wrap:balance;">Practical technical services for manufacturers ready to modernize.</h1>
-        <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0 0 32px;max-width:600px;">From automation and controls to the data foundation behind Industry 4.0 — hands-on help for Lower Mainland manufacturers, scoped to your operation and budget. Independent and vendor-neutral: we recommend what's right for you, not what we're selling.</p>
-        <div style="display:flex;flex-wrap:wrap;gap:14px;">
-          <a href="/#contact" class="btn-red">Book a free consultation <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
-          <a href="/lightwell" class="btn-outline">Explore the Lightwell Platform</a>
-        </div>
-        <div style="font-size:13.5px;color:var(--color-muted);margin-top:14px;">Free 30 minutes · no commitment — and if you don't need us, we'll say so.</div>
-      </div>
-    </section>
+    <PageHero
+      eyebrow="Services"
+      title="Automation that starts with your numbers."
+      lead="Four ways we help BC shops get more out of the equipment and people they already have. Every project starts with a Productivity Assessment."
+    >
+      <a href="/contact" class="btn-red">Book a Productivity Assessment <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+      <a href="/how-it-works" class="btn-outline">How it works</a>
+    </PageHero>
 
-    <!-- Service cards -->
     <section class="dots-white">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(370px,1fr));gap:24px;">
-          {services.map((s) => (
-            <div style="border:1px solid var(--border);border-radius:14px;padding:32px;background:var(--color-surface);">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"><img src={`/icons/${s.icon}.svg`} width="32" height="32" alt="" /><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-muted);">{s.n}</span></div>
-              <h2 style="font-size:22px;font-weight:600;color:var(--color-text);margin:0 0 12px;letter-spacing:-0.01em;">{s.title}</h2>
-              <p style="font-size:15px;line-height:1.65;color:var(--color-body);margin:0 0 20px;">{s.copy}</p>
-              <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid var(--border);padding-top:18px;">
-                {s.bullets.map((b) => (
-                  <div style="display:flex;gap:10px;font-size:14px;color:var(--color-body);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">—</span> {b}</div>
-                ))}
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;display:flex;flex-direction:column;gap:24px;">
+        {services.map((s, i) => {
+          const d = detail[s.id];
+          return (
+            <article id={s.id} style="border:1px solid var(--border);border-radius:14px;padding:clamp(26px,4vw,40px);background:var(--color-surface);scroll-margin-top:84px;">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;">
+                <img src={`/icons/${s.icon}.svg`} width="32" height="32" alt="" />
+                <span style="display:inline-flex;align-items:center;gap:10px;">
+                  {'inDevelopment' in s && <span class="pill-soon">IN DEVELOPMENT</span>}
+                  <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-muted);">{String(i + 1).padStart(2, '0')}</span>
+                </span>
               </div>
-              {s.related && (
-                <a href="/lightwell" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;font-size:14px;font-weight:500;color:var(--color-accent-text);">Related: the Lightwell Platform <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
-              )}
-            </div>
-          ))}
-        </div>
+              <h2 style="font-size:clamp(24px,2.6vw,30px);font-weight:600;color:var(--color-text);margin:0 0 14px;letter-spacing:-0.01em;">{s.title}</h2>
+              <p style="font-size:17px;line-height:1.65;color:var(--color-body);margin:0 0 28px;max-width:760px;">{d.what}</p>
+              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:24px 40px;border-top:1px solid var(--border);padding-top:24px;margin-bottom:28px;">
+                <div>
+                  <h3 style={listLabel}>Who it's for</h3>
+                  <ul style="display:flex;flex-direction:column;gap:9px;list-style:none;margin:0;padding:0;">
+                    {d.who.map((b) => <li style="display:flex;gap:10px;font-size:15px;line-height:1.5;color:var(--color-body);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">—</span>{b}</li>)}
+                  </ul>
+                </div>
+                <div>
+                  <h3 style={listLabel}>What you get</h3>
+                  <ul style="display:flex;flex-direction:column;gap:9px;list-style:none;margin:0;padding:0;">
+                    {d.get.map((b) => <li style="display:flex;gap:10px;font-size:15px;line-height:1.5;color:var(--color-body);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">→</span>{b}</li>)}
+                  </ul>
+                </div>
+              </div>
+              <div style="display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;">
+                <a href="/contact" class={s.id === 'assessment' ? 'btn-red' : 'btn-outline'}>{d.cta} <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+                {d.link && <a href={d.link.href} style="display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;color:var(--color-accent-text);">{d.link.label} <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>}
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
 
-    <!-- The Frontier difference -->
-    <section class="dots-grey" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-      <div style="max-width:1000px;margin:0 auto;padding:clamp(56px,7vw,88px) 32px;text-align:center;">
-        <div class="eyebrow" style="margin-bottom:18px;">The Frontier difference</div>
-        <h2 style="font-size:clamp(26px,3vw,38px);line-height:1.12;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 16px;">Independent, hands-on, and honest about scope.</h2>
-        <p style="font-size:16px;line-height:1.6;color:var(--color-body);margin:0 auto 40px;max-width:560px;">Every engagement ends with a written deliverable you keep.</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:32px;text-align:left;">
-          <div>
-            <h3 style="font-size:18px;font-weight:600;color:var(--color-text);margin:0 0 8px;">Vendor-neutral</h3>
-            <p style="font-size:14.5px;line-height:1.6;color:var(--color-body);margin:0;">We don't resell equipment. Our only incentive is the solution that actually works for your plant.</p>
-          </div>
-          <div>
-            <h3 style="font-size:18px;font-weight:600;color:var(--color-text);margin:0 0 8px;">Fixed-scope proposals</h3>
-            <p style="font-size:14.5px;line-height:1.6;color:var(--color-body);margin:0;">Clear deliverables, timelines, and pricing up front. No open-ended invoices, no surprises.</p>
-          </div>
-          <div>
-            <h3 style="font-size:18px;font-weight:600;color:var(--color-text);margin:0 0 8px;">Floor-first</h3>
-            <p style="font-size:14.5px;line-height:1.6;color:var(--color-body);margin:0;">Twenty years of real production experience. We speak your operators' language, not just the theory.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Closing CTA -->
-    <section style="background:var(--color-bg);color:var(--color-text);">
-      <div style="max-width:900px;margin:0 auto;padding:clamp(64px,8vw,100px) 32px;text-align:center;">
-        <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 18px;">Not sure which service you need?</h2>
-        <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0 auto 32px;max-width:560px;">That's what the free 30-minute call is for. Tell us the problem you're trying to solve — we'll tell you the straightest path to it.</p>
-        <a href="/#contact" class="btn-red" style="padding:16px 30px;">Book a free consultation <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
-        <div style="display:flex;align-items:center;justify-content:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--color-muted);margin-top:18px;"><span style="display:inline-block;width:7px;height:7px;border-radius:100px;background:var(--color-ok);"></span> WE REPLY WITHIN ONE BUSINESS DAY</div>
-      </div>
-    </section>
+    <BookCta title="Not sure which one you need?" copy="That's what the assessment is for. We look at your floor and your numbers first, then tell you which fix pays back fastest, including when the answer is a fixture and not a robot." />
 
   </main>
-  <Footer page="services" />
+  <Footer />
 </Base>

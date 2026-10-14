@@ -1,0 +1,77 @@
+---
+// The lead form. Posts JSON to /api/contact (worker/index.js), which emails
+// info@frontiermfg.ca via Resend and logs a row to the Notion Leads database.
+//
+// The field names (company-website, first-name, last-name, email, company,
+// service, message) are the Worker's contract — don't rename them without
+// changing the Worker. Dropdown options live in src/data/site.ts.
+import { serviceOptions } from '../data/site';
+---
+<form id="contact-form" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:28px;">
+  <div style="display:flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--color-body);margin-bottom:20px;"><span style="display:inline-block;width:7px;height:7px;border-radius:100px;background:var(--color-ok);"></span> WE REPLY WITHIN ONE BUSINESS DAY</div>
+  <input type="text" name="company-website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;" />
+  <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
+    <div style="flex:1 1 140px;">
+      <label for="cf-first" class="form-label">First name</label>
+      <input id="cf-first" name="first-name" type="text" required class="input-dark" />
+    </div>
+    <div style="flex:1 1 140px;">
+      <label for="cf-last" class="form-label">Last name</label>
+      <input id="cf-last" name="last-name" type="text" required class="input-dark" />
+    </div>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
+    <div style="flex:1 1 140px;">
+      <label for="cf-email" class="form-label">Email</label>
+      <input id="cf-email" name="email" type="email" required class="input-dark" />
+    </div>
+    <div style="flex:1 1 140px;">
+      <label for="cf-company" class="form-label">Company</label>
+      <input id="cf-company" name="company" type="text" class="input-dark" />
+    </div>
+  </div>
+  <div style="margin-bottom:14px;">
+    <label for="cf-service" class="form-label">Service of interest</label>
+    <select id="cf-service" name="service" class="input-dark">
+      {serviceOptions.map((o) => <option style="color:var(--color-text);">{o}</option>)}
+    </select>
+  </div>
+  <div style="margin-bottom:20px;">
+    <label for="cf-message" class="form-label">Message</label>
+    <textarea id="cf-message" name="message" rows="4" required class="input-dark" style="resize:vertical;" placeholder="What do you make, and what's slowing you down?"></textarea>
+  </div>
+  <button type="submit" class="btn-red" style="width:100%;">Send request</button>
+  <p id="contact-status" style="margin:16px 0 0;font-size:14px;text-align:center;display:none;"></p>
+</form>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type=submit]') as HTMLButtonElement;
+    const status = document.getElementById('contact-status')!;
+    const show = (msg: string, ok: boolean) => {
+      status.textContent = msg;
+      status.style.color = ok ? 'var(--color-ok)' : 'var(--color-bad)';
+      status.style.display = 'block';
+    };
+    btn.disabled = true;
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+      });
+      const out = await res.json();
+      if (out.ok) {
+        show("Thanks — we'll be in touch within one business day.", true);
+        form.reset();
+      } else {
+        show(out.error || 'Could not send your message. Please email info@frontiermfg.ca directly.', false);
+      }
+    } catch {
+      show('Could not send your message. Please email info@frontiermfg.ca directly.', false);
+    }
+    btn.disabled = false;
+  });
+</script>

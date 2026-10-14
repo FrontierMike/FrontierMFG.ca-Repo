@@ -1,0 +1,69 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import BookCta from '../../components/BookCta.astro';
+import { getLearnArticles, learnCategories } from '../../data/content';
+
+const articles = await getLearnArticles();
+const groups = learnCategories
+  .map((c) => ({ ...c, items: articles.filter((a) => a.data.category === c.id) }))
+  .filter((g) => g.items.length > 0);
+
+const dateFmt = new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+---
+<Base
+  title="Learn: Automation for Small Manufacturers, Explained — Frontier MFG"
+  description="Plain-language articles for BC shop owners on what automation can do, and how to measure and check the payback before you spend."
+  breadcrumb={[['Learn', '/learn']]}
+>
+  <Header />
+  <main>
+
+    <PageHero
+      eyebrow="Learn"
+      title="Automation, explained for shop owners."
+      lead="Plain-language articles on what automation can do for a small shop, and how to measure before you spend."
+    >
+      <a href="/payback-calculator" class="btn-outline">Try the payback calculator <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+    </PageHero>
+
+    <section class="dots-white">
+      <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;display:flex;flex-direction:column;gap:64px;">
+        {groups.length === 0 && (
+          <div style="border:1px dashed var(--border-hard);border-radius:14px;padding:32px;max-width:720px;">
+            <h2 style="font-size:22px;font-weight:600;color:var(--color-text);margin:0 0 10px;">The first articles are on the way.</h2>
+            <p style="font-size:16px;line-height:1.6;color:var(--color-body);margin:0;">In the meantime, try the <a href="/payback-calculator">payback calculator</a>, or read <a href="/how-it-works">how we work</a>.</p>
+          </div>
+        )}
+        {groups.map((g) => (
+          <div>
+            <div style="margin-bottom:28px;">
+              <div class="tick" style="margin-bottom:16px;"></div>
+              <h2 style="font-size:clamp(26px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 10px;">{g.label}</h2>
+              <p style="font-size:17px;line-height:1.6;color:var(--color-body);margin:0;">{g.blurb}</p>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px;">
+              {g.items.map((a) => (
+                <a href={`/learn/${a.id}`} class="card-hover" style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:14px;padding:28px;background:var(--color-bg-alt);color:var(--color-text);">
+                  <div style="display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:var(--color-muted);margin-bottom:14px;">
+                    <span>{dateFmt.format(a.data.pubDate)}</span>
+                    {a.data.draft && <span class="pill-soon">DRAFT</span>}
+                  </div>
+                  <h3 style="font-size:20px;line-height:1.3;font-weight:600;margin:0 0 10px;">{a.data.title}</h3>
+                  <p style="font-size:15px;line-height:1.6;color:var(--color-body);margin:0 0 18px;">{a.data.description}</p>
+                  <span style="margin-top:auto;color:var(--color-accent-text);font-size:15px;font-weight:500;">Read →</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <BookCta />
+
+  </main>
+  <Footer />
+</Base>

@@ -1,0 +1,68 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BookCta from '../../components/BookCta.astro';
+import { SITE_URL, abs } from '../../data/site';
+import { ORG_ID } from '../../data/schema';
+import { getLearnArticles, learnCategories } from '../../data/content';
+
+export const getStaticPaths = (async () =>
+  (await getLearnArticles()).map((entry) => ({ params: { slug: entry.id }, props: { entry } }))
+) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const { title, description, category, pubDate, draft } = entry.data;
+const categoryLabel = learnCategories.find((c) => c.id === category)?.label ?? category;
+const dateFmt = new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+
+const articleSchema = [{
+  '@type': 'Article',
+  '@id': `${abs(`/learn/${entry.id}`)}#article`,
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  author: { '@id': `${SITE_URL}/#mike-wait` },
+  publisher: { '@id': ORG_ID },
+}];
+---
+<Base
+  title={`${title} — Frontier MFG`}
+  description={description}
+  breadcrumb={[['Learn', '/learn'], [title, `/learn/${entry.id}`]]}
+  schema={articleSchema}
+  noindex={draft}
+>
+  <Header />
+  <main>
+    <article>
+      <header class="dots-hero" style="border-bottom:1px solid var(--border);">
+        <div style="max-width:820px;margin:0 auto;padding:clamp(48px,6vw,80px) 32px;">
+          <a href="/learn" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--color-muted);margin-bottom:24px;"><span style="font-family:'IBM Plex Mono',monospace;">←</span> Learn</a>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:18px;">
+            <span class="eyebrow">{categoryLabel}</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-muted);">{dateFmt.format(pubDate)}</span>
+            {draft && <span class="pill-soon">DRAFT · NOT PUBLISHED</span>}
+          </div>
+          <h1 style="font-size:clamp(30px,4.2vw,50px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 18px;text-wrap:balance;">{title}</h1>
+          <p style="font-size:19px;line-height:1.6;color:var(--color-body);margin:0;">{description}</p>
+        </div>
+      </header>
+
+      <div class="dots-white">
+        <div class="prose-article" style="max-width:820px;margin:0 auto;padding:clamp(48px,6vw,80px) 32px;">
+          <Content />
+        </div>
+      </div>
+    </article>
+
+    <!-- Every article ends with the calculator link and the booking CTA. -->
+    <BookCta>
+      <p style="font-size:15px;color:var(--color-body);margin:28px 0 0;">Want a rough number first? <a href="/payback-calculator">Try the payback calculator →</a></p>
+    </BookCta>
+  </main>
+  <Footer />
+</Base>

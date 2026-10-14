@@ -18,8 +18,8 @@ Cloudflare Worker (frontiermfgwebsite)
                                           └── email info@frontiermfg.ca (Resend)
 ```
 
-- **Static site:** Astro builds to `./dist`. The Worker serves those files via the `ASSETS` binding. A request matching a static file is served directly — the Worker function only runs for unmatched paths (i.e. `/api/contact`).
-- **Contact form:** the contact section in `src/pages/index.astro` (and the pilot form in `src/pages/lightwell.astro`) posts JSON to `/api/contact`. The Worker validates, logs to Notion, and emails the lead. Notion failures are non-fatal (logged, email still sends) so a lead is never lost; a Resend failure returns an error to the visitor.
+- **Static site:** Astro builds to `./dist`. The Worker serves those files via the `ASSETS` binding. A request matching a static file is served directly — the Worker function only runs for unmatched paths (`/api/contact`, plus 301 redirects from the retired `/lightwell` and `/baseline` URLs to `/how-it-works#measure`).
+- **Contact form:** `src/components/ContactForm.astro`, used on `/contact`, posts JSON to `/api/contact`. The Worker validates, logs to Notion, and emails the lead. Notion failures are non-fatal (logged, email still sends) so a lead is never lost; a Resend failure returns an error to the visitor.
 - **No Astro adapter:** the site is a pure static build. The only dynamic code is the standalone Worker route.
 
 ## Tech stack
@@ -43,31 +43,67 @@ Cloudflare Worker (frontiermfgwebsite)
 ├── scripts/
 │   └── og-image.py              # regenerates public/og-image.png (one-off tool)
 ├── src/
+│   ├── content/
+│   │   ├── learn/               # Learn articles (.md / .mdx)
+│   │   └── case-studies/        # case studies; _template.md shows the format
+│   ├── content.config.ts        # collection schemas
 │   ├── data/
-│   │   ├── site.ts              # business NAP, service area, canonical origin
-│   │   └── schema.ts            # JSON-LD structured-data builders
+│   │   ├── site.ts              # business NAP, service area, services, form options
+│   │   ├── schema.ts            # JSON-LD structured-data builders
+│   │   └── content.ts           # collection queries (draft handling)
 │   ├── layouts/
 │   │   └── Base.astro           # <html> shell, <head>, SEO meta, JSON-LD
 │   ├── styles/
 │   │   └── global.css           # Tailwind entry + global styles
 │   ├── components/
 │   │   ├── Header.astro         # sticky nav + mobile menu
-│   │   └── Footer.astro         # footer nav + NAP block
+│   │   ├── Footer.astro         # footer nav + NAP block
+│   │   ├── ContactForm.astro    # the lead form (posts to /api/contact)
+│   │   ├── BookCta.astro        # closing "Book a Productivity Assessment" band
+│   │   ├── PageHero.astro       # inner-page hero
+│   │   └── SectionHead.astro    # tick + eyebrow + H2 + lead
 │   └── pages/
 │       ├── index.astro          # home
-│       ├── services.astro       # services detail
-│       ├── lightwell.astro      # Lightwell product page
+│       ├── how-it-works.astro   # See / Measure / Automate / Prove
+│       ├── services.astro       # the four services
+│       ├── learn/               # Learn index + article template
+│       ├── payback-calculator.astro  # client-side only; nothing stored or sent
+│       ├── case-studies/        # index + template (hidden while empty)
+│       ├── about.astro
+│       ├── contact.astro        # Book a Productivity Assessment + service area
 │       └── sitemap.xml.ts       # generates /sitemap.xml at build time
 ├── worker/
 │   └── index.js                 # Worker: serves assets + handles /api/contact
 ├── wrangler.jsonc               # Worker config (name, main, assets dir/binding)
-├── astro.config.mjs             # Astro config (site URL + Tailwind via Vite)
+├── astro.config.mjs             # Astro config (site URL, MDX, Tailwind via Vite)
 ├── .nvmrc                       # pins Node 22 for the build
 └── package.json
 ```
 
-Three pages (`index`, `services`, `lightwell`), each composing `Header` and
-`Footer` inside `layouts/Base.astro`.
+Each page composes `Header` and `Footer` inside `layouts/Base.astro`.
+
+### Learn articles and case studies
+
+Both are content collections (`src/content.config.ts`). Frontmatter:
+
+| Field | Learn | Case studies |
+|---|---|---|
+| `title`, `description` | required | required |
+| `category` | `benefits` or `methods` | — |
+| `industry` | — | optional |
+| `pubDate` | required | required |
+| `draft` | default `false` | default `false` |
+
+- **Drafts** (`draft: true`) render under `npm run dev` only, marked DRAFT and
+  noindex. Every `npm run build`, including Cloudflare branch previews, leaves
+  them out of the pages, the sitemap, and the nav. To publish, set
+  `draft: false` and update `pubDate`.
+- **Case studies** stay out of the nav and the sitemap, and `/case-studies` is
+  noindex, until the first one is published. The hidden "Automation backed by
+  your own numbers." section on the home page appears at the same time. Copy
+  `src/content/case-studies/_template.md` to start one; files beginning with `_`
+  are ignored.
+- There is no RSS feed.
 
 > Note: this project does **not** use a Cloudflare Pages `functions/` directory. Server logic lives in `worker/index.js` (Workers, not Pages).
 
@@ -75,7 +111,7 @@ Three pages (`index`, `services`, `lightwell`), each composing `Header` and
 
 ## How the contact form works
 
-1. **Frontend** (`src/components/Contact.astro`): on submit, prevents the default, gathers fields, and `fetch`-POSTs JSON to `/api/contact`. Shows an inline status message based on the JSON response (`{ ok: true }` or `{ ok: false, error }`).
+1. **Frontend** (`src/components/ContactForm.astro`): on submit, prevents the default, gathers fields, and `fetch`-POSTs JSON to `/api/contact`. Shows an inline status message based on the JSON response (`{ ok: true }` or `{ ok: false, error }`).
 2. **Honeypot:** a hidden `company-website` field, positioned off-screen. Real users never fill it. If it arrives filled, the Worker returns a fake success and discards the submission.
 3. **Worker** (`worker/index.js`):
    - Validates required fields (`first-name`, `last-name`, `email`, `message`) and email format.
@@ -171,10 +207,10 @@ button or a rule but not as text. Accent *text* uses `--color-accent-text`
 
 The site targets manufacturers in the Lower Mainland of BC. Rather than a thin
 landing page per city, the regional signal comes from structured data plus one
-visible service-area section — three pages, region-wide coverage.
+visible service-area section — region-wide coverage.
 
 **`src/data/site.ts` is the single source of truth.** Business name, address,
-phone, and the service-area list live there; the contact section, the footer,
+phone, and the service-area list live there; the contact page, the footer,
 and the JSON-LD all read from it, so the NAP (name / address / phone) that
 Google sees can never drift between them.
 
@@ -182,7 +218,7 @@ Google sees can never drift between them.
   format. It drives the contact row, the footer, the `tel:` links, and
   `telephone` in the `LocalBusiness` schema. Setting it to `''` cleanly removes
   it from all four.
-- **To change the service area**, edit `serviceAreaGroups`. The home page
+- **To change the service area**, edit `serviceAreaGroups`. The contact page
   section and the schema's `areaServed` both follow automatically.
 - `priceRange` and `foundingYear` are optional and omitted while empty. Only
   fill them with real values — a wrong signal in schema is worse than none.
@@ -193,15 +229,16 @@ What is in place:
 | :--- | :--- |
 | Canonical URLs, per-page OG/Twitter cards | `src/layouts/Base.astro` |
 | `ProfessionalService` schema, 17 municipalities in `areaServed` | `src/data/schema.ts` |
-| `FAQPage` schema (Lightwell FAQ — eligible for FAQ rich results) | `src/pages/lightwell.astro` |
-| `Service` + `BreadcrumbList` schema | `src/pages/services.astro` |
-| Visible service-area section | `src/pages/index.astro` (`#service-area`) |
+| `Service` schema | `src/pages/services.astro` |
+| `Article` schema | `src/pages/learn/[...slug].astro` |
+| `BreadcrumbList` schema | every inner page, via the `breadcrumb` prop |
+| Visible service-area section | `src/pages/contact.astro` (`#service-area`) |
 | `robots.txt`, `sitemap.xml` | `public/`, `src/pages/sitemap.xml.ts` |
 
 Validate changes to the structured data with the
-[Rich Results Test](https://search.google.com/test/rich-results). The FAQ markup
-is only legitimate while those questions stay rendered on the page — Google
-treats hidden FAQ markup as a violation.
+[Rich Results Test](https://search.google.com/test/rich-results). Only mark up
+what is rendered on the page — Google treats markup for hidden content as a
+violation.
 
 **Not covered by this repo:** a Google Business Profile is the largest remaining
 local-ranking factor and is set up outside the site. Register the same NAP that

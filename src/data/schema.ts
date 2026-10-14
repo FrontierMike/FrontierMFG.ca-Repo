@@ -29,18 +29,10 @@ const people = {
     '@id': `${SITE_URL}/#mike-wait`,
     name: 'Mike Wait',
     jobTitle: 'Founder & Principal Consultant',
+    honorificSuffix: 'B.Eng, EIT',
     description:
-      'Mechanical engineer (EIT) with a B.Eng from BCIT and 20 years of hands-on manufacturing experience in automated machinery design, robotics, production commissioning, and CNC machining.',
+      'Automation consultant (B.Eng, EIT) with a hands-on trades background in welding, fabrication, and millwrighting since 2011, a mechanical education from BCIT, and experience designing, building, and commissioning custom automation machines.',
     alumniOf: { '@type': 'CollegeOrUniversity', name: 'British Columbia Institute of Technology' },
-    worksFor: { '@id': ORG_ID },
-  },
-  gord: {
-    '@type': 'Person',
-    '@id': `${SITE_URL}/#gord-wait`,
-    name: 'Gord Wait',
-    jobTitle: 'Advisor & Product Design Expert',
-    description:
-      'Senior software and hardware engineer with four decades of experience in industrial systems, embedded development, and technology leadership.',
     worksFor: { '@id': ORG_ID },
   },
 };
@@ -67,7 +59,7 @@ export const organizationNode = () =>
     logo: { '@type': 'ImageObject', url: abs('/favicon.svg') },
     image: abs('/og-image.png'),
     description:
-      `Automation and manufacturing consulting for small and mid-size manufacturers in ${business.locality} and across the Lower Mainland of British Columbia — process automation, PLC/SCADA programming, controls design, and real-time KPI tracking.`,
+      `Practical automation for small and mid-size manufacturers in British Columbia, based in ${business.locality}: productivity assessments, cobot and robot cells, controls retrofits on older equipment, and machine monitoring.`,
 
     // Where the business is based. One city, deliberately: local search ranks a
     // business against a specific municipality.
@@ -106,7 +98,7 @@ export const organizationNode = () =>
 
     knowsAbout: [...knowsAbout],
     founder: { '@id': people.mike['@id'] },
-    employee: [{ '@id': people.mike['@id'] }, { '@id': people.gord['@id'] }],
+    employee: [{ '@id': people.mike['@id'] }],
     contactPoint: compact({
       '@type': 'ContactPoint',
       contactType: 'sales',
@@ -118,7 +110,7 @@ export const organizationNode = () =>
 
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
-      name: 'Manufacturing consulting services',
+      name: 'Automation services',
       itemListElement: serviceNames.map((name) => ({
         '@type': 'Offer',
         itemOffered: {
@@ -131,7 +123,7 @@ export const organizationNode = () =>
     },
   });
 
-export const peopleNodes = () => [people.mike, people.gord];
+export const peopleNodes = () => [people.mike];
 
 export const websiteNode = () => ({
   '@type': 'WebSite',
