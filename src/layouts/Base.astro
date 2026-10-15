@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { Font } from 'astro:assets';
 import { SITE_URL, business } from '../data/site';
 import {
   organizationNode, peopleNodes, websiteNode, webPageNode, breadcrumbNode, ldJson,
@@ -22,7 +23,7 @@ interface Props {
 const {
   title = `Practical Automation for BC Manufacturers — ${business.name}`,
   description = 'Practical automation and robotics for BC manufacturers. We measure where time and output go, then automate what pays back fastest.',
-  themeColor = '#131c24',
+  themeColor = '#15181B',
   image = '/og-image.png',
   noindex = false,
   schema = [],
@@ -48,6 +49,9 @@ const graph = [
 <html lang="en-CA">
   <head>
     <meta charset="UTF-8" />
+    <!-- Flags that JS is running, so scroll reveals only hide content that the
+         script will bring back. Runs before first paint. -->
+    <script is:inline>document.documentElement.classList.add('js')</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
 
@@ -87,9 +91,10 @@ const graph = [
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Preload only what the first screen needs: headings and body text. -->
+    <Font cssVariable="--font-barlow" preload={[{ weight: 700 }]} />
+    <Font cssVariable="--font-plex-sans" preload={[{ weight: 400 }]} />
+    <Font cssVariable="--font-plex-mono" />
 
     <script type="application/ld+json" is:inline set:html={ldJson(graph)} />
   </head>
@@ -97,3 +102,24 @@ const graph = [
     <slot />
   </body>
 </html>
+
+<script>
+  // Scroll reveal: anything marked data-reveal (and the example chart) fades
+  // and rises into place once, the first time it scrolls into view. Skipped
+  // entirely under prefers-reduced-motion; the CSS shows everything then.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const targets = document.querySelectorAll('[data-reveal], .chart');
+  if (reduce || !('IntersectionObserver' in window)) {
+    targets.forEach((el) => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }),
+      { rootMargin: '0px 0px -8% 0px', threshold: 0 }
+    );
+    targets.forEach((el) => io.observe(el));
+  }
+</script>

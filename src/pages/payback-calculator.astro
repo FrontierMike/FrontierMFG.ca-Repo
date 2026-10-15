@@ -1,4 +1,5 @@
 ---
+import { ArrowRight } from '@lucide/astro';
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -8,10 +9,8 @@ import BookCta from '../components/BookCta.astro';
 // Runs entirely in the browser: nothing typed here is stored or sent.
 const WEEKS_PER_YEAR = 50;
 
-const fieldset = 'border:1px solid var(--border);border-radius:14px;padding:24px;margin:0;background:var(--color-surface);';
-const legend = "font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);padding:0 8px;margin-left:-8px;";
-const help = 'font-size:13.5px;line-height:1.5;color:var(--color-muted);margin:8px 0 0;';
-const row = 'display:flex;justify-content:space-between;gap:16px;font-size:15px;color:var(--color-body);padding:12px 0;border-bottom:1px solid var(--border);';
+const help = 'font-size:14px;line-height:1.55;color:var(--text-muted);margin:10px 0 0;';
+const row = 'display:flex;justify-content:space-between;align-items:baseline;gap:16px;font-size:15px;padding:13px 0;border-bottom:1px solid var(--line);';
 ---
 <Base
   title="Automation Payback Calculator — Frontier MFG"
@@ -27,82 +26,84 @@ const row = 'display:flex;justify-content:space-between;gap:16px;font-size:15px;
       lead="A rough check on an automation project. Enter what it would save and what it would cost. Nothing you type is stored or sent anywhere; it all stays in your browser."
     />
 
-    <section class="dots-white">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,96px) 32px;display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;">
+    <section class="band-light section">
+      <div class="wrap grid gap-8 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] items-start">
 
-        <form id="calc" novalidate style="flex:1 1 520px;min-width:min(100%,300px);display:flex;flex-direction:column;gap:20px;">
-          <fieldset style={fieldset}>
-            <legend style={legend}>Labour</legend>
-            <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:8px;">
-              <div style="flex:1 1 200px;">
+        <form id="calc" data-weeks={WEEKS_PER_YEAR} novalidate style="display:flex;flex-direction:column;gap:20px;">
+          <fieldset class="card" style="padding:24px;margin:0;">
+            <legend class="label" style="padding:0 8px;margin-left:-8px;">01 / Labour</legend>
+            <div class="grid gap-4 sm:grid-cols-2" style="margin-top:8px;">
+              <div>
                 <label for="labour-hours" class="form-label">Labour hours saved per week</label>
-                <input id="labour-hours" type="number" min="0" step="any" inputmode="decimal" placeholder="0" class="input-dark" />
+                <input id="labour-hours" type="number" min="0" step="any" inputmode="decimal" placeholder="0" class="input-dark mono" />
               </div>
-              <div style="flex:1 1 200px;">
+              <div>
                 <label for="labour-rate" class="form-label">Burdened labour rate ($/hour)</label>
-                <input id="labour-rate" type="number" min="0" step="any" inputmode="decimal" placeholder="0" class="input-dark" />
+                <input id="labour-rate" type="number" min="0" step="any" inputmode="decimal" placeholder="0" class="input-dark mono" />
               </div>
             </div>
             <p style={help}>Burdened rate means the full cost of an hour of labour: wages plus benefits, payroll costs, and overhead.</p>
           </fieldset>
 
-          <fieldset style={fieldset}>
-            <legend style={legend}>Scrap</legend>
+          <fieldset class="card" style="padding:24px;margin:0;">
+            <legend class="label" style="padding:0 8px;margin-left:-8px;">02 / Scrap</legend>
             <div style="margin-top:8px;">
               <label for="scrap" class="form-label">Scrap cost reduced per month ($)</label>
-              <input id="scrap" type="number" min="0" step="any" inputmode="decimal" placeholder="0" class="input-dark" />
+              <input id="scrap" type="number" min="0" step="any" inputmode="decimal" placeholder="0" class="input-dark mono" />
             </div>
           </fieldset>
 
-          <fieldset style={fieldset}>
-            <legend style={legend}>Downtime</legend>
-            <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:8px;">
-              <div style="flex:1 1 200px;">
+          <fieldset class="card" style="padding:24px;margin:0;">
+            <legend class="label" style="padding:0 8px;margin-left:-8px;">03 / Downtime</legend>
+            <div class="grid gap-4 sm:grid-cols-2" style="margin-top:8px;">
+              <div>
                 <label for="down-hours" class="form-label">Downtime hours reduced per month</label>
-                <input id="down-hours" type="number" min="0" step="any" inputmode="decimal" placeholder="0" class="input-dark" />
+                <input id="down-hours" type="number" min="0" step="any" inputmode="decimal" placeholder="0" class="input-dark mono" />
               </div>
-              <div style="flex:1 1 200px;">
+              <div>
                 <label for="down-value" class="form-label">Value of lost output ($/hour)</label>
-                <input id="down-value" type="number" min="0" step="any" inputmode="decimal" placeholder="0" class="input-dark" />
+                <input id="down-value" type="number" min="0" step="any" inputmode="decimal" placeholder="0" class="input-dark mono" />
               </div>
             </div>
-            <label style="display:flex;gap:12px;align-items:flex-start;margin-top:18px;font-size:15.5px;line-height:1.5;color:var(--color-text);cursor:pointer;">
-              <input id="bottleneck" type="checkbox" style="width:20px;height:20px;margin:2px 0 0;flex-shrink:0;accent-color:var(--color-accent);" />
+            <label style="display:flex;gap:12px;align-items:flex-start;margin-top:18px;font-size:16px;line-height:1.5;color:var(--text);font-weight:500;cursor:pointer;">
+              <input id="bottleneck" type="checkbox" style="width:20px;height:20px;margin:2px 0 0;flex-shrink:0;accent-color:var(--color-safety-deep);" />
               This machine limits our total output.
             </label>
             <p style={help}>Extra uptime only makes money if this machine is the bottleneck. If something else limits your output, more uptime here just means more waiting, so downtime savings only count when this box is ticked.</p>
           </fieldset>
 
-          <fieldset style={fieldset}>
-            <legend style={legend}>Project</legend>
+          <fieldset class="card" style="padding:24px;margin:0;">
+            <legend class="label" style="padding:0 8px;margin-left:-8px;">04 / Project</legend>
             <div style="margin-top:8px;">
               <label for="cost" class="form-label">Estimated project cost ($)</label>
-              <input id="cost" type="number" min="0" step="any" inputmode="decimal" placeholder="0" class="input-dark" />
+              <input id="cost" type="number" min="0" step="any" inputmode="decimal" placeholder="0" class="input-dark mono" />
             </div>
           </fieldset>
         </form>
 
-        <aside class="calc-results" aria-labelledby="results-title" style="flex:1 1 340px;min-width:min(100%,300px);">
-          <div style="background:var(--color-bg-alt);border:1px solid var(--border-hard);border-radius:16px;padding:28px;">
-            <h2 id="results-title" style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-muted);font-weight:500;margin:0 0 8px;">Your estimate</h2>
-            <div aria-live="polite">
-              <div style={row}><span>Labour, per year</span><span id="out-labour" style="color:var(--color-text);font-family:'IBM Plex Mono',monospace;">—</span></div>
-              <div style={row}><span>Scrap, per year</span><span id="out-scrap" style="color:var(--color-text);font-family:'IBM Plex Mono',monospace;">—</span></div>
-              <div style={row}><span>Downtime, per year</span><span id="out-down" style="color:var(--color-text);font-family:'IBM Plex Mono',monospace;text-align:right;">—</span></div>
-              <div style="padding:22px 0 0;">
-                <div style="font-size:14px;color:var(--color-muted);margin-bottom:6px;">Estimated annual savings</div>
-                <div id="out-total" style="font-size:clamp(30px,4vw,40px);font-weight:600;letter-spacing:-0.02em;color:var(--color-text);">—</div>
-              </div>
-              <div style="padding:20px 0 0;">
-                <div style="font-size:14px;color:var(--color-muted);margin-bottom:6px;">Payback period</div>
-                <div id="out-payback" style="font-size:clamp(30px,4vw,40px);font-weight:600;letter-spacing:-0.02em;color:var(--color-accent-text);">—</div>
-                <div id="out-payback-note" style="font-size:14px;color:var(--color-muted);margin-top:6px;min-height:21px;"></div>
-              </div>
+        <aside class="calc-results band-dark card" aria-labelledby="results-title" style="padding:clamp(24px,3vw,30px);">
+          <h2 id="results-title" class="label" style="margin:0 0 6px;">Your estimate</h2>
+          <!-- The visible figures animate, so screen readers get the final
+               numbers from this summary instead. -->
+          <p id="calc-summary" class="sr-only" aria-live="polite"></p>
+          <div>
+            <div style={row}><span>Labour, per year</span><span id="out-labour" class="mono" style="color:var(--text);">—</span></div>
+            <div style={row}><span>Scrap, per year</span><span id="out-scrap" class="mono" style="color:var(--text);">—</span></div>
+            <div style={row}><span>Downtime, per year</span><span id="out-down" class="mono" style="color:var(--text);text-align:right;">—</span></div>
+            <div style="padding:24px 0 0;">
+              <div class="label-muted" style="margin-bottom:6px;">Estimated annual savings</div>
+              <div id="out-total" class="mono" style="font-size:clamp(30px,4vw,40px);font-weight:500;line-height:1.15;color:var(--text);">—</div>
             </div>
-            <p style="font-size:14px;line-height:1.6;color:var(--color-body);margin:22px 0 0;padding:14px 16px;border-radius:10px;background:var(--glass);border:1px solid var(--border);">
-              <strong style="color:var(--color-text);">This is a rough estimate.</strong> It's only as good as the numbers you enter. A Productivity Assessment replaces them with measured data from your floor. Labour savings assume {WEEKS_PER_YEAR} working weeks a year.
-            </p>
+            <div style="padding:22px 0 0;">
+              <div class="label-muted" style="margin-bottom:6px;">Payback period</div>
+              <div id="out-payback" class="mono" style="font-size:clamp(30px,4vw,40px);font-weight:500;line-height:1.15;color:var(--color-safety);">—</div>
+              <div id="out-payback-note" style="font-size:14px;color:var(--text-muted);margin-top:6px;min-height:21px;"></div>
+            </div>
           </div>
+          <p style="font-size:14.5px;line-height:1.6;margin:22px 0 0;padding:14px 16px;border-radius:4px;border:1px solid var(--line);border-left:3px solid var(--color-safety);">
+            <strong style="color:var(--text);">This is a rough estimate.</strong> It's only as good as the numbers you enter. A Productivity Assessment replaces them with measured data from your floor. Labour savings assume {WEEKS_PER_YEAR} working weeks a year.
+          </p>
+          <a href="/contact" class="btn btn-primary" style="width:100%;margin-top:20px;">Book a Productivity Assessment <ArrowRight class="arrow" size={18} stroke-width={2} aria-hidden="true" /></a>
         </aside>
 
       </div>
@@ -114,46 +115,78 @@ const row = 'display:flex;justify-content:space-between;gap:16px;font-size:15px;
   <Footer />
 </Base>
 
-<script define:vars={{ WEEKS_PER_YEAR }}>
-  const $ = (id) => document.getElementById(id);
-  const num = (id) => Math.max(0, parseFloat($(id).value) || 0);
+<script>
+  const form = document.getElementById('calc') as HTMLFormElement;
+  const WEEKS_PER_YEAR = Number(form.dataset.weeks) || 50;
+  const $ = (id: string) => document.getElementById(id) as HTMLElement;
+  const field = (id: string) => document.getElementById(id) as HTMLInputElement;
+  const num = (id: string) => Math.max(0, parseFloat(field(id).value) || 0);
+  const anyInput = () => ['labour-hours', 'labour-rate', 'scrap', 'down-hours', 'down-value', 'cost'].some((id) => field(id).value !== '');
   const money = new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 });
-  const anyInput = () => ['labour-hours', 'labour-rate', 'scrap', 'down-hours', 'down-value', 'cost'].some((id) => $(id).value !== '');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Results count up (or down) from what's showing to the new value.
+  const frames = new WeakMap<HTMLElement, number>();
+  function show(el: HTMLElement, value: number, format: (n: number) => string) {
+    const from = Number(el.dataset.value ?? 0);
+    el.dataset.value = String(value);
+    cancelAnimationFrame(frames.get(el) ?? 0);
+    if (reduce || from === value) { el.textContent = format(value); return; }
+    const start = performance.now();
+    const ms = 450;
+    const step = (now: number) => {
+      const t = Math.min(1, (now - start) / ms);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = format(from + (value - from) * eased);
+      if (t < 1) frames.set(el, requestAnimationFrame(step));
+    };
+    frames.set(el, requestAnimationFrame(step));
+  }
+  function text(el: HTMLElement, value: string) {
+    cancelAnimationFrame(frames.get(el) ?? 0);
+    delete el.dataset.value;
+    el.textContent = value;
+  }
+  const months = (n: number) => `${n.toFixed(1)} months`;
 
   function update() {
     const labour = num('labour-hours') * num('labour-rate') * WEEKS_PER_YEAR;
     const scrap = num('scrap') * 12;
     const downRaw = num('down-hours') * num('down-value') * 12;
-    const counted = $('bottleneck').checked;
+    const counted = field('bottleneck').checked;
     const down = counted ? downRaw : 0;
     const total = labour + scrap + down;
     const cost = num('cost');
 
     if (!anyInput()) {
-      ['out-labour', 'out-scrap', 'out-down', 'out-total', 'out-payback'].forEach((id) => ($(id).textContent = '—'));
+      ['out-labour', 'out-scrap', 'out-down', 'out-total', 'out-payback'].forEach((id) => text($(id), '—'));
       $('out-payback-note').textContent = '';
+      $('calc-summary').textContent = '';
       return;
     }
 
-    $('out-labour').textContent = money.format(labour);
-    $('out-scrap').textContent = money.format(scrap);
-    $('out-down').textContent = counted ? money.format(down) : downRaw > 0 ? 'Not counted' : money.format(0);
-    $('out-total').textContent = money.format(total);
+    show($('out-labour'), labour, money.format);
+    show($('out-scrap'), scrap, money.format);
+    if (counted || downRaw === 0) show($('out-down'), down, money.format);
+    else text($('out-down'), 'Not counted');
+    show($('out-total'), total, money.format);
 
     if (total <= 0) {
-      $('out-payback').textContent = '—';
+      text($('out-payback'), '—');
       $('out-payback-note').textContent = 'Enter some savings to see a payback period.';
     } else if (cost <= 0) {
-      $('out-payback').textContent = '—';
+      text($('out-payback'), '—');
       $('out-payback-note').textContent = 'Enter a project cost to see a payback period.';
     } else {
-      const months = cost / (total / 12);
-      $('out-payback').textContent = `${months.toFixed(1)} months`;
-      $('out-payback-note').textContent = months >= 12 ? `About ${(months / 12).toFixed(1)} years` : '';
+      const m = cost / (total / 12);
+      show($('out-payback'), m, months);
+      $('out-payback-note').textContent = m >= 12 ? `About ${(m / 12).toFixed(1)} years` : '';
     }
+
+    const payback = total > 0 && cost > 0 ? `Payback period ${months(cost / (total / 12))}.` : $('out-payback-note').textContent;
+    $('calc-summary').textContent = `Estimated annual savings ${money.format(total)}. ${payback}`;
   }
 
-  const form = $('calc');
   form.addEventListener('input', update);
   form.addEventListener('change', update);
   form.addEventListener('submit', (e) => e.preventDefault());

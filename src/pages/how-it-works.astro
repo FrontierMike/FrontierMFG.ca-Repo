@@ -1,28 +1,42 @@
 ---
+import { ArrowRight, Eye, Ruler, Cog, BadgeCheck, Lock } from '@lucide/astro';
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 import BookCta from '../components/BookCta.astro';
+import SectionHead from '../components/SectionHead.astro';
+import DimensionLine from '../components/DimensionLine.astro';
+import ProcessDiagram from '../components/ProcessDiagram.astro';
+import ExampleChart from '../components/ExampleChart.astro';
+
+// One sentence per node for the diagram; the full copy is in `steps` below.
+const overview = [
+  { name: 'See', icon: Eye, href: '#see', copy: 'We walk your floor and pull the records you already keep.' },
+  { name: 'Measure', icon: Ruler, href: '#measure', copy: 'We turn them into a baseline in hours and dollars.' },
+  { name: 'Automate', icon: Cog, href: '#automate', copy: 'We fix what pays back fastest.' },
+  { name: 'Prove', icon: BadgeCheck, href: '#prove', copy: 'We measure again against the same baseline.' },
+];
 
 // `id` doubles as the anchor; /lightwell and /baseline redirect to #measure.
 const steps = [
   {
-    id: 'see', n: '01', title: 'See',
+    id: 'see', name: 'See', icon: Eye,
     copy: 'We walk your floor, talk to your operators, and pull the records you already keep: production counts, downtime, scrap, and overtime.',
   },
   {
-    id: 'measure', n: '02', title: 'Measure',
+    id: 'measure', name: 'Measure', icon: Ruler,
     copy: "We turn that into a baseline in hours and dollars, so you can see where time and output are going. Today that's time studies and your own records.",
     note: 'Lightwell, our machine monitoring system, is in development and will automate this step.',
+    chart: true,
   },
   {
-    id: 'automate', n: '03', title: 'Automate',
+    id: 'automate', name: 'Automate', icon: Cog,
     copy: "We recommend the fixes that pay back fastest. Sometimes that's a fixture or a process change; sometimes it's a cobot (collaborative robot) cell or a controls retrofit. Payback is calculated from your numbers.",
     link: { href: '/payback-calculator', label: 'Try the payback math yourself' },
   },
   {
-    id: 'prove', n: '04', title: 'Prove',
+    id: 'prove', name: 'Prove', icon: BadgeCheck,
     copy: 'After the project, we measure again against the same baseline, so the result is your numbers, not our claims.',
   },
 ];
@@ -40,24 +54,41 @@ const steps = [
       title="Measure first. Automate what pays. Prove it."
       lead="Four steps, in the same order every time. You see the numbers before you spend, and again after the work is done."
     >
-      <a href="/contact" class="btn-red">Book a Productivity Assessment <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+      <a href="/contact" class="btn btn-primary">Book a Productivity Assessment <ArrowRight class="arrow" size={18} stroke-width={2} aria-hidden="true" /></a>
     </PageHero>
 
-    <section class="dots-white">
-      <div style="max-width:1000px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
-        <ol style="display:flex;flex-direction:column;gap:0;list-style:none;margin:0;padding:0;border:1px solid var(--border);border-radius:14px;overflow:hidden;">
-          {steps.map((s, i) => (
-            <li id={s.id} style={`display:flex;flex-wrap:wrap;gap:20px 32px;padding:clamp(26px,4vw,40px);background:var(--color-surface);scroll-margin-top:84px;${i > 0 ? 'border-top:1px solid var(--border);' : ''}`}>
-              <div style="width:56px;height:56px;flex-shrink:0;border:1.5px solid var(--color-accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--color-accent-text);">{s.n}</div>
-              <div style="flex:1 1 280px;">
-                <h2 style="font-size:clamp(24px,2.6vw,30px);font-weight:600;letter-spacing:-0.01em;color:var(--color-text);margin:0 0 12px;">{s.title}</h2>
-                <p style="font-size:17px;line-height:1.65;color:var(--color-body);margin:0;">{s.copy}</p>
-                {s.note && <p style="font-size:15.5px;line-height:1.6;color:var(--color-muted);margin:14px 0 0;padding-left:14px;border-left:2px solid var(--accent-edge);">{s.note}</p>}
-                {s.link && <a href={s.link.href} style="display:inline-flex;align-items:center;gap:8px;margin-top:14px;font-size:15px;font-weight:500;color:var(--color-accent-text);">{s.link.label} <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>}
-              </div>
-            </li>
-          ))}
-        </ol>
+    <section class="band-light section">
+      <div class="wrap">
+        <SectionHead eyebrow="The method" title="Four steps, one baseline." lead="Everything we recommend is measured against the same numbers, before and after." />
+        <ProcessDiagram steps={overview} />
+
+        <DimensionLine label="Step by step" class="my-16 md:my-24" />
+
+        <div style="display:flex;flex-direction:column;gap:clamp(56px,7vw,88px);">
+          {steps.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <article id={s.id} class:list={['anchor grid gap-10 items-start', s.chart && 'lg:grid-cols-2']}>
+                <div data-reveal style="max-width:760px;">
+                  <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+                    <span class="icon-tile"><Icon size={22} stroke-width={1.6} aria-hidden="true" /></span>
+                    <span class="label" style="font-size:13px;">{String(i + 1).padStart(2, '0')} / {s.name}</span>
+                  </div>
+                  <h2 class="display h2" style="font-size:clamp(2rem,1.5rem+2vw,3rem);">{s.name}</h2>
+                  <p style="margin:16px 0 0;font-size:18px;line-height:1.65;">{s.copy}</p>
+                  {s.chart && (
+                    <>
+                      <p style="margin:18px 0 0;font-size:16.5px;line-height:1.6;padding-left:16px;border-left:3px solid var(--accent-rule);">{s.note}</p>
+                      <p style="display:flex;align-items:center;gap:10px;margin:20px 0 0;color:var(--text);font-weight:600;"><Lock size={18} stroke-width={1.75} aria-hidden="true" style="color:var(--accent-text);" /> Your data stays yours.</p>
+                    </>
+                  )}
+                  {s.link && <a href={s.link.href} class="link" style="display:inline-block;margin-top:20px;">{s.link.label}</a>}
+                </div>
+                {s.chart && <div data-reveal style="--reveal-delay:120ms;"><ExampleChart /></div>}
+              </article>
+            );
+          })}
+        </div>
       </div>
     </section>
 

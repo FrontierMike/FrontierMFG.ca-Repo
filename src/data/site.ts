@@ -73,29 +73,26 @@ export const areaShort = 'Vancouver & the Lower Mainland';
  * Services page. `id` is the anchor on /services (e.g. /services#assessment).
  * The Services page carries the long-form copy; `summary` is the one-liner
  * used on the home page tiles. `title` also feeds the schema's offer catalog.
+ * Each service's icon is set in src/components/ServiceIcon.astro.
  */
 export const services = [
   {
     id: 'assessment',
-    icon: '04-process-improvement',
     title: 'Productivity Assessment',
     summary: 'A short on-site audit that ends with a savings and payback estimate.',
   },
   {
     id: 'robot-cells',
-    icon: '01-process-automation',
     title: 'Cobot and robot cells',
     summary: 'Machine tending, pick-and-place, and repetitive manual stations.',
   },
   {
     id: 'controls-retrofits',
-    icon: '08-Controls-pulse-waveform',
     title: 'Controls retrofits',
     summary: 'New controls for older machines that are still mechanically sound.',
   },
   {
     id: 'machine-monitoring',
-    icon: '02-plc-scada-programming',
     title: 'Machine monitoring',
     summary: 'Running numbers on when each machine runs, stops, and makes parts.',
     inDevelopment: true,

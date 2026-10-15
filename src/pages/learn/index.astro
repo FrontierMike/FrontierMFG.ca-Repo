@@ -1,4 +1,5 @@
 ---
+import { ArrowRight, BookOpen, Ruler, Calculator } from '@lucide/astro';
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -7,8 +8,9 @@ import BookCta from '../../components/BookCta.astro';
 import { getLearnArticles, learnCategories } from '../../data/content';
 
 const articles = await getLearnArticles();
+const categoryIcons: Record<string, any> = { benefits: BookOpen, methods: Ruler };
 const groups = learnCategories
-  .map((c) => ({ ...c, items: articles.filter((a) => a.data.category === c.id) }))
+  .map((c) => ({ ...c, icon: categoryIcons[c.id], items: articles.filter((a) => a.data.category === c.id) }))
   .filter((g) => g.items.length > 0);
 
 const dateFmt = new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
@@ -26,39 +28,48 @@ const dateFmt = new Intl.DateTimeFormat('en-CA', { year: 'numeric', month: 'long
       title="Automation, explained for shop owners."
       lead="Plain-language articles on what automation can do for a small shop, and how to measure before you spend."
     >
-      <a href="/payback-calculator" class="btn-outline">Try the payback calculator <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+      <a href="/payback-calculator" class="btn btn-secondary">Try the payback calculator <ArrowRight class="arrow" size={18} stroke-width={2} aria-hidden="true" /></a>
     </PageHero>
 
-    <section class="dots-white">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;display:flex;flex-direction:column;gap:64px;">
+    <section class="band-light section">
+      <div class="wrap" style="display:flex;flex-direction:column;gap:72px;">
         {groups.length === 0 && (
-          <div style="border:1px dashed var(--border-hard);border-radius:14px;padding:32px;max-width:720px;">
-            <h2 style="font-size:22px;font-weight:600;color:var(--color-text);margin:0 0 10px;">The first articles are on the way.</h2>
-            <p style="font-size:16px;line-height:1.6;color:var(--color-body);margin:0;">In the meantime, try the <a href="/payback-calculator">payback calculator</a>, or read <a href="/how-it-works">how we work</a>.</p>
+          <div class="card" style="padding:32px;max-width:760px;display:flex;gap:18px;align-items:flex-start;">
+            <span class="icon-tile" style="flex-shrink:0;"><Calculator size={22} stroke-width={1.6} aria-hidden="true" /></span>
+            <div>
+              <h2 class="h3">The first articles are on the way.</h2>
+              <p style="font-size:16.5px;line-height:1.6;margin:10px 0 0;">In the meantime, try the <a href="/payback-calculator" class="link">payback calculator</a>, or read <a href="/how-it-works" class="link">how we work</a>.</p>
+            </div>
           </div>
         )}
-        {groups.map((g) => (
-          <div>
-            <div style="margin-bottom:28px;">
-              <div class="tick" style="margin-bottom:16px;"></div>
-              <h2 style="font-size:clamp(26px,3vw,36px);line-height:1.1;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 10px;">{g.label}</h2>
-              <p style="font-size:17px;line-height:1.6;color:var(--color-body);margin:0;">{g.blurb}</p>
+        {groups.map((g, gi) => {
+          const Icon = g.icon;
+          return (
+            <div>
+              <div data-reveal style="margin-bottom:30px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;">
+                <div>
+                  <div class="label" style="margin-bottom:14px;">{String(gi + 1).padStart(2, '0')} / {g.label}</div>
+                  <h2 class="display h2">{g.label}</h2>
+                </div>
+                <p style="font-size:17px;line-height:1.6;margin:0;max-width:440px;">{g.blurb}</p>
+              </div>
+              <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+                {g.items.map((a, i) => (
+                  <a href={`/learn/${a.id}`} class="card card-link" data-reveal style={`--reveal-delay:${i * 70}ms;padding:28px;color:var(--text);`}>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px;">
+                      <span class="icon-tile"><Icon size={20} stroke-width={1.6} aria-hidden="true" /></span>
+                      {a.data.draft && <span class="pill">Draft</span>}
+                    </div>
+                    <div class="label-muted" style="margin-bottom:10px;">{dateFmt.format(a.data.pubDate)}</div>
+                    <h3 class="h3" style="font-size:1.5rem;">{a.data.title}</h3>
+                    <p style="font-size:15px;line-height:1.6;color:var(--text-body);margin:10px 0 22px;">{a.data.description}</p>
+                    <span style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;">Read <ArrowRight class="arrow" size={18} stroke-width={1.75} aria-hidden="true" /></span>
+                  </a>
+                ))}
+              </div>
             </div>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px;">
-              {g.items.map((a) => (
-                <a href={`/learn/${a.id}`} class="card-hover" style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:14px;padding:28px;background:var(--color-bg-alt);color:var(--color-text);">
-                  <div style="display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:var(--color-muted);margin-bottom:14px;">
-                    <span>{dateFmt.format(a.data.pubDate)}</span>
-                    {a.data.draft && <span class="pill-soon">DRAFT</span>}
-                  </div>
-                  <h3 style="font-size:20px;line-height:1.3;font-weight:600;margin:0 0 10px;">{a.data.title}</h3>
-                  <p style="font-size:15px;line-height:1.6;color:var(--color-body);margin:0 0 18px;">{a.data.description}</p>
-                  <span style="margin-top:auto;color:var(--color-accent-text);font-size:15px;font-weight:500;">Read →</span>
-                </a>
-              ))}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
 

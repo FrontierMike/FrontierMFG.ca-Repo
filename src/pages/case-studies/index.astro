@@ -1,4 +1,5 @@
 ---
+import { ArrowRight } from '@lucide/astro';
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -26,21 +27,21 @@ const empty = caseStudies.length === 0;
       lead="Each project is measured before and after against the same baseline."
     />
 
-    <section class="dots-white">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
+    <section class="band-light section">
+      <div class="wrap">
         {empty ? (
-          <p style="font-size:17px;line-height:1.6;color:var(--color-body);margin:0;">No case studies published yet.</p>
+          <p style="font-size:17px;line-height:1.6;margin:0;">No case studies published yet.</p>
         ) : (
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px;">
-            {caseStudies.map((c) => (
-              <a href={`/case-studies/${c.id}`} class="card-hover" style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:14px;padding:28px;background:var(--color-bg-alt);color:var(--color-text);">
+          <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {caseStudies.map((c, i) => (
+              <a href={`/case-studies/${c.id}`} class="card card-link" data-reveal style={`--reveal-delay:${i * 70}ms;padding:28px;color:var(--text);`}>
                 <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-                  {c.data.industry && <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);">{c.data.industry}</span>}
-                  {c.data.draft && <span class="pill-soon">DRAFT</span>}
+                  {c.data.industry && <span class="label">{c.data.industry}</span>}
+                  {c.data.draft && <span class="pill">Draft</span>}
                 </div>
-                <h2 style="font-size:20px;line-height:1.3;font-weight:600;margin:0 0 10px;">{c.data.title}</h2>
-                <p style="font-size:15px;line-height:1.6;color:var(--color-body);margin:0 0 18px;">{c.data.description}</p>
-                <span style="margin-top:auto;color:var(--color-accent-text);font-size:15px;font-weight:500;">Read the case study →</span>
+                <h2 class="h3">{c.data.title}</h2>
+                <p style="font-size:15px;line-height:1.6;color:var(--text-body);margin:10px 0 22px;">{c.data.description}</p>
+                <span style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;">Read the case study <ArrowRight class="arrow" size={18} stroke-width={1.75} aria-hidden="true" /></span>
               </a>
             ))}
           </div>

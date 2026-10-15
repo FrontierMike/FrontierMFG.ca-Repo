@@ -1,0 +1,18 @@
+---
+// A technical-drawing dimension: end ticks, arrowheads, a thin rule, and an
+// optional mono label in the middle. Decorative, so hidden from screen readers.
+interface Props {
+  label?: string;
+  class?: string;
+}
+const { label, class: className } = Astro.props;
+---
+<div class:list={['dim', className]} aria-hidden="true">
+  <span class="dim-tick"></span>
+  <svg class="dim-arrow" viewBox="0 0 9 7"><path d="M0 3.5 9 0v7z" /></svg>
+  <span class="dim-rule"></span>
+  {label && <span class="dim-label">{label}</span>}
+  {label && <span class="dim-rule"></span>}
+  <svg class="dim-arrow" viewBox="0 0 9 7"><path d="M9 3.5 0 0v7z" /></svg>
+  <span class="dim-tick"></span>
+</div>

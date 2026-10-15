@@ -1,0 +1,18 @@
+---
+// The Lucide icon for each service in src/data/site.ts, by id.
+import { ClipboardList, Bot, Cpu, Activity } from '@lucide/astro';
+
+interface Props {
+  id: string;
+  size?: number;
+}
+const { id, size = 24 } = Astro.props;
+const icons: Record<string, any> = {
+  assessment: ClipboardList,
+  'robot-cells': Bot,
+  'controls-retrofits': Cpu,
+  'machine-monitoring': Activity,
+};
+const Icon = icons[id] ?? ClipboardList;
+---
+<Icon size={size} stroke-width={1.6} aria-hidden="true" />

@@ -1,0 +1,84 @@
+---
+// Example chart for the Measure step: where one machine's 40-hour week goes,
+// before and after. Illustrative round numbers, labelled as example data so
+// it can't be read as a client result.
+//
+// Small multiples (Running / Setup / Waiting), one shared 0–40 h scale. Each
+// panel is a single series, so colour carries no identity: the Before/After
+// row labels and the values at the bar tips do. Bars grow in once when the
+// chart scrolls into view (see the reveal script in Base.astro); a hidden
+// table carries the same numbers for screen readers.
+import LeaderCallout from './LeaderCallout.astro';
+
+const HOURS = 40;
+const SCALE = 80; // % of the track the full 40 h spans, leaving room for value labels
+const pct = (h: number) => (h / HOURS) * SCALE;
+const ticks = [0, 10, 20, 30, 40];
+
+const rows = [
+  { name: 'Running', before: 22, after: 30 },
+  { name: 'Setup', before: 10, after: 6 },
+  { name: 'Waiting', before: 8, after: 4 },
+];
+const delta = (r: (typeof rows)[number]) => {
+  const d = r.after - r.before;
+  return `${d > 0 ? '+' : '−'}${Math.abs(d)} h`;
+};
+---
+<figure class="chart card" style="position:relative;margin:0;padding:clamp(20px,3vw,28px);">
+  <figcaption style="margin-bottom:22px;">
+    <span class="pill">Example data</span>
+    <div class="h3" style="margin:14px 0 6px;">Where one machine's 40-hour week goes</div>
+    <p class="muted" style="margin:0;font-size:15px;line-height:1.5;">Hours per week, before and after. Illustrative numbers, not a client result.</p>
+  </figcaption>
+
+  <div style="display:flex;flex-direction:column;gap:18px;">
+    {rows.map((r) => (
+      <div>
+        <div class="label-muted" style="color:var(--text);margin-bottom:6px;">{r.name}</div>
+        <div style="display:grid;grid-template-columns:54px 1fr;align-items:end;row-gap:4px;">
+          <span class="label-muted" style="font-size:11px;padding-bottom:4px;">Before</span>
+          <svg width="100%" height="24" aria-hidden="true" style="overflow:visible;">
+            {ticks.map((t) => <line class="chart-grid" x1={`${pct(t)}%`} x2={`${pct(t)}%`} y1="0" y2="24" />)}
+            <g class="chart-bar">
+              <title>{`${r.name}, before: ${r.before} hours`}</title>
+              <rect x="0" y="3" width={`${pct(r.before)}%`} height="18" rx="4" />
+              <rect x="0" y="3" width="6" height="18" />
+            </g>
+            <text class="chart-value" x={`${pct(r.before)}%`} dx="8" y="16.5">{r.before} h</text>
+          </svg>
+          <span class="label-muted" style="font-size:11px;padding-bottom:4px;">After</span>
+          <svg width="100%" height="44" aria-hidden="true" style="overflow:visible;">
+            {ticks.map((t) => <line class="chart-grid" x1={`${pct(t)}%`} x2={`${pct(t)}%`} y1="20" y2="44" />)}
+            <g class="chart-bar">
+              <title>{`${r.name}, after: ${r.after} hours`}</title>
+              <rect x="0" y="23" width={`${pct(r.after)}%`} height="18" rx="4" />
+              <rect x="0" y="23" width="6" height="18" />
+            </g>
+            <text class="chart-value" x={`${pct(r.after)}%`} dx="8" y="36.5">{r.after} h</text>
+            <LeaderCallout x={pct(r.after)} y={23} labelY={8} label={delta(r)} side="right" />
+          </svg>
+        </div>
+      </div>
+    ))}
+    <!-- Shared axis -->
+    <div style="display:grid;grid-template-columns:54px 1fr;">
+      <span></span>
+      <svg width="100%" height="18" aria-hidden="true" style="overflow:visible;">
+        {ticks.map((t, i) => (
+          <text x={`${pct(t)}%`} y="13" text-anchor={i === 0 ? 'start' : 'middle'} style="font-size:11px;">{t === HOURS ? `${t} h` : t}</text>
+        ))}
+      </svg>
+    </div>
+  </div>
+
+  <div class="sr-only">
+  <table>
+    <caption>Example data: hours per 40-hour week for one machine, before and after. Illustrative numbers, not a client result.</caption>
+    <thead><tr><th scope="col">Activity</th><th scope="col">Before (hours)</th><th scope="col">After (hours)</th></tr></thead>
+    <tbody>
+      {rows.map((r) => <tr><th scope="row">{r.name}</th><td>{r.before}</td><td>{r.after}</td></tr>)}
+    </tbody>
+  </table>
+  </div>
+</figure>

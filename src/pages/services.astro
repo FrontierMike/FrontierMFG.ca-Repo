@@ -1,9 +1,11 @@
 ---
+import { ArrowRight } from '@lucide/astro';
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 import BookCta from '../components/BookCta.astro';
+import ServiceIcon from '../components/ServiceIcon.astro';
 import { serviceArea, services } from '../data/site';
 import { ORG_ID } from '../data/schema';
 
@@ -69,7 +71,6 @@ const serviceSchema = services.map((s) => ({
   areaServed: serviceArea.map((city) => ({ '@type': 'City', name: city })),
 }));
 
-const listLabel = "font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-muted);margin:0 0 12px;";
 ---
 <Base
   title="Automation Services: Assessments, Robot Cells, Controls Retrofits — Frontier MFG"
@@ -85,42 +86,44 @@ const listLabel = "font-family:'IBM Plex Mono',monospace;font-size:11px;letter-s
       title="Automation that starts with your numbers."
       lead="Four ways we help BC shops get more out of the equipment and people they already have. Every project starts with a Productivity Assessment."
     >
-      <a href="/contact" class="btn-red">Book a Productivity Assessment <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
-      <a href="/how-it-works" class="btn-outline">How it works</a>
+      <a href="/contact" class="btn btn-primary">Book a Productivity Assessment <ArrowRight class="arrow" size={18} stroke-width={2} aria-hidden="true" /></a>
+      <a href="/how-it-works" class="btn btn-secondary">How it works</a>
     </PageHero>
 
-    <section class="dots-white">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;display:flex;flex-direction:column;gap:24px;">
+    <section class="band-light section">
+      <div class="wrap" style="display:flex;flex-direction:column;gap:28px;">
         {services.map((s, i) => {
           const d = detail[s.id];
           return (
-            <article id={s.id} style="border:1px solid var(--border);border-radius:14px;padding:clamp(26px,4vw,40px);background:var(--color-surface);scroll-margin-top:84px;">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;">
-                <img src={`/icons/${s.icon}.svg`} width="32" height="32" alt="" />
-                <span style="display:inline-flex;align-items:center;gap:10px;">
-                  {'inDevelopment' in s && <span class="pill-soon">IN DEVELOPMENT</span>}
-                  <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-muted);">{String(i + 1).padStart(2, '0')}</span>
-                </span>
+            <article id={s.id} class="card anchor grid gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]" data-reveal style="padding:clamp(24px,4vw,44px);">
+              {/* TODO: photo — a real photo of this kind of work can sit
+                  beside or above this block once Mike supplies one. */}
+              <div>
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px 14px;margin-bottom:20px;">
+                  <span class="icon-tile"><ServiceIcon id={s.id} /></span>
+                  <span class="label" style="font-size:13px;">{String(i + 1).padStart(2, '0')} / Service</span>
+                  {'inDevelopment' in s && <span class="pill">In development</span>}
+                </div>
+                <h2 class="display h2" style="font-size:clamp(2rem,1.5rem+2vw,3rem);">{s.title}</h2>
+                <p style="margin:16px 0 28px;font-size:17.5px;line-height:1.65;">{d.what}</p>
+                <div style="display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;">
+                  <a href="/contact" class:list={['btn', s.id === 'assessment' ? 'btn-primary' : 'btn-secondary']}>{d.cta} <ArrowRight class="arrow" size={18} stroke-width={2} aria-hidden="true" /></a>
+                  {d.link && <a href={d.link.href} class="link">{d.link.label}</a>}
+                </div>
               </div>
-              <h2 style="font-size:clamp(24px,2.6vw,30px);font-weight:600;color:var(--color-text);margin:0 0 14px;letter-spacing:-0.01em;">{s.title}</h2>
-              <p style="font-size:17px;line-height:1.65;color:var(--color-body);margin:0 0 28px;max-width:760px;">{d.what}</p>
-              <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:24px 40px;border-top:1px solid var(--border);padding-top:24px;margin-bottom:28px;">
+              <div class="split-rule grid content-start gap-7 sm:grid-cols-2 lg:grid-cols-1">
                 <div>
-                  <h3 style={listLabel}>Who it's for</h3>
-                  <ul style="display:flex;flex-direction:column;gap:9px;list-style:none;margin:0;padding:0;">
-                    {d.who.map((b) => <li style="display:flex;gap:10px;font-size:15px;line-height:1.5;color:var(--color-body);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">—</span>{b}</li>)}
+                  <h3 class="label-muted" style="margin:0 0 12px;color:var(--text);">Who it's for</h3>
+                  <ul class="dash-list" style="font-size:15.5px;">
+                    {d.who.map((b) => <li>{b}</li>)}
                   </ul>
                 </div>
                 <div>
-                  <h3 style={listLabel}>What you get</h3>
-                  <ul style="display:flex;flex-direction:column;gap:9px;list-style:none;margin:0;padding:0;">
-                    {d.get.map((b) => <li style="display:flex;gap:10px;font-size:15px;line-height:1.5;color:var(--color-body);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">→</span>{b}</li>)}
+                  <h3 class="label-muted" style="margin:0 0 12px;color:var(--text);">What you get</h3>
+                  <ul class="dash-list" style="font-size:15.5px;">
+                    {d.get.map((b) => <li>{b}</li>)}
                   </ul>
                 </div>
-              </div>
-              <div style="display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;">
-                <a href="/contact" class={s.id === 'assessment' ? 'btn-red' : 'btn-outline'}>{d.cta} <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
-                {d.link && <a href={d.link.href} style="display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;color:var(--color-accent-text);">{d.link.label} <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>}
               </div>
             </article>
           );

@@ -1,6 +1,8 @@
 ---
 // Closing call to action: Book a Productivity Assessment. Ends every page
 // except Contact. Anything in the default slot renders under the button.
+import { ArrowRight } from '@lucide/astro';
+
 interface Props {
   id?: string;
   title?: string;
@@ -12,12 +14,16 @@ const {
   copy = 'A Productivity Assessment shows where your time and output are going, and what automation would pay back. It starts with a walk of your floor.',
 } = Astro.props;
 ---
-<section id={id} style="background:var(--color-bg);color:var(--color-text);border-top:1px solid var(--border);">
-  <div style="max-width:900px;margin:0 auto;padding:clamp(64px,8vw,100px) 32px;text-align:center;">
-    <h2 style="font-size:clamp(28px,3.4vw,44px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 18px;text-wrap:balance;">{title}</h2>
-    <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0 auto 32px;max-width:580px;">{copy}</p>
-    <a href="/contact" class="btn-red" style="padding:16px 30px;">Book a Productivity Assessment <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
-    <div style="display:flex;align-items:center;justify-content:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;color:var(--color-muted);margin-top:18px;"><span style="display:inline-block;width:7px;height:7px;border-radius:100px;background:var(--color-ok);"></span> WE REPLY WITHIN ONE BUSINESS DAY</div>
-    <slot />
+<section id={id} class="band-dark">
+  <div class="hazard" aria-hidden="true"></div>
+  <div class="wrap" style="padding-block:clamp(80px,10vw,128px);text-align:center;">
+    <div data-reveal style="max-width:760px;margin-inline:auto;">
+      <div class="label" style="margin-bottom:18px;">Next step</div>
+      <h2 class="display h2">{title}</h2>
+      <p class="lead" style="margin:20px auto 36px;max-width:600px;">{copy}</p>
+      <a href="/contact" class="btn btn-primary" style="font-size:17px;padding:17px 30px;">Book a Productivity Assessment <ArrowRight class="arrow" size={18} stroke-width={2} aria-hidden="true" /></a>
+      <div class="label-muted" style="display:flex;align-items:center;justify-content:center;gap:9px;margin-top:20px;"><span aria-hidden="true" style="display:inline-block;width:7px;height:7px;border-radius:100px;background:var(--color-ok);"></span> We reply within one business day</div>
+      <slot />
+    </div>
   </div>
 </section>

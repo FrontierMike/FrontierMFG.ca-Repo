@@ -3,12 +3,8 @@ import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import BookCta from '../components/BookCta.astro';
-
-const background = [
-  'Hands-on in the trades since 2011: welding, fabrication, and millwrighting.',
-  'Mechanical education at BCIT (British Columbia Institute of Technology).',
-  'Experience designing, building, and commissioning custom automation machines.',
-];
+import DimensionLine from '../components/DimensionLine.astro';
+import CredentialsStrip from '../components/CredentialsStrip.astro';
 ---
 <Base
   title="About Mike Wait — Frontier MFG"
@@ -18,35 +14,33 @@ const background = [
   <Header />
   <main>
 
-    <section class="dots-hero" style="border-bottom:1px solid var(--border);">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,88px) 32px;">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:22px;">
-          <span style="display:block;width:32px;height:2px;background:var(--color-accent);"></span>
-          <span class="eyebrow">About</span>
+    <section class="band-dark blueprint" style="border-bottom:1px solid var(--line);">
+      <div class="wrap" style="padding-block:clamp(64px,9vw,120px);">
+        <div class="label" style="margin-bottom:22px;">About</div>
+        <div style="max-width:980px;">
+          <h1 class="display h1" style="font-size:clamp(2.75rem,1.8rem+4vw,4.5rem);">I help BC manufacturers modernize the equipment they already have.</h1>
+          <DimensionLine class="mt-6" />
         </div>
-        <h1 style="font-size:clamp(32px,4.4vw,54px);line-height:1.08;letter-spacing:-0.025em;font-weight:600;color:var(--color-text);margin:0 0 22px;max-width:900px;text-wrap:balance;">I help BC manufacturers modernize the equipment they already have.</h1>
-        <p style="font-size:20px;line-height:1.55;color:var(--color-body);margin:0;max-width:680px;">I measure where time and output are going, then automate the parts that pay back fastest.</p>
+        <p class="lead" style="margin-top:26px;max-width:680px;font-size:1.3rem;">I measure where time and output are going, then automate the parts that pay back fastest.</p>
       </div>
     </section>
 
-    <section class="dots-white">
-      <div style="max-width:1000px;margin:0 auto;padding:clamp(64px,8vw,104px) 32px;">
-        <div style="border:1px solid var(--border);border-radius:14px;padding:clamp(26px,4vw,40px);background:var(--color-surface);">
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:28px;">
-            <div style="width:64px;height:64px;border-radius:14px;flex-shrink:0;background:var(--color-bg-alt);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;letter-spacing:0.04em;color:var(--color-text);position:relative;">MW<span style="position:absolute;top:9px;right:9px;width:7px;height:7px;background:var(--color-accent);border-radius:1px;transform:rotate(45deg);"></span></div>
-            <div>
-              <div style="font-size:21px;font-weight:600;color:var(--color-text);">Mike Wait</div>
-              {/* Credentials line. TODO: Mike to write. Any title must show
-                  "EIT" with equal prominence. */}
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-accent-text);margin-top:4px;">Founder · B.Eng, EIT</div>
-            </div>
+    <section class="band-light section">
+      <div class="wrap grid gap-10 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] items-start">
+        <!-- TODO: photo — a portrait of Mike, ideally on a shop floor, replaces
+             the monogram tile. -->
+        <div class="card" data-reveal style="padding:28px;display:flex;align-items:center;gap:18px;">
+          <div aria-hidden="true" style="width:72px;height:72px;flex-shrink:0;border-radius:4px;background:var(--color-ink);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:22px;font-weight:500;color:var(--color-paper);position:relative;">MW<span style="position:absolute;top:9px;right:9px;width:7px;height:7px;background:var(--color-safety);transform:rotate(45deg);"></span></div>
+          <div>
+            <div class="h3">Mike Wait</div>
+            {/* Credentials line. TODO: Mike to write. Any title must show
+                "EIT" with equal prominence. */}
+            <div class="label" style="margin-top:6px;">Founder · B.Eng, EIT</div>
           </div>
-          <h2 style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-muted);font-weight:500;margin:0 0 14px;">Background</h2>
-          <ul style="display:flex;flex-direction:column;gap:12px;list-style:none;margin:0;padding:0;">
-            {background.map((b) => (
-              <li style="display:flex;gap:12px;font-size:17px;line-height:1.55;color:var(--color-body);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">—</span>{b}</li>
-            ))}
-          </ul>
+        </div>
+        <div>
+          <div class="label" style="margin-bottom:16px;" data-reveal>Background</div>
+          <CredentialsStrip />
         </div>
       </div>
     </section>

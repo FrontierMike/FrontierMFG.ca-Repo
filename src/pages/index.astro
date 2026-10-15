@@ -1,16 +1,21 @@
 ---
+import { ArrowRight, Eye, Ruler, Cog, Lock, Calculator } from '@lucide/astro';
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SectionHead from '../components/SectionHead.astro';
 import BookCta from '../components/BookCta.astro';
+import DimensionLine from '../components/DimensionLine.astro';
+import ProcessDiagram from '../components/ProcessDiagram.astro';
+import ExampleChart from '../components/ExampleChart.astro';
+import ServiceIcon from '../components/ServiceIcon.astro';
 import { services } from '../data/site';
 import { getCaseStudies } from '../data/content';
 
 const method = [
-  { n: '01', title: 'See it', copy: 'We walk your floor, talk to your operators, and pull the records you already keep.' },
-  { n: '02', title: 'Measure it', copy: 'We turn what we find into a baseline of where your hours and output go, in dollars.' },
-  { n: '03', title: 'Automate it', copy: 'We fix what pays back fastest, then measure again against the same baseline.' },
+  { name: 'See', icon: Eye, href: '/how-it-works#see', copy: 'We walk your floor, talk to your operators, and pull the records you already keep.' },
+  { name: 'Measure', icon: Ruler, href: '/how-it-works#measure', copy: 'We turn what we find into a baseline of where your hours and output go, in dollars.' },
+  { name: 'Automate', icon: Cog, href: '/how-it-works#automate', copy: 'We fix what pays back fastest, then measure again against the same baseline.' },
 ];
 
 const assessmentIn = ['Floor walk', 'Operator interviews', 'Your records: production counts, downtime, scrap, overtime'];
@@ -27,86 +32,89 @@ const caseStudies = (await getCaseStudies()).slice(0, 3);
   <Header />
   <main>
 
-    <!-- Hero -->
-    <section class="dots-hero" style="border-bottom:1px solid var(--border);">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(56px,7vw,96px) 32px;display:flex;flex-wrap:wrap;gap:56px;align-items:center;">
-        <div style="flex:1 1 440px;min-width:min(100%,300px);">
-          <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px;">
-            <span style="display:block;width:32px;height:2px;background:var(--color-accent);"></span>
-            <span class="eyebrow">Automation &amp; systems integration</span>
+    <!-- Hero. TODO: photo — hero background (a real shop-floor photo under a
+         dark overlay) once Mike supplies one; the blueprint grid stands in. -->
+    <section class="band-dark blueprint" style="border-bottom:1px solid var(--line);">
+      <div class="wrap grid items-center gap-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]" style="padding-block:clamp(64px,9vw,128px);">
+        <div>
+          <div class="label" style="margin-bottom:22px;">Automation &amp; systems integration</div>
+          <h1 class="display h1">Practical automation for BC manufacturers.</h1>
+          <DimensionLine class="mt-6" label="Measured, not guessed" />
+          <p class="lead" style="margin:26px 0 34px;max-width:540px;">Modernize your shop and increase productivity, starting with measured data, not guesses.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;">
+            <a href="/contact" class="btn btn-primary">Book a Productivity Assessment <ArrowRight class="arrow" size={18} stroke-width={2} aria-hidden="true" /></a>
+            <a href="/how-it-works" class="btn btn-secondary">See how it works</a>
           </div>
-          <h1 style="font-size:clamp(36px,5.2vw,68px);line-height:1.04;letter-spacing:-0.025em;font-weight:600;color:var(--color-text);margin:0 0 22px;text-wrap:balance;">Practical automation for BC manufacturers.</h1>
-          <p style="font-size:18px;line-height:1.6;color:var(--color-body);margin:0 0 32px;max-width:520px;">Modernize your shop and increase productivity, starting with measured data, not guesses.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
-            <a href="/contact" class="btn-red">Book a Productivity Assessment <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
-            <a href="/how-it-works" class="btn-outline">See how it works</a>
-          </div>
-          <div style="font-size:13.5px;color:var(--color-muted);margin:0 0 36px;">A short on-site audit that ends with a savings and payback estimate.</div>
-          <div style="display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.03em;color:var(--color-body);">
-            <span>In the trades since 2011</span>
-            <span style="color:var(--color-muted);">/</span>
+          <p style="margin:16px 0 0;font-size:14.5px;color:var(--text-muted);">A short on-site audit that ends with a savings and payback estimate.</p>
+          <div class="mono" style="display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-top:36px;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-body);">
+            <span class="label">Based in Surrey, BC</span>
+            <span aria-hidden="true" style="color:var(--text-muted);">/</span>
             <span>B.Eng, EIT</span>
-            <span style="color:var(--color-muted);">/</span>
-            <span style="display:inline-flex;align-items:center;gap:7px;"><img src="/icons/maple-leaf-from-the-flag-of-Canada.svg" width="14" height="14" alt="Canada" /> Lower Mainland, BC</span>
+            <span aria-hidden="true" style="color:var(--text-muted);">/</span>
+            <span>In the trades since 2011</span>
           </div>
         </div>
 
         <!-- What an assessment takes in, and what it gives back -->
-        <div style="flex:1 1 380px;min-width:min(100%,300px);">
-          <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:16px;padding:28px;">
-            <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 12px;margin-bottom:22px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--color-muted);letter-spacing:0.06em;">
-              <span>PRODUCTIVITY ASSESSMENT</span><span style="color:var(--color-ok);white-space:nowrap;">● ON-SITE</span>
-            </div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);margin-bottom:12px;">What we look at</div>
-            <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:22px;">
-              {assessmentIn.map((t) => (
-                <div style="border:1px solid rgba(255,255,255,0.1);border-radius:10px;padding:12px 14px;font-size:15px;line-height:1.45;color:var(--color-body);">{t}</div>
-              ))}
-            </div>
-            <div aria-hidden="true" style="text-align:center;font-family:'IBM Plex Mono',monospace;color:var(--color-accent-text);margin:-8px 0 10px;">↓</div>
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);margin-bottom:12px;">What you get</div>
-            <div style="display:flex;flex-direction:column;gap:10px;">
-              {assessmentOut.map((t) => (
-                <div style="display:flex;gap:10px;align-items:baseline;background:var(--color-surface);border-radius:10px;padding:12px 14px;font-size:15px;line-height:1.45;color:var(--color-text);"><span style="color:var(--color-accent-text);font-family:'IBM Plex Mono',monospace;">→</span>{t}</div>
-              ))}
-            </div>
+        <div class="card" style="padding:clamp(22px,3vw,30px);">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 12px;margin-bottom:22px;">
+            <span class="label-muted" style="color:var(--text);">Productivity Assessment</span>
+            <span class="label" style="white-space:nowrap;">On-site</span>
           </div>
+          <div class="label-muted" style="margin-bottom:12px;">What we look at</div>
+          <ul style="list-style:none;margin:0 0 22px;padding:0;display:flex;flex-direction:column;gap:10px;">
+            {assessmentIn.map((t) => (
+              <li style="border:1px solid var(--line);border-radius:4px;padding:11px 14px;font-size:15px;line-height:1.45;color:var(--text-body);">{t}</li>
+            ))}
+          </ul>
+          <DimensionLine label="Gives you" class="mb-5" />
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;">
+            {assessmentOut.map((t) => (
+              <li style="display:flex;gap:12px;align-items:baseline;background:var(--color-ink);border-left:3px solid var(--color-safety);border-radius:2px;padding:11px 14px;font-size:15px;line-height:1.45;color:var(--text);">{t}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
 
     <!-- Method -->
-    <section id="method" class="dots-white">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
-        <SectionHead eyebrow="Our method" title="See it, measure it, automate it." lead="Most automation pitches start with a machine. Ours starts with your numbers, so you know what a project is worth before you spend on it." />
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:32px;">
-          {method.map((s) => (
-            <div>
-              <div style="width:56px;height:56px;border:1.5px solid var(--color-accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:18px;color:var(--color-accent-text);margin-bottom:22px;">{s.n}</div>
-              <h3 style="font-size:20px;font-weight:600;color:var(--color-text);margin:0 0 10px;">{s.title}</h3>
-              <p style="font-size:15.5px;line-height:1.6;color:var(--color-body);margin:0;">{s.copy}</p>
-            </div>
-          ))}
+    <section id="method" class="band-light section">
+      <div class="wrap">
+        <SectionHead eyebrow="Our method" title="See it, measure it, automate it." lead="A lot of automation starts with a machine. Ours starts with your numbers, so you know what a project is worth before you spend on it." />
+        <ProcessDiagram steps={method} />
+
+        <div class="grid items-center gap-10 lg:grid-cols-2" style="margin-top:clamp(64px,8vw,96px);">
+          <div data-reveal>
+            <div class="label" style="margin-bottom:14px;">02 / Measure</div>
+            <h3 class="h3" style="font-size:clamp(28px,3vw,36px);text-transform:uppercase;font-weight:700;">What a baseline looks like</h3>
+            <p style="margin:16px 0 0;font-size:17px;line-height:1.65;">A baseline shows where a machine's week actually goes: running, setting up, or waiting. Once it's measured, you can see which fix buys back the most hours, and check the result afterwards against the same numbers.</p>
+            <p style="display:flex;align-items:center;gap:10px;margin:20px 0 0;color:var(--text);font-weight:600;"><Lock size={18} stroke-width={1.75} aria-hidden="true" style="color:var(--accent-text);" /> Your data stays yours.</p>
+            <a href="/how-it-works" class="link" style="display:inline-block;margin-top:24px;">How it works, step by step</a>
+          </div>
+          <div data-reveal style="--reveal-delay:120ms;">
+            <ExampleChart />
+          </div>
         </div>
-        <a href="/how-it-works" style="display:inline-flex;align-items:center;gap:8px;margin-top:44px;color:var(--color-accent-text);font-size:15px;font-weight:500;">How it works, step by step <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
       </div>
     </section>
 
     <!-- What we automate -->
-    <section id="services" class="dots-grey" style="border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
+    <section id="services" class="band-dark blueprint section" style="border-top:1px solid var(--line);">
+      <div class="wrap">
         <div style="display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-end;margin-bottom:48px;">
           <SectionHead eyebrow="Services" title="What we automate." lead="Every project starts with an assessment, so the fix fits the problem." maxWidth={640} gap={0} />
-          <a href="/services" style="display:inline-flex;align-items:center;gap:8px;color:var(--color-accent-text);font-size:15px;font-weight:500;white-space:nowrap;">All services in detail <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+          <a href="/services" class="link" style="white-space:nowrap;">All services in detail</a>
         </div>
-        <div class="grid-even" style="gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
-          {services.map((s) => (
-            <a href={`/services#${s.id}`} class="card-hover" style="background:var(--color-surface);padding:30px;position:relative;display:flex;flex-direction:column;color:var(--color-text);">
-              <div style="position:absolute;left:0;top:24px;width:2px;height:38px;background:var(--color-accent);"></div>
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;"><img src={`/icons/${s.icon}.svg`} width="30" height="30" alt="" />{'inDevelopment' in s && <span class="pill-soon">IN DEVELOPMENT</span>}</div>
-              <h3 style="font-size:19px;font-weight:600;color:var(--color-text);margin:0 0 10px;letter-spacing:-0.01em;">{s.title}</h3>
-              <p style="font-size:14.5px;line-height:1.6;color:var(--color-body);margin:0 0 18px;">{s.summary}</p>
-              <span style="margin-top:auto;font-family:'IBM Plex Mono',monospace;color:var(--color-accent-text);">→</span>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {services.map((s, i) => (
+            <a href={`/services#${s.id}`} class="card card-link" data-reveal style={`--reveal-delay:${i * 80}ms;padding:28px;color:var(--text);`}>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px;">
+                <span class="icon-tile"><ServiceIcon id={s.id} /></span>
+                {'inDevelopment' in s && <span class="pill">In development</span>}
+              </div>
+              <h3 class="h3">{s.title}</h3>
+              <p style="margin:10px 0 22px;font-size:15px;line-height:1.6;color:var(--text-body);">{s.summary}</p>
+              <ArrowRight class="arrow" size={20} stroke-width={1.75} aria-hidden="true" style="margin-top:auto;" />
             </a>
           ))}
         </div>
@@ -115,16 +123,16 @@ const caseStudies = (await getCaseStudies()).slice(0, 3);
 
     {caseStudies.length > 0 && (
       <!-- Proof: case studies -->
-      <section id="proof" class="dots-white" style="border-bottom:1px solid var(--border);">
-        <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;">
+      <section id="proof" class="band-light section">
+        <div class="wrap">
           <SectionHead eyebrow="Case studies" title="Automation backed by your own numbers." lead="Each project is measured before and after against the same baseline." />
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px;">
-            {caseStudies.map((c) => (
-              <a href={`/case-studies/${c.id}`} class="card-hover" style="display:flex;flex-direction:column;border:1px solid var(--border);border-radius:14px;padding:30px;background:var(--color-bg-alt);color:var(--color-text);">
-                {c.data.industry && <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent-text);margin-bottom:14px;">{c.data.industry}</div>}
-                <h3 style="font-size:20px;font-weight:600;margin:0 0 10px;">{c.data.title}</h3>
-                <p style="font-size:15px;line-height:1.6;color:var(--color-body);margin:0 0 18px;">{c.data.description}</p>
-                <span style="margin-top:auto;color:var(--color-accent-text);font-size:15px;font-weight:500;">Read the case study →</span>
+          <div class="grid gap-6 md:grid-cols-3">
+            {caseStudies.map((c, i) => (
+              <a href={`/case-studies/${c.id}`} class="card card-link" data-reveal style={`--reveal-delay:${i * 80}ms;padding:28px;color:var(--text);`}>
+                {c.data.industry && <div class="label" style="margin-bottom:14px;">{c.data.industry}</div>}
+                <h3 class="h3">{c.data.title}</h3>
+                <p style="margin:10px 0 22px;font-size:15px;line-height:1.6;color:var(--text-body);">{c.data.description}</p>
+                <span style="margin-top:auto;display:inline-flex;align-items:center;gap:8px;font-weight:600;">Read the case study <ArrowRight class="arrow" size={18} stroke-width={1.75} aria-hidden="true" /></span>
               </a>
             ))}
           </div>
@@ -132,19 +140,22 @@ const caseStudies = (await getCaseStudies()).slice(0, 3);
       </section>
     )}
 
-    <!-- Payback calculator teaser -->
-    <section class="dots-white">
-      <div style="max-width:1200px;margin:0 auto;padding:clamp(72px,9vw,120px) 32px;display:flex;flex-wrap:wrap;gap:48px;align-items:center;">
-        <div style="flex:1 1 420px;min-width:min(100%,300px);">
+    <!-- Payback calculator teaser. Flips to dark when the proof section above
+         is showing, so the bands keep alternating. -->
+    <section class:list={[caseStudies.length > 0 ? 'band-dark' : 'band-light', 'section']}>
+      <div class="wrap grid items-center gap-12 lg:grid-cols-2">
+        <div>
           <SectionHead eyebrow="Payback calculator" title="Run the payback math yourself." lead="Enter the labour hours, scrap, and downtime a project would save, and what it would cost. You'll get a rough payback period in a minute. Nothing you type leaves your browser." gap={32} />
-          <a href="/payback-calculator" class="btn-outline">Open the payback calculator <span style="font-family:'IBM Plex Mono',monospace;">→</span></a>
+          <a href="/payback-calculator" class="btn btn-secondary">Open the payback calculator <ArrowRight class="arrow" size={18} stroke-width={2} aria-hidden="true" /></a>
         </div>
-        <div style="flex:1 1 340px;min-width:min(100%,280px);">
-          <div style="background:var(--color-surface);border:1px solid var(--border);border-radius:16px;padding:28px;">
-            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--color-muted);margin-bottom:16px;">The basic formula</div>
-            <div style="font-size:clamp(18px,2.2vw,22px);line-height:1.45;font-weight:600;color:var(--color-text);">Payback (months) = project cost ÷ monthly savings</div>
-            <p style="font-size:14.5px;line-height:1.6;color:var(--color-body);margin:16px 0 0;">Savings come from labour, scrap, and downtime. Downtime only counts on the machine that limits your output.</p>
+        <div class="card" data-reveal style="--reveal-delay:120ms;padding:clamp(24px,3vw,32px);">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+            <span class="icon-tile"><Calculator size={22} stroke-width={1.6} aria-hidden="true" /></span>
+            <span class="label-muted">The basic formula</span>
           </div>
+          <div class="mono" style="font-size:clamp(17px,2vw,20px);line-height:1.5;font-weight:500;color:var(--text);">Payback (months) =<br />project cost ÷ monthly savings</div>
+          <DimensionLine class="my-5" />
+          <p style="font-size:15px;line-height:1.6;margin:0;">Savings come from labour, scrap, and downtime. Downtime only counts on the machine that limits your output.</p>
         </div>
       </div>
     </section>

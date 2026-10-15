@@ -1,0 +1,51 @@
+---
+// The method as a connected diagram: nodes joined by a line, each with a
+// Lucide icon, its numbered label ("02 / MEASURE"), and one sentence.
+// Horizontal from 900px up, vertical below.
+interface Step {
+  name: string;
+  copy: string;
+  icon: any;
+  href?: string;
+}
+interface Props {
+  steps: Step[];
+}
+const { steps } = Astro.props;
+---
+<ol class="process" style={`--n:${steps.length};`}>
+  {steps.map((s, i) => {
+    const Icon = s.icon;
+    const label = `${String(i + 1).padStart(2, '0')} / ${s.name}`;
+    return (
+      <li class="process-step" data-reveal style={`--reveal-delay:${i * 90}ms;`}>
+        <div class="process-node"><Icon size={26} stroke-width={1.6} aria-hidden="true" /></div>
+        <div>
+          {s.href
+            ? <a href={s.href} class="label process-label link-plain">{label}</a>
+            : <div class="label process-label">{label}</div>}
+          <p style="margin:10px 0 0;font-size:16.5px;line-height:1.6;color:var(--text-body);">{s.copy}</p>
+        </div>
+      </li>
+    );
+  })}
+</ol>
+
+<style>
+  .process { list-style: none; margin: 0; padding: 0; display: grid; gap: 34px; }
+  .process-step { position: relative; display: grid; grid-template-columns: 56px 1fr; column-gap: 20px; align-items: start; align-content: start; }
+  .process-node { position: relative; z-index: 1; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: var(--surface); border: 1.5px solid var(--accent-rule); border-radius: 4px; color: var(--accent-text); }
+  .process-label { display: inline-block; font-size: 13px; padding-top: 4px; }
+  a.process-label:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+  /* Connector to the next node, ending in an arrowhead. Vertical first. */
+  .process-step:not(:last-child)::before { content: ""; position: absolute; left: 28px; top: 56px; bottom: -34px; width: 1px; background: var(--line-strong); }
+  .process-step:not(:last-child)::after { content: ""; position: absolute; left: 24px; bottom: -34px; border: 4.5px solid transparent; border-top: 7px solid var(--line-strong); border-bottom: 0; }
+
+  @media (min-width: 900px) {
+    .process { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 32px; }
+    .process-step { grid-template-columns: 1fr; row-gap: 20px; }
+    .process-step:not(:last-child)::before { left: 56px; right: -32px; top: 28px; bottom: auto; width: auto; height: 1px; }
+    .process-step:not(:last-child)::after { left: auto; right: -32px; top: 23.5px; bottom: auto; border: 5px solid transparent; border-left: 7px solid var(--line-strong); border-right: 0; }
+  }
+</style>

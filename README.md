@@ -24,7 +24,9 @@ Cloudflare Worker (frontiermfgwebsite)
 
 ## Tech stack
 
-- Astro (static output), Tailwind CSS v4 (dark theme — see Theming below)
+- Astro (static output), Tailwind CSS v4 (design tokens — see Theming below)
+- Fonts: Barlow Condensed, IBM Plex Sans, IBM Plex Mono, self-hosted from `@fontsource` packages via Astro's font API
+- Icons: Lucide (`@lucide/astro`)
 - Cloudflare Workers + Static Assets (`wrangler`)
 - Resend (transactional email)
 - Notion API (lead logging)
@@ -38,8 +40,7 @@ Cloudflare Worker (frontiermfgwebsite)
 ├── public/                      # static assets, copied to dist as-is
 │   ├── favicon.ico / favicon.svg
 │   ├── og-image.png             # social share card (see SEO below)
-│   ├── robots.txt
-│   └── icons/                   # service + UI SVG icons
+│   └── robots.txt
 ├── scripts/
 │   └── og-image.py              # regenerates public/og-image.png (one-off tool)
 ├── src/
@@ -54,14 +55,20 @@ Cloudflare Worker (frontiermfgwebsite)
 │   ├── layouts/
 │   │   └── Base.astro           # <html> shell, <head>, SEO meta, JSON-LD
 │   ├── styles/
-│   │   └── global.css           # Tailwind entry + global styles
+│   │   └── global.css           # design tokens, band colours, shared classes
 │   ├── components/
 │   │   ├── Header.astro         # sticky nav + mobile menu
 │   │   ├── Footer.astro         # footer nav + NAP block
 │   │   ├── ContactForm.astro    # the lead form (posts to /api/contact)
 │   │   ├── BookCta.astro        # closing "Book a Productivity Assessment" band
-│   │   ├── PageHero.astro       # inner-page hero
-│   │   └── SectionHead.astro    # tick + eyebrow + H2 + lead
+│   │   ├── PageHero.astro       # inner-page hero (blueprint grid + dimension line)
+│   │   ├── SectionHead.astro    # eyebrow label + H2 + lead
+│   │   ├── ProcessDiagram.astro # See → Measure → Automate → Prove, connected
+│   │   ├── ExampleChart.astro   # "Example data" chart in the Measure step
+│   │   ├── LeaderCallout.astro  # leader-line annotation for the chart (SVG)
+│   │   ├── DimensionLine.astro  # technical-drawing dimension divider
+│   │   ├── CredentialsStrip.astro # trades / BCIT / custom builds strip
+│   │   └── ServiceIcon.astro    # Lucide icon per service id
 │   └── pages/
 │       ├── index.astro          # home
 │       ├── how-it-works.astro   # See / Measure / Automate / Prove
@@ -75,7 +82,7 @@ Cloudflare Worker (frontiermfgwebsite)
 ├── worker/
 │   └── index.js                 # Worker: serves assets + handles /api/contact
 ├── wrangler.jsonc               # Worker config (name, main, assets dir/binding)
-├── astro.config.mjs             # Astro config (site URL, MDX, Tailwind via Vite)
+├── astro.config.mjs             # Astro config (site URL, MDX, fonts, Tailwind via Vite)
 ├── .nvmrc                       # pins Node 22 for the build
 └── package.json
 ```
@@ -191,15 +198,46 @@ Build command: `npm run build` · Output/assets: `./dist`
 
 ## Theming
 
-The site is dark throughout. Colours are tokens in the `@theme` block of
-`src/styles/global.css`; pages reference them as `var(--color-…)` and should not
-hard-code hex values. That `@theme` block is the full palette and carries a
-comment on each token explaining what it is for.
+Charcoal and steel with one safety-orange accent. Every colour and font is a
+token in the `@theme` block of `src/styles/global.css`, with a comment on each
+saying what it is for; pages never hard-code hex values.
 
-One rule that matters more than the rest: the brand red `#b3261e` is a **fill**
-colour. It measures 2.63:1 against the page background, so it is legible as a
-button or a rule but not as text. Accent *text* uses `--color-accent-text`
-(`#e2564a`, 4.65:1). Mixing these up produces text nobody can read.
+**Bands.** Every section is either `band-dark` (ink) or `band-light` (paper).
+Components read role variables (`--text`, `--text-body`, `--text-muted`,
+`--accent-text`, `--card`, `--line`) that each band sets, so the same card,
+heading, or form field works on either. The home page alternates dark → light
+→ dark → light → dark.
+
+**Contrast rules** (all WCAG AA, checked with axe-core on every page):
+
+| Use | Token | Ratio |
+|---|---|---|
+| Orange labels, icons on dark | `--color-safety` | 6.5:1 on ink |
+| Orange labels, icons on light | `--color-safety-deep` | 5.4:1 on paper |
+| Button text | `--color-ink` on `--color-safety` | 6.5:1 |
+| Button hover | `--color-ink` on `--color-safety-hover` | 8.1:1 |
+| Muted text on dark | `--color-steel-400` | 5.7:1 on ink |
+| Muted text on light | `--color-steel-500` | 5.8:1 on paper |
+
+Plain `--color-safety` is only 2.5:1 on paper, so on light bands it is for
+decorative rules and stripes only, never text or icons. Never put white text
+on orange. `--color-safety-dark` (the brief's hover colour) drops ink text to
+4.3:1, so buttons hover lighter instead and it is used for rules on light.
+
+**Motifs.** `.blueprint` (grid background on dark heroes and two other dark
+bands), `DimensionLine`, `LeaderCallout`, numbered labels (`02 / MEASURE`), and
+`.hazard` stripes, which appear in exactly two places: the top of the closing
+CTA band and the bottom of the footer. Keep it at two.
+
+**Motion.** Elements marked `data-reveal` fade and rise once when scrolled
+into view (script in `Base.astro`); the example chart's bars grow in; the
+calculator's results count up. Page changes use the browser's native
+cross-document view transitions (CSS `@view-transition`). All of it is off
+under `prefers-reduced-motion`, and content is never hidden if JS doesn't run.
+
+**Photos.** None yet. Each place a real photo should go is marked
+`TODO: photo` (hero, About, Services). No stock robot-arm or generic factory
+images, and no AI-generated imagery.
 
 ---
 

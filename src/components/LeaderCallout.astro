@@ -1,0 +1,25 @@
+---
+// A leader callout for annotating a figure: a dot on the point, a thin leader
+// rising to a short shoulder, and a mono label at its end. Renders SVG, so
+// use it inside an <svg>.
+//
+// x is a percentage of the chart width (the bars are sized in %); y and
+// labelY are px. A nested <svg> anchored at x lets the shoulder and label
+// sit at fixed px offsets from a %-positioned point.
+interface Props {
+  x: number;
+  y: number;
+  labelY: number;
+  label: string;
+  /** Which way the shoulder and label run from the leader. */
+  side?: 'left' | 'right';
+}
+const { x, y, labelY, label, side = 'left' } = Astro.props;
+const dir = side === 'left' ? -1 : 1;
+const shoulder = 18 * dir;
+---
+<svg class="leader" x={`${x}%`} y="0" overflow="visible" aria-hidden="true">
+  <circle cx="0" cy={y} r="2.5" />
+  <polyline points={`0,${y} 0,${labelY} ${shoulder},${labelY}`} />
+  <text x={shoulder + 5 * dir} y={labelY + 4} text-anchor={side === 'left' ? 'end' : 'start'}>{label}</text>
+</svg>

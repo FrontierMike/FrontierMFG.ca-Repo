@@ -1,10 +1,12 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import { render } from 'astro:content';
+import { ArrowLeft } from '@lucide/astro';
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import BookCta from '../../components/BookCta.astro';
+import DimensionLine from '../../components/DimensionLine.astro';
 import { getCaseStudies } from '../../data/content';
 
 export const getStaticPaths = (async () =>
@@ -24,20 +26,21 @@ const { title, description, industry, draft } = entry.data;
   <Header />
   <main>
     <article>
-      <header class="dots-hero" style="border-bottom:1px solid var(--border);">
-        <div style="max-width:820px;margin:0 auto;padding:clamp(48px,6vw,80px) 32px;">
-          <a href="/case-studies" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;color:var(--color-muted);margin-bottom:24px;"><span style="font-family:'IBM Plex Mono',monospace;">←</span> Case studies</a>
-          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:18px;">
-            <span class="eyebrow">{industry ?? 'Case study'}</span>
-            {draft && <span class="pill-soon">DRAFT · NOT PUBLISHED</span>}
+      <header class="band-dark blueprint" style="border-bottom:1px solid var(--line);">
+        <div class="wrap" style="max-width:880px;padding-block:clamp(56px,7vw,96px);">
+          <a href="/case-studies" class="nav-link" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;margin-bottom:26px;"><ArrowLeft size={16} stroke-width={1.75} aria-hidden="true" /> Case studies</a>
+          <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-bottom:20px;">
+            <span class="label">{industry ?? 'Case study'}</span>
+            {draft && <span class="pill">Draft · not published</span>}
           </div>
-          <h1 style="font-size:clamp(30px,4.2vw,50px);line-height:1.08;letter-spacing:-0.02em;font-weight:600;color:var(--color-text);margin:0 0 18px;text-wrap:balance;">{title}</h1>
-          <p style="font-size:19px;line-height:1.6;color:var(--color-body);margin:0;">{description}</p>
+          <h1 class="display h1" style="font-size:clamp(2.5rem,1.7rem+3.4vw,4rem);">{title}</h1>
+          <DimensionLine class="mt-6" />
+          <p class="lead" style="margin-top:24px;">{description}</p>
         </div>
       </header>
 
-      <div class="dots-white">
-        <div class="prose-article" style="max-width:820px;margin:0 auto;padding:clamp(48px,6vw,80px) 32px;">
+      <div class="band-light">
+        <div class="wrap prose-article" style="max-width:880px;padding-block:clamp(56px,7vw,96px);">
           <Content />
         </div>
       </div>

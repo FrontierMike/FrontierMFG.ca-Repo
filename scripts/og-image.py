@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Regenerates public/og-image.png, the social share card.
 
-One-off tooling, not part of the site build. Run it only when the wording or
-branding on the card changes:
+One-off tooling, not part of the site build. Run it from the repo root, after
+`npm install` (it reads the site's own fonts from node_modules/@fontsource),
+only when the wording or branding on the card changes:
 
     python3 -m pip install Pillow
     python3 scripts/og-image.py
@@ -15,25 +16,27 @@ from PIL import Image, ImageDraw, ImageFont
 W, H, S = 1200, 630, 2           # final size, and supersampling factor
 PAD = 80
 
-INK        = "#131c24"           # brand dark, matches the site's dark sections
-WHITE      = "#ffffff"
-RED        = "#b3261e"           # fills only — see the accent note in global.css
-ACCENT_TXT = "#e2564a"           # the accent as type: 4.65:1 on the dark ground
-GREY       = "#9aa4ad"
-FAINT      = (255, 255, 255, 10)  # the site's .grid-dark-overlay
+# Tokens from src/styles/global.css
+INK    = "#15181B"
+PAPER  = "#F5F6F7"
+STEEL  = "#8A939C"
+SAFETY = "#F47B20"
+GRID_MINOR = (138, 147, 156, 13)  # 5%
+GRID_MAJOR = (138, 147, 156, 20)  # 8%
 
-FONTS = "/mnt/skills/examples/canvas-design/canvas-fonts"
-sans = lambda px: ImageFont.truetype(f"{FONTS}/WorkSans-Bold.ttf", px * S)
-mono = lambda px: ImageFont.truetype(f"{FONTS}/IBMPlexMono-Regular.ttf", px * S)
+FONTS = "node_modules/@fontsource"
+display = lambda px: ImageFont.truetype(f"{FONTS}/barlow-condensed/files/barlow-condensed-latin-700-normal.woff", px * S)
+mono = lambda px: ImageFont.truetype(f"{FONTS}/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff", px * S)
 
 img = Image.new("RGB", (W * S, H * S), INK)
 d = ImageDraw.Draw(img, "RGBA")
 
-# 56px grid overlay, as on the site's dark sections.
-for x in range(0, W * S, 56 * S):
-    d.line([(x, 0), (x, H * S)], fill=FAINT, width=S)
-for y in range(0, H * S, 56 * S):
-    d.line([(0, y), (W * S, y)], fill=FAINT, width=S)
+# Blueprint grid, as on the site's dark bands: 24px minor, 120px major.
+for step, fill in ((24, GRID_MINOR), (120, GRID_MAJOR)):
+    for x in range(0, W * S, step * S):
+        d.line([(x, 0), (x, H * S)], fill=fill, width=S)
+    for y in range(0, H * S, step * S):
+        d.line([(0, y), (W * S, y)], fill=fill, width=S)
 
 
 def tracked(xy, text, font, fill, em=0.0):
@@ -50,27 +53,36 @@ def diamond(cx, cy, r, fill):
     d.polygon([(cx, cy - r), (cx + r, cy), (cx, cy + r), (cx - r, cy)], fill=fill)
 
 
+def dimension(x0, x1, y, color):
+    """The site's dimension line: end ticks, arrowheads, a thin rule."""
+    d.line([(x0, y), (x1, y)], fill=color, width=S)
+    for x in (x0, x1):
+        d.line([(x, y - 8 * S), (x, y + 8 * S)], fill=color, width=S)
+    a = 9 * S
+    d.polygon([(x0, y), (x0 + a, y - 3.5 * S), (x0 + a, y + 3.5 * S)], fill=color)
+    d.polygon([(x1, y), (x1 - a, y - 3.5 * S), (x1 - a, y + 3.5 * S)], fill=color)
+
+
 # --- Logo lockup -----------------------------------------------------------
-diamond(PAD * S + 7 * S, 84 * S, 7 * S, RED)
-x = tracked((PAD * S + 24 * S, 70 * S), "FRONTIER", sans(26), WHITE, 0.01)
-tracked((x + 9 * S, 70 * S), "MFG", sans(26), ACCENT_TXT, 0.01)
+diamond(PAD * S + 8 * S, 86 * S, 8 * S, SAFETY)
+x = tracked((PAD * S + 26 * S, 68 * S), "FRONTIER", display(34), PAPER, 0.04)
+tracked((x + 8 * S, 68 * S), "MFG", display(34), SAFETY, 0.04)
 
-# --- The site's .tick rule -------------------------------------------------
-for i in range(8):
-    x0 = PAD * S + i * 9 * S
-    d.rectangle([x0, 210 * S, x0 + 1.5 * S, 219 * S], fill=RED)
+# --- Label, headline, dimension line --------------------------------------
+tracked((PAD * S, 196 * S), "AUTOMATION & SYSTEMS INTEGRATION", mono(16), SAFETY, 0.14)
+for i, line in enumerate(["PRACTICAL AUTOMATION", "FOR BC MANUFACTURERS."]):
+    d.text((PAD * S, (226 + i * 94) * S), line, font=display(104), fill=PAPER)
+dimension(PAD * S, (W - PAD) * S, 448 * S, STEEL)
 
-# --- Eyebrow, headline -----------------------------------------------------
-tracked((PAD * S, 238 * S), "AUTOMATION & SYSTEMS INTEGRATION", mono(15), ACCENT_TXT, 0.16)
+# --- Location line ----------------------------------------------------------
+x = tracked((PAD * S, 506 * S), "BASED IN SURREY, BC", mono(16), SAFETY, 0.12)
+tracked((x + 24 * S, 506 * S), "SERVING METRO VANCOUVER & THE FRASER VALLEY", mono(16), STEEL, 0.12)
 
-for i, line in enumerate(["Practical automation", "for BC manufacturers."]):
-    d.text((PAD * S, (282 + i * 70) * S), line, font=sans(60), fill=WHITE)
-
-# --- Footer rule and location line ----------------------------------------
-d.line([(PAD * S, 500 * S), ((W - PAD) * S, 500 * S)], fill=(255, 255, 255, 26), width=S)
-tracked((PAD * S, 528 * S), "SURREY, BC", mono(16), WHITE, 0.1)
-tracked((PAD * S + 152 * S, 528 * S),
-        "SERVING VANCOUVER & THE LOWER MAINLAND", mono(16), GREY, 0.1)
+# --- Hazard stripe along the bottom edge -----------------------------------
+top, h, band = (H - 12) * S, 12 * S, 14 * S
+d.rectangle([0, top, W * S, H * S], fill=INK)
+for x0 in range(-h, W * S + h, band * 2):
+    d.polygon([(x0, H * S), (x0 + band, H * S), (x0 + band + h, top), (x0 + h, top)], fill=SAFETY)
 
 img.resize((W, H), Image.LANCZOS).save("public/og-image.png", optimize=True)
 print(f"wrote public/og-image.png ({W}x{H})")
