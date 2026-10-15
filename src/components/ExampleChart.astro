@@ -25,14 +25,14 @@ const delta = (r: (typeof rows)[number]) => {
   return `${d > 0 ? '+' : '−'}${Math.abs(d)} h`;
 };
 ---
-<figure class="chart card" style="position:relative;margin:0;padding:clamp(20px,3vw,28px);">
-  <figcaption style="margin-bottom:22px;">
+<figure class="chart card" style="position:relative;margin:0;overflow:hidden;">
+  <figcaption class="card-head band-dark" style="padding:clamp(18px,3vw,24px) clamp(20px,3vw,28px);">
     <span class="pill">Example data</span>
     <div class="h3" style="margin:14px 0 6px;">Where one machine's 40-hour week goes</div>
     <p class="muted" style="margin:0;font-size:15px;line-height:1.5;">Hours per week, before and after. Illustrative numbers, not a client result.</p>
   </figcaption>
 
-  <div style="display:flex;flex-direction:column;gap:18px;">
+  <div style="display:flex;flex-direction:column;gap:18px;padding:clamp(20px,3vw,28px);">
     {rows.map((r) => (
       <div>
         <div class="label-muted" style="color:var(--text);margin-bottom:6px;">{r.name}</div>

@@ -78,7 +78,7 @@ const caseStudies = (await getCaseStudies()).slice(0, 3);
     </section>
 
     <!-- Method -->
-    <section id="method" class="band-light section">
+    <section id="method" class="band-light blueprint section">
       <div class="wrap">
         <SectionHead eyebrow="Our method" title="See it, measure it, automate it." lead="A lot of automation starts with a machine. Ours starts with your numbers, so you know what a project is worth before you spend on it." />
         <ProcessDiagram steps={method} />
@@ -123,7 +123,7 @@ const caseStudies = (await getCaseStudies()).slice(0, 3);
 
     {caseStudies.length > 0 && (
       <!-- Proof: case studies -->
-      <section id="proof" class="band-light section">
+      <section id="proof" class="band-light blueprint section">
         <div class="wrap">
           <SectionHead eyebrow="Case studies" title="Automation backed by your own numbers." lead="Each project is measured before and after against the same baseline." />
           <div class="grid gap-6 md:grid-cols-3">
@@ -142,13 +142,13 @@ const caseStudies = (await getCaseStudies()).slice(0, 3);
 
     <!-- Payback calculator teaser. Flips to dark when the proof section above
          is showing, so the bands keep alternating. -->
-    <section class:list={[caseStudies.length > 0 ? 'band-dark' : 'band-light', 'section']}>
+    <section class:list={[caseStudies.length > 0 ? 'band-dark' : 'band-light', 'blueprint section']}>
       <div class="wrap grid items-center gap-12 lg:grid-cols-2">
         <div>
           <SectionHead eyebrow="Payback calculator" title="Run the payback math yourself." lead="Enter the labour hours, scrap, and downtime a project would save, and what it would cost. You'll get a rough payback period in a minute. Nothing you type leaves your browser." gap={32} />
           <a href="/payback-calculator" class="btn btn-secondary">Open the payback calculator <ArrowRight class="arrow" size={18} stroke-width={2} aria-hidden="true" /></a>
         </div>
-        <div class="card" data-reveal style="--reveal-delay:120ms;padding:clamp(24px,3vw,32px);">
+        <div class="card band-dark" data-reveal style="--reveal-delay:120ms;padding:clamp(24px,3vw,32px);border-top:3px solid var(--color-safety);">
           <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
             <span class="icon-tile"><Calculator size={22} stroke-width={1.6} aria-hidden="true" /></span>
             <span class="label-muted">The basic formula</span>

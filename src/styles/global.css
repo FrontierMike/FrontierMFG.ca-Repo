@@ -8,7 +8,8 @@
 
    Contrast rules (all measured against WCAG AA, see README → Theming):
    - Orange is never text on a light band. On light, orange text, labels and
-     icons use --color-safety-deep (5.4:1 on paper). Plain --color-safety is
+     icons use --color-safety-deep (6.0:1 on paper, 4.9:1 even on the
+     drafting-grid lines). Plain --color-safety is
      2.5:1 there, so on light it's for decorative rules and stripes only.
    - Primary buttons are orange with ink text (6.5:1), never white text.
      Hover goes lighter (--color-safety-hover, 8.1:1); the darker
@@ -29,7 +30,7 @@
   --color-safety:       #F47B20;  /* accent: CTAs, labels on dark, rules */
   --color-safety-hover: #FF9447;  /* button hover (ink text 8.1:1) */
   --color-safety-dark:  #C85F10;  /* accent rules and borders on light */
-  --color-safety-deep:  #A34B08;  /* orange text and icons on light (5.4:1) */
+  --color-safety-deep:  #9A4507;  /* orange text and icons on light (6.0:1) */
 
   /* Form status messages (the contact form script reads these by name).
      Dark-band values here; .band-light swaps in its own. */
@@ -74,6 +75,8 @@
   --card:        var(--color-white);
   --line:        var(--color-steel-100);
   --line-strong: var(--color-steel-400);
+  --grid-minor:  rgb(21 24 27 / 0.04);
+  --grid-major:  rgb(21 24 27 / 0.065);
   --color-ok:    #1E7A3C;
   --color-bad:   #B42318;
 }
@@ -100,10 +103,11 @@ input, select, textarea, button { font-family: inherit; }
 /* --- Layout -------------------------------------------------------------- */
 .wrap { max-width: 1200px; margin-inline: auto; padding-inline: 20px; }
 @media (min-width: 640px) { .wrap { padding-inline: 32px; } }
-.section { padding-block: clamp(80px, 10vw, 144px); }
+.section { padding-block: clamp(72px, 8.5vw, 120px); }
 
-/* Blueprint grid: minor 24px cells, major 120px, both faint. Stands in for
-   the hero photo until real photography arrives. */
+/* Blueprint grid: minor 24px cells, major 120px, both faint. On dark bands
+   it stands in for the hero photo until real photography arrives; on light
+   bands it reads as drafting paper. Line colours come from the band. */
 .blueprint {
   background-image:
     linear-gradient(var(--grid-major) 1px, transparent 1px),
@@ -155,6 +159,10 @@ input, select, textarea, button { font-family: inherit; }
 .card-link:hover .arrow { transform: translateX(4px); }
 .card-link .arrow { transition: transform .2s; color: var(--accent-text); }
 .icon-tile { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 4px; color: var(--accent-text); }
+
+/* Dark header strip on a card (process steps, the example chart). Add
+   band-dark to it so the text inside switches to the dark-band colours. */
+.card-head { position: relative; overflow: hidden; border-radius: 5px 5px 0 0; border-bottom: 3px solid var(--color-safety); }
 
 /* A rule that sits above a block on narrow screens and beside it on wide ones. */
 .split-rule { border-top: 1px solid var(--line); padding-top: 24px; }

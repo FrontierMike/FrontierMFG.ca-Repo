@@ -1,6 +1,7 @@
 ---
-// The method as a connected diagram: nodes joined by a line, each with a
-// Lucide icon, its numbered label ("02 / MEASURE"), and one sentence.
+// The method as a connected diagram: step cards joined by an arrowed line.
+// Each card has a dark header (Lucide icon, numbered label "02 / MEASURE",
+// and a large faded step number) and one sentence underneath.
 // Horizontal from 900px up, vertical below.
 interface Step {
   name: string;
@@ -16,36 +17,49 @@ const { steps } = Astro.props;
 <ol class="process" style={`--n:${steps.length};`}>
   {steps.map((s, i) => {
     const Icon = s.icon;
-    const label = `${String(i + 1).padStart(2, '0')} / ${s.name}`;
+    const num = String(i + 1).padStart(2, '0');
+    const Tag = s.href ? 'a' : 'div';
     return (
       <li class="process-step" data-reveal style={`--reveal-delay:${i * 90}ms;`}>
-        <div class="process-node"><Icon size={26} stroke-width={1.6} aria-hidden="true" /></div>
-        <div>
-          {s.href
-            ? <a href={s.href} class="label process-label link-plain">{label}</a>
-            : <div class="label process-label">{label}</div>}
-          <p style="margin:10px 0 0;font-size:16.5px;line-height:1.6;color:var(--text-body);">{s.copy}</p>
-        </div>
+        <Tag href={s.href} class:list={['card process-card', s.href && 'card-link']}>
+          <div class="card-head band-dark process-head" data-num={num}>
+            <span class="process-icon"><Icon size={24} stroke-width={1.6} aria-hidden="true" /></span>
+            <span class="label process-label">{num} / {s.name}</span>
+          </div>
+          <div class="process-body">
+            <h3 class="h3 process-title">{s.name}</h3>
+            <p>{s.copy}</p>
+          </div>
+        </Tag>
       </li>
     );
   })}
 </ol>
 
 <style>
-  .process { list-style: none; margin: 0; padding: 0; display: grid; gap: 34px; }
-  .process-step { position: relative; display: grid; grid-template-columns: 56px 1fr; column-gap: 20px; align-items: start; align-content: start; }
-  .process-node { position: relative; z-index: 1; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; background: var(--surface); border: 1.5px solid var(--accent-rule); border-radius: 4px; color: var(--accent-text); }
-  .process-label { display: inline-block; font-size: 13px; padding-top: 4px; }
-  a.process-label:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .process { list-style: none; margin: 0; padding: 0; display: grid; gap: 36px; }
+  .process-step { position: relative; display: flex; }
+  .process-card { width: 100%; overflow: hidden; color: var(--text); container-type: inline-size; }
+  .process-head { display: flex; align-items: center; gap: 14px; padding: 18px 20px; min-height: 84px; }
+  /* Large faded step number: pure decoration, so it's drawn by CSS and never
+     read out or counted as text. */
+  .process-head::after { content: attr(data-num); position: absolute; right: 10px; bottom: -22px; font-family: var(--font-display); font-weight: 700; font-size: 104px; line-height: 1; color: rgb(138 147 156 / 0.16); pointer-events: none; }
+  .process-icon { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; width: 46px; height: 46px; flex-shrink: 0; border: 1px solid var(--line); border-radius: 4px; color: var(--color-safety); background: var(--color-ink); }
+  .process-label { position: relative; z-index: 1; font-size: 13px; }
+  /* On narrow cards (the four-step diagram) the number would sit under the label. */
+  @container (max-width: 300px) { .process-head::after { display: none; } }
+  .process-body { padding: 22px 22px 26px; }
+  .process-title { font-size: 30px; font-weight: 700; text-transform: uppercase; margin: 0 0 8px; }
+  .process-body p { margin: 0; font-size: 16.5px; line-height: 1.6; color: var(--text-body); }
 
-  /* Connector to the next node, ending in an arrowhead. Vertical first. */
-  .process-step:not(:last-child)::before { content: ""; position: absolute; left: 28px; top: 56px; bottom: -34px; width: 1px; background: var(--line-strong); }
-  .process-step:not(:last-child)::after { content: ""; position: absolute; left: 24px; bottom: -34px; border: 4.5px solid transparent; border-top: 7px solid var(--line-strong); border-bottom: 0; }
+  /* Connector to the next card: a 2px orange line ending in an arrowhead.
+     Vertical first, running down from the card's icon column. */
+  .process-step:not(:last-child)::before { content: ""; position: absolute; left: 42px; top: 100%; height: 36px; width: 2px; background: var(--accent-rule); }
+  .process-step:not(:last-child)::after { content: ""; position: absolute; left: 37px; top: calc(100% + 36px - 8px); border: 6px solid transparent; border-top: 8px solid var(--accent-rule); border-bottom: 0; }
 
   @media (min-width: 900px) {
-    .process { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 32px; }
-    .process-step { grid-template-columns: 1fr; row-gap: 20px; }
-    .process-step:not(:last-child)::before { left: 56px; right: -32px; top: 28px; bottom: auto; width: auto; height: 1px; }
-    .process-step:not(:last-child)::after { left: auto; right: -32px; top: 23.5px; bottom: auto; border: 5px solid transparent; border-left: 7px solid var(--line-strong); border-right: 0; }
+    .process { grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 44px; }
+    .process-step:not(:last-child)::before { left: 100%; top: 41px; width: 44px; height: 2px; }
+    .process-step:not(:last-child)::after { left: calc(100% + 44px - 8px); top: 36px; border: 6px solid transparent; border-left: 8px solid var(--accent-rule); border-right: 0; }
   }
 </style>

@@ -213,7 +213,7 @@ heading, or form field works on either. The home page alternates dark → light
 | Use | Token | Ratio |
 |---|---|---|
 | Orange labels, icons on dark | `--color-safety` | 6.5:1 on ink |
-| Orange labels, icons on light | `--color-safety-deep` | 5.4:1 on paper |
+| Orange labels, icons on light | `--color-safety-deep` | 6.0:1 on paper (4.9:1 on grid lines) |
 | Button text | `--color-ink` on `--color-safety` | 6.5:1 |
 | Button hover | `--color-ink` on `--color-safety-hover` | 8.1:1 |
 | Muted text on dark | `--color-steel-400` | 5.7:1 on ink |
@@ -224,8 +224,9 @@ decorative rules and stripes only, never text or icons. Never put white text
 on orange. `--color-safety-dark` (the brief's hover colour) drops ink text to
 4.3:1, so buttons hover lighter instead and it is used for rules on light.
 
-**Motifs.** `.blueprint` (grid background on dark heroes and two other dark
-bands), `DimensionLine`, `LeaderCallout`, numbered labels (`02 / MEASURE`), and
+**Motifs.** `.blueprint` (a faint grid: blueprint on dark bands, drafting
+paper on light ones; its line colours come from the band), dark `.card-head`
+strips on the process cards and the example chart, `DimensionLine`, `LeaderCallout`, numbered labels (`02 / MEASURE`), and
 `.hazard` stripes, which appear in exactly two places: the top of the closing
 CTA band and the bottom of the footer. Keep it at two.
 
